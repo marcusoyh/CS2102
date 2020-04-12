@@ -23,7 +23,7 @@ router.post('/', function (req, res, next) {
         if (data.rowCount == 1) {
             res.render('fdsmanagerhomepage', { name: username });
         } else {
-            res.render('login'); //maybe print an error message here somehow
+            res.render('loginfdsmanager', {title: 'Login as FDS Manager'}); //maybe print an error message here somehow
         }
     });
 });

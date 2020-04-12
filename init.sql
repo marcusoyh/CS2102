@@ -199,20 +199,20 @@ create table OrderContainsRP (
   foreign key(rpid) references RestaurantPromotion
 );
 
- INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
- INSERT INTO Drivers (uid,commission) VALUES (1, 88);
- INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
- INSERT INTO Customers (uid,ccNo,ccExpiryDate,rewardPoints) VALUES (2,'1122334455667788', TO_DATE('17/12/2015','DD/MM/YYYY'),81);
- INSERT INTO Users (uid, name, password,username) VALUES (3, 'Marcus', 'password','Marcus');
- INSERT INTO FDSManagers (uid) VALUES (3);
+INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
+INSERT INTO Customers (uid,ccNo,ccExpiryDate,rewardPoints) VALUES (1,'1122334455667788', TO_DATE('17/12/2015','DD/MM/YYYY'),81);
+INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
+INSERT INTO Drivers (uid,commission) VALUES (2, 88);
+INSERT INTO Users (uid, name, password,username) VALUES (3, 'Marcus', 'password','Marcus');
+INSERT INTO FDSManagers (uid) VALUES (3);
  
- INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (1,'McDonalds',10,'Clementi');
- INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (2,'Kfc',10,'Clementi');
- INSERT INTO Users (uid, name, password,username) VALUES (4, 'Celesse', 'password','Celesse');
- INSERT INTO RestaurantStaff (uid,rid) VALUES (4,1); 
+INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (1,'McDonalds',10,'Clementi');
+INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (2,'Kfc',10,'Clementi');
+INSERT INTO Users (uid, name, password,username) VALUES (4, 'Celesse', 'password','Celesse');
+INSERT INTO RestaurantStaff (uid,rid) VALUES (4,1); 
 
- INSERT INTO Category (cid, name) VALUES (1,'Fast Food');
- INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Cheeseburger',5,7,1,true);
- INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Fried Chicken',3,9,2,true);
+INSERT INTO Category (cid, name) VALUES (1,'Fast Food');
+INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Cheeseburger',5,7,1,true);
+INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Fried Chicken',3,9,2,true);
 
 

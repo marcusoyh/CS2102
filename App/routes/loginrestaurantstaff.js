@@ -23,7 +23,7 @@ router.post('/', function (req, res, next) {
         if (data.rowCount == 1) {
             res.render('customerhomepage', { name: username });
         } else {
-            res.render('login'); //maybe print an error message here somehow
+            res.render('loginrestaurantstaff',{ title: 'Login as Restaurant Staff' }); //maybe print an error message here somehow
         }
     });
 });
