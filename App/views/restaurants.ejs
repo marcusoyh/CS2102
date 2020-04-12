@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>Home Page</title>
+    <title>CS2102 Database Connect</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -14,11 +14,28 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Home Page</h1>
-    <p>Welcome</p>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/insert">Add User</a></li>
-    <li><a href="/select">View All Users</a></li>
-    <li><a href="/drivers">View All Drivers</a></li>
+    <h1><%= title%></h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Restaurant ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Minimum Delivery Amount</th>
+                    <th scope="col">Address</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var i=0; i<data.length; i++) { %>
+				<tr>
+                    <td><%= data[i].rid%></td>
+                    <td><%= data[i].name%></td>
+					<!-- <td><%= data[i].name%></td> maybe put a link here to go to the restaurant's page -->
+					<td><%= data[i].mindeliveryamount%></td>
+					<td><%= data[i].address%></td>
+				</tr>
+				<% } %>
+			</tbody>
+        </table>
+        <li><a href="/restaurants/1">View McDonald's Details</a></li>
   </body>
 </html>

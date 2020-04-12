@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS Drivers, FDSManagers, RestaurantStaff, Restaurants, Custome
 CREATE TABLE Users (
   uid INTEGER,
   name VARCHAR(20) NOT NULL,
-  password VARCHAR(20) NOT NULL,
+  password VARCHAR(20) NOT NULL,	
+  username VARCHAR(20) UNIQUE,
   PRIMARY KEY (uid)
 );
 
@@ -118,15 +119,15 @@ CREATE TABLE Category (
 );
 
 CREATE TABLE RestaurantFoodItems (
-  name VARCHAR(20),
   cid INTEGER,
+  foodName VARCHAR(20),
   maxOrders INTEGER,
   price REAL,
   rid INTEGER,
   availability BOOLEAN,
   foreign key (cid) references Category,
   foreign key (rid) references Restaurants on delete cascade,
-  PRIMARY KEY(rid, name)
+  PRIMARY KEY(rid, foodName)
 );
 
 CREATE TABLE Orders(
@@ -200,8 +201,10 @@ create table OrderContainsRP (
   foreign key(rpid) references RestaurantPromotion
 );
 
- INSERT INTO Users (uid, name, password) VALUES (1, 'Ryuto','password');
+ INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
  INSERT INTO Drivers (uid,commission) VALUES (1, 88);
- INSERT INTO Users (uid, name, password) VALUES (2, 'Joanna', 'password');
-
+ INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
+ INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (1,'Macs',10,'Clementi');
+ INSERT INTO Category (cid, name) VALUES (1,'Fast Food');
+ INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Cheeseburger',5,7,1,true);
 

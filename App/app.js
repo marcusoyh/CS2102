@@ -35,6 +35,13 @@ var formsRouter = require('./routes/forms');
 var insertRouter = require('./routes/insert');
 /* ---------------------------- */
 
+/* --- Personal Additions:  --- */
+var loginRouter = require('./routes/login');
+var driverRouter = require('./routes/drivers');
+var restaurantRouter = require('./routes/restaurants');
+/* ---------------------------- */
+
+
 var app = express();
 
 // view engine setup
@@ -77,6 +84,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/insert', insertRouter);
 /* ---------------------------- */
+
+/* --- Personal Additions     --- */
+app.use('/login', loginRouter);
+app.use('/drivers', driverRouter);
+app.use('/restaurants',restaurantRouter);
+/* ---------------------------- */
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

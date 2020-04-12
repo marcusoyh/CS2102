@@ -2,13 +2,17 @@ var express = require('express');
 var router = express.Router();
 
 const { Pool } = require('pg')
-const pool = new Pool({
+/*const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'project',
   password: 'postgres',
   port: 5432,
-})
+})*/
+
+const pool = new Pool({
+	connectionString: process.env.DATABASE_URL //we need to edit the .env individually, and put it in .gitignore
+});
 
 /* SQL Query */
 var sql_query = 'INSERT INTO Users VALUES';
@@ -24,12 +28,13 @@ router.post('/', function(req, res, next) {
 	var userId  = req.body.userId;
 	var name    = req.body.name;
 	var password = req.body.password;
+	var username = req.body.username;
 	
 	// Construct Specific SQL Query
-	var insert_query = sql_query + "('" + userId + "','" + name + "','" + password + "')";
+	var insert_query = sql_query + "('" + userId + "','" + name + "','" + password + "','" +  username  + "')";
 	
 	pool.query(insert_query, (err, data) => {
-		res.redirect('/select')
+		res.redirect('/drivers')
 	});
 });
 
