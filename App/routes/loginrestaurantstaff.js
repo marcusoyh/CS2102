@@ -21,9 +21,9 @@ router.post('/', function (req, res, next) {
 
     pool.query('SELECT * FROM Users natural join RestaurantStaff WHERE username=$1 and password=$2', [username, password], (err, data) => {
         if (data.rowCount == 1) {
-            res.render('customerhomepage', { name: username });
+            res.render('restaurantstaffindex', { name: username });
         } else {
-            res.render('loginrestaurantstaff',{ title: 'Login as Restaurant Staff' }); //maybe print an error message here somehow
+            res.render('loginrestaurantstaff',{ title: data.rowCount }); //maybe print an error message here somehow
         }
     });
 });

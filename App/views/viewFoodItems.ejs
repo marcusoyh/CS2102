@@ -18,7 +18,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">Food item's ID</th>
+					<th scope="col">Category's ID</th>
 					<th scope="col">Name</th>
 					<th scope="col">Number of max order</th>
                     <th scope="col">Price</th>
@@ -29,8 +29,8 @@
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
                     <td><%= data[i].rid%></td>
-                    <td><%= data[i].name%></a></td>
-					<td><%= data[i].maxOrders%></td>
+                    <td><%= data[i].foodname%></a></td>
+					<td><%= data[i].maxorders%></td>
                     <td><%= data[i].price%></td>
                     <td><%= data[i].availability%></td>
 				</tr>

@@ -20,9 +20,8 @@
     <h1>Restaurant Staff: <%= title%></h1>
 		<form id="html_form" action="addRestaurantFoodItem" role="form" method="post">
 			<div class="form-group">
-				<label for="cid">Food Item ID:</label>
-				<input type="text" class="form-control" id="cid" name="cid" aria-describedby="cid" placeholder="Enter food item ID">
-				<small id="matricHelp" class="form-text text-muted">ID Starts from 3</small>
+				<label for="cid">Category ID:</label>
+				<input type="text" class="form-control" id="cid" name="cid" aria-describedby="cid" placeholder="Enter category ID">
 			</div>
 			<div class="form-group">
 				<label for="foodName">Food Item Name:</label>
@@ -34,12 +33,11 @@
 			</div>
 			<div class="form-group">
 				<label for="price">Price:</label>
-				<input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
+				<input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Enter price">
             </div>
             <div class="form-group">
-				<label for="availability">Is this item available now?</label>
-                <input type="radio" class="form-control" id="availabilityYes" name="availabilityYes" value="Yes"/> Yes
-                <input type="radio" class="form-control" id="availablityNo" name="availablityNo" value="No"> No
+				Is this item available now? <input type="radio" name="availability" id = "availability" value="True"/> True
+											<input type="radio" name="availability" id="availability" value="False"/> False
             </div>
             <div class="form-group">
 				<label for="rid">Enter Restaurant's ID:</label>
