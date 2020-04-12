@@ -41,7 +41,8 @@ var driverRouter = require('./routes/drivers');
 var restaurantRouter = require('./routes/restaurants');
 var loginRestaurantStaffRouter = require('./routes/loginrestaurantstaff');
 var loginFDSManagerRouter = require('./routes/loginfdsmanager');
-var loginDriverRouter = require('./routes/logindriver');
+var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
+var viewFoodItemsRouter = require('./routes/viewFoodItems');
 /* ---------------------------- */
 
 
@@ -94,7 +95,8 @@ app.use('/drivers', driverRouter);
 app.use('/restaurants',restaurantRouter);
 app.use('/loginrestaurantstaff',loginRestaurantStaffRouter);
 app.use('/loginfdsmanager',loginFDSManagerRouter);
-app.use('/logindriver',loginDriverRouter);
+app.use('/addRestaurantFoodItem',addRestaurantFoodItemRouter);
+app.use('/viewFoodItems',viewFoodItemsRouter);
 /* ---------------------------- */
 
 
