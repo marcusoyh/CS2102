@@ -7,8 +7,9 @@ const pool = new Pool({
 });
 
 
-router.get('/', function(req, res, next) {
-	pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid] ,(err, data) => {
+router.get('/:id', function(req, res, next) {
+	const id = req.params.id;
+	pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [id] ,(err, data) => {
 		res.render('viewFoodItems', { title: 'All food items available', data: data.rows });
 	});
 });

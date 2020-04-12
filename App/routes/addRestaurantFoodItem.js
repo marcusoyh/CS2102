@@ -31,8 +31,7 @@ router.post('/', function(req, res, next) {
   	var price = req.body.price;
   	var availability = req.body.availability;
   	var rid = req.body.rid;
-  if(availability = "True") {availability = true;} 
-  if(availability = "False") { availability = false;}
+
 
 	// Construct Specific SQL Query
 	var insert_query = sql_query + "(" + cid + ",'" + foodName + "'," + maxOrders + "," +  price  + "," + rid + "," + availability + ")";

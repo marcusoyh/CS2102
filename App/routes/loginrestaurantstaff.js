@@ -18,10 +18,12 @@ router.post('/', function (req, res, next) {
     // Retrieve Information
     var password = req.body.password;
     var username = req.body.username;
+    var rid = req.body.rid;
+
 
     pool.query('SELECT * FROM Users natural join RestaurantStaff WHERE username=$1 and password=$2', [username, password], (err, data) => {
         if (data.rowCount == 1) {
-            res.render('restaurantstaffindex', { name: username });
+            res.render('restaurantstaffindex', { name: username, rid: restid });
         } else {
             res.render('loginrestaurantstaff',{ title: data.rowCount }); //maybe print an error message here somehow
         }
