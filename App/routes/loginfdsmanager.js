@@ -9,7 +9,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('loginfdsmanager', { title: 'Login as Restaurant Staff' });
+    res.render('loginfdsmanager', { title: 'Login as FDS Manager' });
 });
 
 
