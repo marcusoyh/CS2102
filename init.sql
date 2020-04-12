@@ -204,7 +204,9 @@ create table OrderContainsRP (
  INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
  INSERT INTO Drivers (uid,commission) VALUES (1, 88);
  INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
- INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (1,'Macs',10,'Clementi');
+ INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (1,'McDonalds',10,'Clementi');
+ INSERT INTO Restaurants (rid,name,minDeliveryAmount,address) VALUES (2,'Kfc',10,'Clementi');
  INSERT INTO Category (cid, name) VALUES (1,'Fast Food');
  INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Cheeseburger',5,7,1,true);
+ INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Fried Chicken',3,9,2,true);
 
