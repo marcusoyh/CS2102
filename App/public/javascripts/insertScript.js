@@ -3,7 +3,7 @@ function check(event) {
 	var userId  = document.getElementById('userId' ).value;
 	var name    = document.getElementById('name').value;
 	var password = document.getElementById('password').value;
-	var username = document.getElementById('password').value;
+	var username = document.getElementById('username').value;
 	
 	// Simple Check
 	if(userId.length == 0) {

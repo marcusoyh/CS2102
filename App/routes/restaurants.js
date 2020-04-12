@@ -13,11 +13,11 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-/* retrieves a user by uid */
+/* retrieves a restaurant by uid */
 router.get('/:id', function (req, res, next) {
     const id = req.params.id;
   
-    pool.query('SELECT * FROM RestaurantFoodItems natural join Restaurants WHERE rid = $1', [id], (error, data) => {
+    pool.query('SELECT * FROM RestaurantFoodItems natural join Restaurants WHERE rid = $1', [id,name,number], (error, data) => {
       if (error) {
         throw error
       }

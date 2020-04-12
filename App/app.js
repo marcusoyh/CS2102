@@ -39,6 +39,7 @@ var insertRouter = require('./routes/insert');
 var loginRouter = require('./routes/login');
 var driverRouter = require('./routes/drivers');
 var restaurantRouter = require('./routes/restaurants');
+var loginRestaurantStaffRouter = require('./routes/loginrestaurantstaff');
 /* ---------------------------- */
 
 
@@ -89,6 +90,7 @@ app.use('/insert', insertRouter);
 app.use('/login', loginRouter);
 app.use('/drivers', driverRouter);
 app.use('/restaurants',restaurantRouter);
+app.use('/loginrestaurantstaff',loginRestaurantStaffRouter);
 /* ---------------------------- */
 
 
