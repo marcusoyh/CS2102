@@ -44,6 +44,8 @@ var loginFDSManagerRouter = require('./routes/loginfdsmanager');
 var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
 var viewFoodItemsRouter = require('./routes/viewFoodItems');
 var loginDriverRouter = require('./routes/logindriver');
+var viewAllOrdersRouter = require('./routes/viewAllOrders');
+var deleteRestaurantFoodItemRouter = require('./routes/deleteRestaurantFoodItem');
 /* ---------------------------- */
 
 
@@ -99,6 +101,8 @@ app.use('/loginfdsmanager',loginFDSManagerRouter);
 app.use('/addRestaurantFoodItem',addRestaurantFoodItemRouter);
 app.use('/viewFoodItems',viewFoodItemsRouter);
 app.use('/logindriver',loginDriverRouter);
+app.use('/viewAllOrders',viewAllOrdersRouter);
+app.use('/deleteRestaurantFoodItem',deleteRestaurantFoodItemRouter);
 /* ---------------------------- */
 
 

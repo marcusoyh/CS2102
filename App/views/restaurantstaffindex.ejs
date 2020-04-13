@@ -18,21 +18,22 @@
       
       <!--header-->
       <div stlye="width: 100%">
-        <img src="https://bit.ly/2102headerV2">
-        <h1>Restaurant Staff Home Page</h1>
+        <img src="https://bit.ly/2102headerV7">
       </div>
-      
+
       <!--main content-->
-    <div style="height:350px; float: left">
+    <div style="height:430px; width:60%; float: left">
       <h4>Welcome Back <%= name%></h4>
-      &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="/addRestaurantFoodItem"> Add a new Restaurant food item</a></li>
-      &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="/viewFoodItems/<%= rid%>">View all Food Items</a></li>
+      <li><a href="/addRestaurantFoodItem"> Add a new restaurant food item</a></li>
+      <li><a href="/viewFoodItems/<%= rid%>">View all food items</a></li>
+      <li><a href="/deleteRestaurantFoodItem/<%= rid%>">Delete a restaurant food item</a></li>
+      <li><a href="/viewAllOrders/<%= rid%>">View all orders</a></li>
       <!--<li><a href="/select">View All Users</a></li>
       <li><a href="/drivers">View All Drivers</a></li>-->
     </div>
     
     <!--extra right column for fun-->
-    <div style="width: 500px;float:right">
+    <div style="width: 400px;height:430px;float:right;">
     <img src="https://bit.ly/2102meme">
     </div>
 
