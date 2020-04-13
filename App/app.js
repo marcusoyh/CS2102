@@ -39,11 +39,17 @@ var insertRouter = require('./routes/insert');
 var loginRouter = require('./routes/login/login');
 var driverRouter = require('./routes/drivers');
 var restaurantRouter = require('./routes/restaurants');
+
 var loginRestaurantStaffRouter = require('./routes/login/loginrestaurantstaff');
 var loginFDSManagerRouter = require('./routes/login/loginfdsmanager');
 var loginDriverRouter = require('./routes/login/logindriver');
 var fdspromotionsRouter = require('./routes/fdsmanager/fdspromotions');
 var ordersRouter = require('./routes/orders');
+
+var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
+var viewFoodItemsRouter = require('./routes/viewFoodItems');
+var viewAllOrdersRouter = require('./routes/viewAllOrders');
+var deleteRestaurantFoodItemRouter = require('./routes/deleteRestaurantFoodItem');
 /* ---------------------------- */
 
 
@@ -96,9 +102,13 @@ app.use('/drivers', driverRouter);
 app.use('/restaurants',restaurantRouter);
 app.use('/loginrestaurantstaff',loginRestaurantStaffRouter);
 app.use('/loginfdsmanager',loginFDSManagerRouter);
+app.use('/addRestaurantFoodItem',addRestaurantFoodItemRouter);
+app.use('/viewFoodItems',viewFoodItemsRouter);
 app.use('/logindriver',loginDriverRouter);
 app.use('/fdspromotions', fdspromotionsRouter);
 app.use('/orders', ordersRouter);
+app.use('/viewAllOrders',viewAllOrdersRouter);
+app.use('/deleteRestaurantFoodItem',deleteRestaurantFoodItemRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

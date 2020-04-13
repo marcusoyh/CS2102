@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<!-- Page Title -->
+    <title>Restaurant Staff Home Page</title>
+    <link rel='stylesheet' href='/App/public/stylesheets/style.css' />
+		
+		<!-- CSS for Styling -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		
+		<!-- JavaScript for Interactivity -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div stlye="width: 100%;">
+      
+      <!--header-->
+      <div stlye="width: 100%">
+        <img src="https://bit.ly/2102headerV8">
+      </div>
+
+      <!--main content-->
+    <div style="height:430px; width:60%; float: left">
+      <h4>Welcome Back <%= name%></h4>
+      <li><a href="/addRestaurantFoodItem"> Add a new restaurant food item</a></li>
+      <li><a href="/viewFoodItems/<%= rid%>">View all food items</a></li>
+      <li><a href="/deleteRestaurantFoodItem/<%= rid%>">Delete a restaurant food item</a></li>
+      <li><a href="/viewAllOrders/<%= rid%>">View all orders</a></li>
+      <!--<li><a href="/select">View All Users</a></li>
+      <li><a href="/drivers">View All Drivers</a></li>-->
+    </div>
+    
+    <!--extra right column for fun-->
+    <div style="width: 330px;height:430px;float:right;">
+    <img src="https://bit.ly/2102meme">
+    </div>
+
+    <!--footer-->
+    <div style="width: 100%; clear: both;">
+      <img src="https://bit.ly/2102footerV4">
+    </div>
+  </div>
+  </body>
+
+</html>
