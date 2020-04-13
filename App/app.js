@@ -43,6 +43,7 @@ var loginRestaurantStaffRouter = require('./routes/loginrestaurantstaff');
 var loginFDSManagerRouter = require('./routes/loginfdsmanager');
 var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
 var viewFoodItemsRouter = require('./routes/viewFoodItems');
+var loginDriverRouter = require('./routes/logindriver');
 /* ---------------------------- */
 
 
@@ -97,6 +98,7 @@ app.use('/loginrestaurantstaff',loginRestaurantStaffRouter);
 app.use('/loginfdsmanager',loginFDSManagerRouter);
 app.use('/addRestaurantFoodItem',addRestaurantFoodItemRouter);
 app.use('/viewFoodItems',viewFoodItemsRouter);
+app.use('/logindriver',loginDriverRouter);
 /* ---------------------------- */
 
 

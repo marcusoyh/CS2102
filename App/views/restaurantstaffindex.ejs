@@ -3,7 +3,7 @@
   <head>
 		<!-- Page Title -->
     <title>Restaurant Staff Home Page</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/App/public/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -14,11 +14,33 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Restaurant Staff Home Page</h1>
-    <p>Welcome <%= name%></p>
-    <li><a href="/addRestaurantFoodItem"> Add a new Restaurant food item</a></li>
-    <li><a href="/viewFoodItems/<%= rid%>">View all Food Items</a></li>
-    <!--<li><a href="/select">View All Users</a></li>
-    <li><a href="/drivers">View All Drivers</a></li>-->
+    <div stlye="width: 100%;">
+      
+      <!--header-->
+      <div stlye="width: 100%">
+        <img src="https://bit.ly/2102headerV2">
+        <h1>Restaurant Staff Home Page</h1>
+      </div>
+      
+      <!--main content-->
+    <div style="height:350px; float: left">
+      <h4>Welcome Back <%= name%></h4>
+      &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="/addRestaurantFoodItem"> Add a new Restaurant food item</a></li>
+      &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="/viewFoodItems/<%= rid%>">View all Food Items</a></li>
+      <!--<li><a href="/select">View All Users</a></li>
+      <li><a href="/drivers">View All Drivers</a></li>-->
+    </div>
+    
+    <!--extra right column for fun-->
+    <div style="width: 500px;float:right">
+    <img src="https://bit.ly/2102meme">
+    </div>
+
+    <!--footer-->
+    <div style="width: 100%; clear: both;">
+      <img src="https://bit.ly/2102footer">
+    </div>
+  </div>
   </body>
+
 </html>
