@@ -30,7 +30,7 @@ CREATE TABLE Restaurants (
 );
 
 CREATE TABLE RestaurantStaff(
-  uid INTEGER,
+  uid INTEGER, 
   rid INTEGER,
   PRIMARY KEY (uid),
   FOREIGN KEY (uid) references Users,
@@ -49,8 +49,8 @@ CREATE TABLE Customers (
 CREATE TABLE Locations (
   lid INTEGER,
   uid INTEGER not null,
-  Address VARCHAR(60),
-  Date DATE not null,
+  address VARCHAR(60),
+  date DATE not null,
   PRIMARY KEY (lid),
   foreign key (uid) references Customers
 );
@@ -81,7 +81,7 @@ CREATE TABLE MWS(
   foreign key (wwsid) references WWS
 );
 
-CREATE TABLE FDSPromotion(
+CREATE TABLE FDSPromotions(
   fpid INTEGER,
   name VARCHAR(20) NOT NULL,
   discountAmount REAL NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE FDSPromotion(
   PRIMARY KEY (fpid)
 );
 
-CREATE TABLE RestaurantPromotion(
+CREATE TABLE RestaurantPromotions(
   rpid INTEGER,
   name VARCHAR(20) NOT NULL,
   discountAmount REAL NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE Orders(
   lid INTEGER references Locations not null,
   did INTEGER not null,
   cid INTEGER not null,
-  Rid INTEGER not null,
+  rid INTEGER not null,
   Foreign key (did) references Drivers (uid),
   Foreign key (cid) references Customers(uid),
   Foreign key (rid) references Restaurants,
@@ -192,7 +192,7 @@ create table OrderContainsFP (
   Foreign key(fpid) references FDSPromotion
 );
 
-create table OrderContainsRP (
+create table OrderContainsRP ( 
   Oid INTEGER,
   rpid INTEGER,
   foreign key (oid) references Orders,
@@ -215,4 +215,7 @@ INSERT INTO Category (cid, name) VALUES (1,'Fast Food');
 INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Cheeseburger',5,7,1,true);
 INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Fried Chicken',3,9,2,true);
 
+INSERT INTO FDSPromotions(fpid,name ,discountAmount ,startDate,endDate) VALUES (1,'Christmas', 10,TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2016','DD/MM/YYYY'));
 
+INSERT INTO Locations (lid,uid,address,date) VALUES (1,1,'Woodlands',TO_DATE('17/12/2015','DD/MM/YYYY'));
+INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,deliveryTime,lid,did,cid,rid) VALUES (1,'Good service',3,2200,'cash',true,TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),2230,1,2,1,1);

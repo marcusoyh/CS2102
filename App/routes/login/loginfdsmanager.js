@@ -9,25 +9,23 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('login', { title: 'Login as Customer'});
+    res.render('login/loginfdsmanager', { title: 'Login as FDS Manager' });
 });
 
 
-
-// POST customer login
+// POST generic login
 router.post('/', function (req, res, next) {
     // Retrieve Information
     var password = req.body.password;
     var username = req.body.username;
 
-    pool.query('SELECT * FROM Users natural join Customers WHERE username=$1 and password=$2', [username, password], (err, data) => {
+    pool.query('SELECT * FROM Users natural join FDSManagers WHERE username=$1 and password=$2', [username, password], (err, data) => {
         if (data.rowCount == 1) {
-            res.render('customerhomepage', { name: username });
+            res.render('fdsmanager/fdsmanagerhomepage', { name: username });
         } else {
-            res.render('login', { title: 'Login as Customer'}); //maybe print an error message here somehow
+            res.render('login/loginfdsmanager', {title: 'Login as FDS Manager'}); //maybe print an error message here somehow
         }
     });
 });
-
 
 module.exports = router;

@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function (req, res, next) {
     const id = req.params.id;
   
-    pool.query('SELECT * FROM RestaurantFoodItems natural join Restaurants WHERE rid = $1', [id,name,number], (error, data) => {
+    pool.query('SELECT * FROM RestaurantFoodItems natural join Restaurants WHERE rid = $1', [id], (error, data) => {
       if (error) {
         throw error
       }

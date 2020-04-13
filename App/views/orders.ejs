@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>Home Page</title>
+    <title>Drivers View Page</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -14,9 +14,28 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Welcome <%= name%></h1>
-    <p>Home Page for FDS Managers</p>
-    <li><a href="/restaurants">View All Restaurants</a></li>
-    <li>View Order History</li>
+    <h1><%= title%></h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Order ID</th>
+					<th scope="col">Delivery Fee</th>
+					<th scope="col">Payment Mode</th>
+                    <th scope="col">Delivery Status</th>
+                    <th scope="col">Order Review</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var i=0; i<data.length; i++) { %>
+				<tr>
+					<td><%= data[i].oid%></td>
+					<td><%= data[i].deliveryfee%></td>
+                    <td><%= data[i].paymentmode%></td>
+                    <td><%= data[i].isdelivered%></td>
+                    <td><%= data[i].orderreview%></td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
   </body>
 </html>

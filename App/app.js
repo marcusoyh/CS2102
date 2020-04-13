@@ -36,12 +36,14 @@ var insertRouter = require('./routes/insert');
 /* ---------------------------- */
 
 /* --- Personal Additions:  --- */
-var loginRouter = require('./routes/login');
+var loginRouter = require('./routes/login/login');
 var driverRouter = require('./routes/drivers');
 var restaurantRouter = require('./routes/restaurants');
-var loginRestaurantStaffRouter = require('./routes/loginrestaurantstaff');
-var loginFDSManagerRouter = require('./routes/loginfdsmanager');
-var loginDriverRouter = require('./routes/logindriver');
+var loginRestaurantStaffRouter = require('./routes/login/loginrestaurantstaff');
+var loginFDSManagerRouter = require('./routes/login/loginfdsmanager');
+var loginDriverRouter = require('./routes/login/logindriver');
+var fdspromotionsRouter = require('./routes/fdsmanager/fdspromotions');
+var ordersRouter = require('./routes/orders');
 /* ---------------------------- */
 
 
@@ -95,9 +97,9 @@ app.use('/restaurants',restaurantRouter);
 app.use('/loginrestaurantstaff',loginRestaurantStaffRouter);
 app.use('/loginfdsmanager',loginFDSManagerRouter);
 app.use('/logindriver',loginDriverRouter);
+app.use('/fdspromotions', fdspromotionsRouter);
+app.use('/orders', ordersRouter);
 /* ---------------------------- */
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
