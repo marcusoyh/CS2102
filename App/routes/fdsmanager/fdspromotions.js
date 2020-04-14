@@ -15,4 +15,12 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/:id', function(req, res, next) {
+	const id = req.params.id;
+
+	pool.query('SELECT * FROM FDSPromotions WHERE fpid=$1', [id], (err, data) => {
+		res.render('fdsmanager/fdspromotions', { title: 'All FDS Promotions', data: data.rows });
+	});
+});
+
 module.exports = router;

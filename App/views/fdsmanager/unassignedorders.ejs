@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>Drivers View Page</title>
+    <title>CS2102 Database Connect</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -18,24 +18,31 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">User ID</th>
-					<th scope="col">Name</th>
-					<th scope="col">Username</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Commission</th>
+					<th scope="col">Order's ID</th>
+					<th scope="col">Delivery Fee</th>
+                    <th scope="col">Payment Mode</th>
+                    <th scope="col">Time Ordered</th>
+                    <th scope="col">Delivery time</th>
+                    <th scope="col">Location ID</th>
+                    <th scope="col">Customer ID</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
-					<td><%= data[i].uid%></td>
-					<td><%= data[i].name%></td>
-                    <td><%= data[i].username%></td>
-                    <td><%= data[i].password%></td>
-                    <td><%= data[i].commission%></td>
+                    <td><%= data[i].oid%></td>
+					<td><%= data[i].deliveryfee%></td>
+                    <td><%= data[i].paymentmode%></td>
+                    <td><%= data[i].timeordered%></td>
+                    <td><%= data[i].deliverytime%></td>
+                    <td><%= data[i].lid%></td>
+                    <td><%= data[i].cid%></td>
+                    <td><li><a href="/unassignedorders/<%= data[i].oid%>">Assign Driver</a></li></td>
+                    
 				</tr>
 				<% } %>
 			</tbody>
-		</table>
+        </table>
   </body>
 </html>
+

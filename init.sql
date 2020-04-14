@@ -39,6 +39,7 @@ CREATE TABLE RestaurantStaff(
 
 CREATE TABLE Customers (
   uid INTEGER,
+  signUpDate DATE,
   ccNo VARCHAR(16),
   ccExpiryDate DATE,
   rewardPoints INTEGER,
@@ -200,7 +201,7 @@ create table OrderContainsRP (
 );
 
 INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
-INSERT INTO Customers (uid,ccNo,ccExpiryDate,rewardPoints) VALUES (1,'1122334455667788', TO_DATE('17/12/2015','DD/MM/YYYY'),81);
+INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (1,'2020-04-14','1122334455667788', TO_DATE('17/12/2015','DD/MM/YYYY'),81);
 INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
 INSERT INTO Drivers (uid,commission) VALUES (2, 88);
 INSERT INTO Users (uid, name, password,username) VALUES (3, 'Marcus', 'password','Marcus');
@@ -219,3 +220,5 @@ INSERT INTO FDSPromotions(fpid,name ,discountAmount ,startDate,endDate) VALUES (
 
 INSERT INTO Locations (lid,uid,address,date) VALUES (1,1,'Woodlands',TO_DATE('17/12/2015','DD/MM/YYYY'));
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,deliveryTime,lid,did,cid,rid) VALUES (1,'Good service',3,2200,'cash',true,TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),2230,1,2,1,1);
+INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,deliveryTime,lid,did,cid,rid) VALUES (2,'Not bad',2,1000,'cash',false,TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),1030,1,2,1,2);
+INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,deliveryTime,lid,did,cid,rid) VALUES (3,'Slow delivery',2.2,1100,'cash',false,TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),TO_DATE('17/12/2015','DD/MM/YYYY'),1230,1,2,1,2);

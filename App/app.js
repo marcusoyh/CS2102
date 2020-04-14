@@ -16,7 +16,7 @@ var aboutRouter = require('./routes/about');
 /* ---------------------------- */
 
 /* -- V2.1 Adding Page, from page 7 of the guide -- */
- var pageRouter = require('./routes/page');
+var pageRouter = require('./routes/page');
 
 /* --- V3: Basic Template   --- */
 var tableRouter = require('./routes/table');
@@ -45,11 +45,13 @@ var loginFDSManagerRouter = require('./routes/login/loginfdsmanager');
 var loginDriverRouter = require('./routes/login/logindriver');
 var fdspromotionsRouter = require('./routes/fdsmanager/fdspromotions');
 var ordersRouter = require('./routes/orders');
+var addfdspromotionRouter = require('./routes/fdsmanager/addfdspromotion');
 
 var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
 var viewFoodItemsRouter = require('./routes/viewFoodItems');
 var viewAllOrdersRouter = require('./routes/viewAllOrders');
 var deleteRestaurantFoodItemRouter = require('./routes/deleteRestaurantFoodItem');
+var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 /* ---------------------------- */
 
 
@@ -99,25 +101,28 @@ app.use('/insert', insertRouter);
 /* --- Personal Additions     --- */
 app.use('/login', loginRouter);
 app.use('/drivers', driverRouter);
-app.use('/restaurants',restaurantRouter);
-app.use('/loginrestaurantstaff',loginRestaurantStaffRouter);
-app.use('/loginfdsmanager',loginFDSManagerRouter);
-app.use('/addRestaurantFoodItem',addRestaurantFoodItemRouter);
-app.use('/viewFoodItems',viewFoodItemsRouter);
-app.use('/logindriver',loginDriverRouter);
+app.use('/restaurants', restaurantRouter);
+app.use('/loginrestaurantstaff', loginRestaurantStaffRouter);
+app.use('/loginfdsmanager', loginFDSManagerRouter);
+app.use('/addRestaurantFoodItem', addRestaurantFoodItemRouter);
+app.use('/viewFoodItems', viewFoodItemsRouter);
+app.use('/logindriver', loginDriverRouter);
 app.use('/fdspromotions', fdspromotionsRouter);
 app.use('/orders', ordersRouter);
-app.use('/viewAllOrders',viewAllOrdersRouter);
-app.use('/deleteRestaurantFoodItem',deleteRestaurantFoodItemRouter);
+app.use('/viewAllOrders', viewAllOrdersRouter);
+app.use('/deleteRestaurantFoodItem', deleteRestaurantFoodItemRouter);
+app.use('/addfdspromotion', addfdspromotionRouter);
+app.use('/unassignedorders', unassignedOrdersRouter);
+
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
