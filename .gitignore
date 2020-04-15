@@ -11,4 +11,4 @@
 *.zip
 
 # User defined
-App/.env
+App/env
