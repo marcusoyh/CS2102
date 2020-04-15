@@ -6,11 +6,9 @@ const pool = new Pool({
 	connectionString: process.env.DATABASE_URL //we need to edit the .env individually, and put it in .gitignore
 });
 
-var viewAllQuery = 'Select * from users';
-
 //generate default management page
 router.get('/', function(req, res, next) {
-    res.render('fdsmanager/fdsmanagement', { title: 'FDS Management Page'});
+    res.render('fdsmanager/restaurantmanagement');
 });
 
 

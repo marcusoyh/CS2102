@@ -55,8 +55,9 @@ var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 var fdsoneRouter = require('./routes/fdsmanager/fdsone');
 var fdstwoRouter = require('./routes/fdsmanager/fdstwo');
 var fdsthreeRouter = require('./routes/fdsmanager/fdsthree');
-var fdsmanagementRouter = require('./routes/fdsmanager/fdsmanagement');
-
+var fdspromotionmanagementRouter = require('./routes/fdsmanager/fdspromotionmanagement');
+var restaurantmanagementRouter = require('./routes/fdsmanager/restaurantmanagement');
+var addrestaurantRouter = require('./routes/fdsmanager/addrestaurant');
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 /* ---------------------------- */
 
@@ -122,8 +123,9 @@ app.use('/unassignedorders', unassignedOrdersRouter);
 app.use('/fdsone',fdsoneRouter);
 app.use('/fdstwo',fdstwoRouter); 
 app.use('/fdsthree',fdsthreeRouter);  
-app.use('/fdsmanagement',fdsmanagementRouter);
-
+app.use('/fdspromotionmanagement',fdspromotionmanagementRouter);
+app.use('/restaurantmanagement',restaurantmanagementRouter);
+app.use('/addrestaurant',addrestaurantRouter);
 app.use('/driverRegister', driverRegisterRouter);
 /* ---------------------------- */
 
