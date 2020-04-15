@@ -138,6 +138,8 @@ CREATE TABLE Orders(
   timeRiderDeparts TIMESTAMP,
   timeRiderReachesRestaurant TIMESTAMP,
   timeRiderLeavesRestaurant TIMESTAMP,
+  commission REAL,
+  riderRating INTEGER, 
   deliveryTime INTEGER,
   lid INTEGER references Locations not null,
   did INTEGER not null,
@@ -189,14 +191,14 @@ create table OrderContainsFP (
   oid INTEGER,
   fpid INTEGER,
   Foreign key (oid) references Orders,
-  Foreign key(fpid) references FDSPromotion
+  Foreign key(fpid) references FDSPromotions
 );
 
 create table OrderContainsRP ( 
   Oid INTEGER,
   rpid INTEGER,
   foreign key (oid) references Orders,
-  foreign key(rpid) references RestaurantPromotion
+  foreign key(rpid) references RestaurantPromotions
 );
 
 INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');

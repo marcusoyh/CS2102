@@ -56,6 +56,8 @@ var fdsoneRouter = require('./routes/fdsmanager/fdsone');
 var fdstwoRouter = require('./routes/fdsmanager/fdstwo');
 var fdsthreeRouter = require('./routes/fdsmanager/fdsthree');
 var fdsmanagementRouter = require('./routes/fdsmanager/fdsmanagement');
+
+var driverRegisterRouter = require('./routes/driver/driverRegister');
 /* ---------------------------- */
 
 
@@ -122,6 +124,7 @@ app.use('/fdstwo',fdstwoRouter);
 app.use('/fdsthree',fdsthreeRouter);  
 app.use('/fdsmanagement',fdsmanagementRouter);
 
+app.use('/driverRegister', driverRegisterRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
