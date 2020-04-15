@@ -21,7 +21,7 @@ router.post('/', function (req, res, next) {
 
     pool.query('SELECT * FROM Users natural join Drivers WHERE username=$1 and password=$2', [username, password], (err, data) => {
         if (data.rowCount == 1) {
-            res.render('customerhomepage', { name: username });
+            res.render('driver/driverhomepage', { name: username });
         } else {
             res.render('login/logindriver', { title: data.rowCount }); //maybe print an error message here somehow
         }
