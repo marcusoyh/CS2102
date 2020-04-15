@@ -3,7 +3,7 @@
   <head>
 		<!-- Page Title -->
     <title>Home Page</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/App/public/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -14,16 +14,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Home Page</h1>
-    <p>Welcome</p>
-    <li><a href="/logindriver">Login as Driver</a></li>
-    <li><a href="/login">Login as Customer</a></li>
-    <li><a href="/loginrestaurantstaff">Login as Restaurant Staff</a></li>
-    <li><a href="/loginfdsmanager">Login as FDS Manager</a></li>
-    <li><a href="/insert">Add User</a></li>
-    <li><a href="/select">View All Users</a></li>
-    <li><a href="/drivers">View All Drivers</a></li>
-    <li><a href="/driverRegister">Register as Driver</a></li>
-    
+    <h1>Welcome <%= name%></h1>
+    <p>Home Page for Delivery Riders</p>
+    <li><a href="/restaurants">View Salary</a></li>
+    <li>View Past Work Schedule</li>
+    <li>View Number of Hours worked</li>
   </body>
 </html>
