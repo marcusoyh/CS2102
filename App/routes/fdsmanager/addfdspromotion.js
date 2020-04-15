@@ -23,13 +23,8 @@ router.post('/', function (req, res, next) {
     var discountAmount = req.body.discountAmount;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
-    //remember month is 0-11 instead of 1-12
-    // var startDate = new Date(startDateString[2],startDateString[1],startDateString[0],0,0,0,0);
-    // var endDate = new Date(endDateString[2],endDateString[1],endDateString[0],0,0,0,0);
-    // var startDate = new Date(parseInt(startDateString[2],10),parseInt(startDateString[1],10),parseInt(startDateString[0],10),0,0,0,0);
-    // var startDate = new Date(parseInt(endDateString[2],10),parseInt(endDateString[1],10),parseInt(endDateString[0],10),0,0,0,0);
-    //var startDate = new Date(2020,05,04,0,0,0,0);
-    //var endDate = new Date(2020,06,06,0,0,0,0);
+    
+    //date.isValid() is a method that returns true/false, can validate whether legit date was entered
 
     // Construct Insert Query
     var insert_query = sql_query + "('" + fpid + "','" + name + "','" + discountAmount + "','" + startDate + "','" + endDate + "')";
