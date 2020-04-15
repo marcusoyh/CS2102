@@ -39,8 +39,8 @@ router.post('/', function (req, res, next) {
 
     var uid;
 
-    pool.query('SELECT max(uid) FROM USERS'), (err, result) => {
-        uid = result.rows[0].uid + 1;
+    pool.query('SELECT max(uid) AS maxuid FROM USERS'), (err, result) => {
+        uid = result.rows[0].maxuid + 1;
         if (err) {
             return console.error('Error executing query', err.stack)
         }
