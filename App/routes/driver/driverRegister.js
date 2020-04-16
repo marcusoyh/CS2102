@@ -53,10 +53,9 @@ router.post('/', function (req, res, next) {
             return console.error('Error executing query', err.stack)
         }
     });
-
-    var date = "2020-04-14";
-
-    //insert into drivers
+    
+    var today = new Date();
+    var date = today.getFullYear() + "-" + +(today.getMonth()+1)+'-'+today.getDate();
     
 
     //insert into drivers and either PT or FT
