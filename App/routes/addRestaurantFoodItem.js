@@ -18,12 +18,12 @@ const pool = new Pool({
 var sql_query = 'INSERT INTO RestaurantFoodItems VALUES ';
 
 // GET
-router.get('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
 	res.render('addRestaurantFoodItem', { title: 'Adding a new food item' });
 });
 
 // POST
-router.post('/', function(req, res, next) {
+router.post('/:id', function(req, res, next) {
 	// Retrieve Information
 	var cid  = req.body.cid;
 	var foodName = req.body.foodName;
@@ -35,7 +35,6 @@ router.post('/', function(req, res, next) {
 
 	// Construct Specific SQL Query
 	var insert_query = sql_query + "(" + cid + ",'" + foodName + "'," + maxOrders + "," +  price  + "," + rid + "," + availability + ")";
-	
 	pool.query(insert_query, (err, data) => {});
 
 	pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid] ,(err, data) => {

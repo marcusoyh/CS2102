@@ -24,10 +24,11 @@
       <!--main content-->
     <div style="height:430px; width:60%; float: left">
       <h4>Welcome Back <%= name%></h4>
-      <li><a href="/addRestaurantFoodItem"> Add a new restaurant food item</a></li>
+      <li><a href="/addRestaurantFoodItem/<%= rid%>"> Add a new restaurant food item</a></li>
       <li><a href="/viewFoodItems/<%= rid%>">View all food items</a></li>
       <li><a href="/deleteRestaurantFoodItem/<%= rid%>">Delete a restaurant food item</a></li>
       <li><a href="/viewAllOrders/<%= rid%>">View all orders</a></li>
+      <li><a href="/summaryInfo/<%= rid%>">Summary Information</a></li>
       <!--<li><a href="/select">View All Users</a></li>
       <li><a href="/drivers">View All Drivers</a></li>-->
     </div>
