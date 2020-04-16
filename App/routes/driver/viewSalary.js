@@ -8,8 +8,13 @@ const pool = new Pool({
 
 
 // GET
-router.get('/', function(req, res, next) {
-    res.render('driver/viewSalary', { title: 'View Salary' });
+router.get('/:id', function(req, res, next) {
+    const id = req.params.id;
+    //this query is if i tag salary to drivers instead 
+    pool.query('SELECT salary FROM Drivers WHERE uid = $1', [id] ,(err, data) => {
+        res.render('driver/viewSalary', { title: 'View Salary' , data: data.rows});
+	});
+    
 });
 
 

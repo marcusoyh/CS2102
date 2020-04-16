@@ -54,22 +54,31 @@ router.post('/', function (req, res, next) {
         }
     });
 
+    var date = "2020-04-14";
+
     //insert into drivers
-    var insert_query_2 = sql_driver_query + "(" + uid + ")";
-    pool.query(insert_query_2, (err, data) => {
+    
+
+    //insert into drivers and either PT or FT
+    if (isFullTime) {
+        var insert_query_ft_2 = sql_driver_query + "(" + uid + "," + true + "," + salary + ",'" + date + "')";
+        pool.query(insert_query_ft_2, (err, data) => {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
-    });
-
-    //insert into either PT or FT
-    if (isFullTime) {
-        var insert_query_ft = sql_fulltimers_query + "(" + uid + "," + salary + ")";
+     });
+        var insert_query_ft = sql_fulltimers_query + "(" + uid + ")";
         pool.query(insert_query_ft, (err, data) => {
         });
         
     } else { //part time
-        var insert_query_pt = sql_parttimers_query + "(" + uid + "," + salary + ")";
+        var insert_query_pt_2 = sql_driver_query + "(" + uid + "," + true + "," + salary + ",'" + date + "')";
+        pool.query(insert_query_pt_2, (err, data) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+     });
+        var insert_query_pt = sql_parttimers_query + "(" + uid + ")";
         pool.query(insert_query_pt, (err, data) => {
         });
     }
