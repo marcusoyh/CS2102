@@ -59,6 +59,7 @@ var fdspromotionmanagementRouter = require('./routes/fdsmanager/fdspromotionmana
 var restaurantmanagementRouter = require('./routes/fdsmanager/restaurantmanagement');
 var addrestaurantRouter = require('./routes/fdsmanager/addrestaurant');
 var driverRegisterRouter = require('./routes/driver/driverRegister');
+var viewSalaryRouter = require('./routes/driver/viewSalary');
 /* ---------------------------- */
 
 
@@ -127,6 +128,7 @@ app.use('/fdspromotionmanagement',fdspromotionmanagementRouter);
 app.use('/restaurantmanagement',restaurantmanagementRouter);
 app.use('/addrestaurant',addrestaurantRouter);
 app.use('/driverRegister', driverRegisterRouter);
+app.use('/viewSalary', viewSalaryRouter)
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

@@ -14,12 +14,12 @@ var sql_parttimers_query = 'INSERT INTO PartTimers VALUES ';
 
 // GET
 router.get('/', function(req, res, next) {
-    console.log('get works')
     res.render('driver/driverRegister', { title: 'Register as Delivery Rider' });
 });
 
 //POST
 router.post('/', function (req, res, next) {
+    var uid = req.body.did;
     var name = req.body.name;
     var username = req.body.username;
     var password = req.body.password;
@@ -37,17 +37,17 @@ router.post('/', function (req, res, next) {
         isFullTime = false;
     }
 
-    var uid;
+    // var uid;
 
-    pool.query('SELECT max(uid) AS maxuid FROM USERS'), (err, result) => {
-        uid = result.rows[0].maxuid + 1;
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    }
-    
+    // pool.query('SELECT max(uid)+ 1 FROM USERS'), (err, res) => {
+    //     uid = res.rows[0];
+    //     if (err) {
+    //         return console.error('Error executing query', err.stack)
+    //     }
+    // }
+
     //insert into users
-    var insert_query = sql_user_query + "(" + uid + ",'" + name + "','" + password + "','" + username + "'," + ")";
+    var insert_query = sql_user_query + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
     pool.query(insert_query, (err, data) => {
         if (err) {
             return console.error('Error executing query', err.stack)
@@ -66,23 +66,19 @@ router.post('/', function (req, res, next) {
     if (isFullTime) {
         var insert_query_ft = sql_fulltimers_query + "(" + uid + "," + salary + ")";
         pool.query(insert_query_ft, (err, data) => {
-            if (err) {
-                return console.error('Error executing query', err.stack)
-            }
         });
         
     } else { //part time
         var insert_query_pt = sql_parttimers_query + "(" + uid + "," + salary + ")";
         pool.query(insert_query_pt, (err, data) => {
-            if (err) {
-                return console.error('Error executing query', err.stack)
-            }
         });
     }
 
     pool.query('SELECT * FROM Users natural join Drivers WHERE uid = $1', [uid] ,(err, data) => {
 		res.render('driver/driverhomepage', { name: name });
-	});
+    });
+    
+    pool.end();
 
 });
 
