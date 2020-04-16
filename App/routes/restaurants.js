@@ -21,7 +21,7 @@ router.get('/:id', function (req, res, next) {
       if (error) {
         throw error
       }
-      res.render('restaurantfooditems', { title: data.rows[0].name, data: data.rows });
+      res.render('restaurantfooditems', { title: data.rows[0].name, data: data.rows, id:id });
     })
   });
 

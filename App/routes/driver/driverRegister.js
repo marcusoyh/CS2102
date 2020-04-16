@@ -47,7 +47,7 @@ router.post('/', function (req, res, next) {
     }
     
     //insert into users
-    var insert_query = sql_user_query + "(" + uid + ",'" + name + "','" + password + "','" + username + "'," + ")";
+    var insert_query = sql_user_query + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
     pool.query(insert_query, (err, data) => {
         if (err) {
             return console.error('Error executing query', err.stack)

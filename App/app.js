@@ -58,6 +58,8 @@ var fdsthreeRouter = require('./routes/fdsmanager/fdsthree');
 var fdspromotionmanagementRouter = require('./routes/fdsmanager/fdspromotionmanagement');
 var restaurantmanagementRouter = require('./routes/fdsmanager/restaurantmanagement');
 var addrestaurantRouter = require('./routes/fdsmanager/addrestaurant');
+var deleterestaurantRouter = require('./routes/fdsmanager/deleterestaurant');
+
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 /* ---------------------------- */
 
@@ -126,6 +128,8 @@ app.use('/fdsthree',fdsthreeRouter);
 app.use('/fdspromotionmanagement',fdspromotionmanagementRouter);
 app.use('/restaurantmanagement',restaurantmanagementRouter);
 app.use('/addrestaurant',addrestaurantRouter);
+app.use('/deleterestaurant',deleterestaurantRouter);
+
 app.use('/driverRegister', driverRegisterRouter);
 /* ---------------------------- */
 
