@@ -22,48 +22,28 @@
 		crossorigin="anonymous"></script>
 </head>
 
-<body id="body">
-	<h1><%= title%> menu:</h1>
+<body>
+	<h1><%= title%><%= date%></h1>
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Item Name</th>
-				<th scope="col">Max Orders</th>
-				<th scope="col">Price</th>
-				<th scope="col">Availability</th>
+				<th scope="col">Driver ID</th>
+				<th scope="col">Driver Name</th>
+				<th scope="col">Start Time</th>
+				<th scope="col">End Time</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% for(var i=0; i<data.length; i++) { %>
 			<tr>
-				<td><%= data[i].foodname%></td>
-				<td><%= data[i].maxorders%></td>
-				<td><%= data[i].price%></td>
-				<td><%= data[i].availability%></td>
+				<td><%= data[i].uid%></td>
+				<td><%= data[i].name%></td>
+				<td><%= data[i].starttime%></td>
+				<td><%= data[i].endtime%></td>
 			</tr>
 			<% } %>
 		</tbody>
 	</table>
-	<button type="button" onclick="GetURLParameter()">Delete Restaurant</button>
-
-	<script>
-		function deleteFunction() {
-			//var idstring = <%= data[0].foodname%>;
-			location.replace("http://localhost:3000/restaurants/1")
-		}
-
-		function GetURLParameter() {
-			var sPageURL = window.location.search.substring(1);
-			var sURLVariables = sPageURL.split('&');
-			for (var i = 0; i < sURLVariables.length; i++) {
-				var sParameterName = sURLVariables[i].split('=');
-				if (sParameterName[0] == sParam) {
-					return sParameterName[1];
-				}
-			}
-
-		}​
-	</script>
 </body>
 
 </html>
