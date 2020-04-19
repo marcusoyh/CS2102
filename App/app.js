@@ -62,6 +62,7 @@ var deleterestaurantRouter = require('./routes/fdsmanager/deleterestaurant');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
+var createOrderRouter = require('./routes/order/createOrder')
 /* ---------------------------- */
 
 
@@ -132,7 +133,8 @@ app.use('/addrestaurant',addrestaurantRouter);
 app.use('/deleterestaurant',deleterestaurantRouter);
 
 app.use('/driverRegister', driverRegisterRouter);
-app.use('/viewSalary', viewSalaryRouter)
+app.use('/viewSalary', viewSalaryRouter);
+app.use('/createOrder', createOrderRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

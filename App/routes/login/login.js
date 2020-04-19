@@ -22,7 +22,7 @@ router.post('/', function (req, res, next) {
 
     pool.query('SELECT * FROM Users natural join Customers WHERE username=$1 and password=$2', [username, password], (err, data) => {
         if (data.rowCount == 1) {
-            res.render('customerhomepage', { name: username });
+            res.render('customerhomepage', { data:data.rows});
         } else {
             res.render('login/login', { title: 'Login as Customer'}); //maybe print an error message here somehow
         }
