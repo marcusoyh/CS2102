@@ -27,21 +27,21 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Month</th>
+                <th scope="col">Month</th>
+                <th scope="col">Year</th>
 				<th scope="col">Total Number of Orders</th>
 				<th scope="col">Total Cost(excluding delivery fees)</th>
-				<!--<th scope="col">Top 5 favorite food items</th>-->
+				<th scope="col">Top 5 favorite food items</th>
 			</tr>
 		</thead>
 		<tbody>
-			<% for(var i=0; i<data.length; i++) { %>
 			<tr>
-				<td><%= months[data[i].month.getMonth()]%> <%=data[i].month.getFullYear()%></td>
-				<td><%= data[i].totalorders%></td>
-				<td><%= data[i].totalcost%></td>
-				<!--<td><%= data[i].totalsignups%></td>-->
+                <td><%= data[0]%></td>
+                <td><%= data[1]%></td>
+				<td><%= data[2]%></td>
+				<td><%= data[3]%></td>
+				<td><%= data[4]%></td>>
 			</tr>
-			<% } %>
 		</tbody>
 	</table>
 </body>
