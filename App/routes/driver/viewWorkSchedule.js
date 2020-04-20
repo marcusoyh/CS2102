@@ -8,9 +8,9 @@ const pool = new Pool({
 
 router.get('/:uid', function(req, res, next) {
     const uid = req.params.uid;
-    
+    var this_query = "SELECT * FROM wws where uid = $1";
     pool.query(this_query, [uid] ,(err, data) => {
-        res.render('driver/viewWorkSchedule', { title: 'View Work Schedule' , data: data.rows});
+        res.render('driver/viewWorkSchedule', { title: 'View Work Schedule' , data: data.rows, uid:uid});
     });
 
 });
