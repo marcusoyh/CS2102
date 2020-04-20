@@ -8,27 +8,23 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('fdsmanager/deleterestaurantstaff', { title: 'Enter particulars of Restaurant Staff to delete'});
+    res.render('fdsmanager/deletepromotion', { title: 'Enter ID of FDS Promotion to delete' });
 });
 
 
 // POST
 router.post('/', function (req, res, next) {
     // Retrieve Information
-    var uid = req.body.uid;
-    var username = req.body.username;
+    var fpid = req.body.fpid;
 
-    pool.query('DELETE FROM RestaurantStaff WHERE uid = $1', [uid] , (err, data) => {
+    pool.query('DELETE FROM FDSPromotions WHERE fpid = $1', [fpid], (err, data) => {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
     });
 
-    pool.query('DELETE FROM Users WHERE uid = $1', [uid] , (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-        res.redirect('/viewallrestaurantstaff');
+    pool.query('SELECT * FROM FDSPromotions', (err, data) => {
+        res.render('fdsmanager/fdspromotionmanagement', { title: 'All FDS Promotions', data: data.rows });
     });
 
 

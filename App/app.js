@@ -67,6 +67,7 @@ var shiftmanagementRouter = require('./routes/fdsmanager/shiftmanagement');
 var addshiftRouter = require('./routes/fdsmanager/addshift');
 var deleterestaurantstaffRouter = require('./routes/fdsmanager/deleterestaurantstaff');
 var viewshiftsRouter = require('./routes/fdsmanager/viewshifts');
+var deletepromotionRouter = require('./routes/fdsmanager/deletepromotion');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
@@ -153,6 +154,7 @@ app.use('/shiftmanagement',shiftmanagementRouter)
 app.use('/addshift',addshiftRouter)
 app.use('/deleterestaurantstaff',deleterestaurantstaffRouter)
 app.use('/viewshifts',viewshiftsRouter)
+app.use('/deletepromotion',deletepromotionRouter)
 
 app.use('/driverRegister', driverRegisterRouter);
 app.use('/viewSalary', viewSalaryRouter);

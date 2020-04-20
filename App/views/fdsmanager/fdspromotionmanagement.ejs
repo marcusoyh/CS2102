@@ -16,7 +16,30 @@
   <body>
     <h1><%= title%></h1>
     <li><a href="/fdspromotions">View All FDS Promotions</a></li>
-    <li><a href="/addfdspromotion">Create a new FDS Promotion</a></li>
-    <p>Maybe this page by default list all promotions? Then at the top are the buttons to create or others</p>
+	<li><a href="/addfdspromotion">Create a new FDS Promotion</a></li>
+	<li><a href="/deletepromotion">Delete an existing FDS Promotion</a></li>
+    
+    <table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Promotion ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Discount Amount(%)</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var i=0; i<data.length; i++) { %>
+				<tr>
+					<td><%= data[i].fpid%></td>
+					<td><%= data[i].name%></td>
+                    <td><%= data[i].discountamount%></td>
+                    <td><%= data[i].startdate%></td>
+                    <td><%= data[i].enddate%></td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
   </body>
 </html>
