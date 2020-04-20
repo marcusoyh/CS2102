@@ -3,7 +3,7 @@
 
 <head>
     <!-- Page Title -->
-    <title>View Salary</title>
+    <title>View Work Schedule</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 
     <!-- CSS for Styling -->
@@ -27,11 +27,23 @@
 
     <h1><%= title%></h1>
     <p id = "date" style = "font-weight:bold"></p>
-    <p>Your Base Salary: <%= data[0].salary%></p>
-    <p>Sign Up Date: <%=data[0].day%>/<%= data[0].month%>/<%= data[0].year%></p>
-    <p>Total Commission from Orders: <%=data[0].sumcommission%></p>
-    <p>Total Salary: <%=totalsalary%></p>
-    
+	<table class="table">
+		<thead>
+			<tr>
+                <th scope="col">Weekly Work Schedule ID</th>
+                <th scope="col">First Day of Week</th>  
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<data.length; i++) { %>
+			<tr>
+                <td><%= data[i].wwsid%></td>
+                <td><%= data[i].startdate%></td>
+                <td><a href="/viewShifts2/<%= uid%>">View Shifts</a></td>
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
     <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button>
 </body>
 

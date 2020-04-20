@@ -147,6 +147,7 @@ CREATE TABLE Orders(
   commission REAL,
   riderRating INTEGER, 
   deliveryTime TIMESTAMP,
+  totalprice REAL,
   lid INTEGER references Locations not null,
   did INTEGER not null,
   cid INTEGER not null,
@@ -192,8 +193,28 @@ create table OrderContainsRP (
 INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
 INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (1,'2020-04-14','1122334455667788', '2015-12-17',81);
 INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
-INSERT INTO Drivers (uid, isAvailable, salary, signUpDate) VALUES (2, true, 500, '2020-04-14');
+INSERT INTO Drivers (uid, isAvailable, salary, signUpDate) VALUES (2, true, 400, '2020-03-20');
 INSERT INTO PartTimers (uid) VALUES (2);
+
+INSERT INTO Users (uid, name, password, username) VALUES (7, 'Driver', 'password', 'Driver');
+INSERT INTO Drivers (uid, isAvailable, salary, signUpDate) VALUES (7, true, 1700, '2020-02-04');
+INSERT INTO FullTimers (uid) VALUES (7);
+
+INSERT INTO WWS (uid, wwsid, startDate) VALUES (2, 1, '2020-04-06');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (1, 1, 1000, 1200, '2020-04-06');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (2, 1, 1400, 1700, '2020-04-07');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (3, 1, 1000, 1300, '2020-04-09');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (4, 1, 1400, 1600, '2020-04-09');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (5, 1, 1500, 1900, '2020-04-10');
+
+INSERT INTO WWS (uid, wwsid, startDate) VALUES (7, 2, '2020-04-06');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (6, 2, 1200, 1600, '2020-04-06');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (7, 2, 1800, 2200, '2020-04-06');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (8, 2, 1000, 1300, '2020-04-08');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (9, 2, 1700, 1900, '2020-04-09');
+INSERT INTO Shifts (sid, wwsid, startTime, endTime, day) VALUES (10, 2, 1500, 1900, '2020-04-10');
+
+INSERT INTO MWS (uid, mwsid, wwsid) VALUES (7, 1, 2);
 
 INSERT INTO Users (uid, name, password,username) VALUES (3, 'Marcus', 'password','Marcus');
 INSERT INTO FDSManagers (uid) VALUES (3);
@@ -232,4 +253,5 @@ INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelive
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (7,'Alright',2.2,'2020-04-30 11:50:00','cash',false,'2020-04-30 13:40:00', '2020-04-30 14:00:00','2020-04-30 15:00:00',2,5,'2020-04-30 15:30:00',2,2,1,2);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (8,'Can be better',2,'2014-12-17 12:30:00','cash',false,'2014-12-17 13:00:00', '2014-12-17 13:30:00','2014-12-17 13:40:00',3,4,'2014-12-17 14:10:00',2,2,6,2);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (9,'Not good',2,'2014-12-17 12:00:00','cash',false,'2014-12-17 13:00:00', '2014-12-17 13:30:00','2014-12-17 13:40:00',2,3,'2014-12-17 14:30:00',2,2,6,2);
- 
+INSERT INTO OrderContainsFoodItems(1,1,"Cheeseburger",2) ;
+INSERT INTO OrderContainsFoodItems(2,1,"Cheeseburger",3);
