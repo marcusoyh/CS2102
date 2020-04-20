@@ -192,7 +192,7 @@ create table OrderContainsRP (
 INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
 INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (1,'2020-04-14','1122334455667788', '2015-12-17',81);
 INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
-INSERT INTO Drivers (uid, isAvailable, salary, signUpDate) VALUES (2, true, 500, '2020-04-14');
+INSERT INTO Drivers (uid, isAvailable, salary, signUpDate) VALUES (2, true, 500, '2020-03-20');
 INSERT INTO PartTimers (uid) VALUES (2);
 
 INSERT INTO Users (uid, name, password,username) VALUES (3, 'Marcus', 'password','Marcus');

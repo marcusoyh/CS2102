@@ -31,7 +31,8 @@
     <p>Sign Up Date: <%=data[0].day%>/<%= data[0].month%>/<%= data[0].year%></p>
     <p>Total Commission from Orders: <%=data[0].sumcommission%></p>
     <p>Total Salary: <%=totalsalary%></p>
-
+    
+    <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button>
 </body>
 
 <script>
@@ -40,15 +41,10 @@
     m = today.getMonth() + 1;
     d = today.getDate();
     document.getElementById("date").innerHTML = "Today's date is: " + d + "/" + m + "/" + y;
-    
-    (function() {
-        window.addEventListener('load', function() {
-            var forms = [document.getElementById('html_form')];
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', check, false);
-            });
-        }, false);
-    })();
+
+    function goBack() {
+        window.history.back();
+    }
 </script>
 
 </html>

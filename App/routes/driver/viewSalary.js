@@ -17,31 +17,49 @@ router.get('/:uid', function(req, res, next) {
     pool.query(this_query, [uid] ,(err, data) => {
         //finding time between the two dates 
         var today =  new Date();
+        console.log("Today: " + today);
         var day = data.rows[0].day;
+        console.log("Day: " + day);
         var month = data.rows[0].month;
+        console.log("Month :" + month);
         var year = data.rows[0].year;
-        var signupdate = new Date(year, month, day);
+        console.log("Year :" + year);
+        var signupdate = new Date(year, month-1, day+1);
+        console.log(signupdate);
         var totalsalary;
         //if salary = 500 or 1700 (based on ft or pt)
         //then take the date difference divide by week/month and * the base salary
         //then sum the commission
         if (data.rows[0].salary = 400) { //pt
-            var weeks = weeksBetween(today, signupdate);
+            var weeks = weeksBetween(signupdate, today);
+            console.log("Weeks between: " + weeks)
             totalsalary = weeks*400 + data.rows[0].sumcommission;
         } else if (data.rows[0].salary = 1700) { //ft
-            var months = monthsBetween(today, signupdate);
+            var months = monthsBetween(signupdate, today);
             totalsalary = months*1700 + data.rows[0].sumcommission;
         }
         res.render('driver/viewSalary', { title: 'View Salary' , data: data.rows, totalsalary: totalsalary});
     });
     
     function weeksBetween(d1, d2) {
-        return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+        var diff =(d2.getTime() - d1.getTime()) / 1000;
+        diff /= (60 * 60 * 24 * 7);
+        if (diff >= 0) {
+            return Math.abs(Math.floor(diff));
+        } else {
+            return 0;
+        }   
     }
 
+    //havent test this yet but should work
     function monthsBetween(dateFrom, dateTo) {
-        return dateTo.getMonth() - dateFrom.getMonth() + 
-          (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
+        var diff = dateTo.getMonth() - dateFrom.getMonth() + 
+        (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
+        if (diff >=0 ) {
+            return Math.abs(Math.floor(diff));
+        } else {
+            return 0;
+        }
        }
     
 });
