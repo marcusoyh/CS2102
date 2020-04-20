@@ -8,10 +8,10 @@ const pool = new Pool({
 
 
 // GET
-router.get('/:id', function(req, res, next) {
-    const id = req.params.id;
+router.get('/:uid', function(req, res, next) {
+    const uid = req.params.uid;
     //this query is if i tag salary to drivers instead 
-    pool.query('SELECT salary FROM Drivers WHERE uid = $1', [id] ,(err, data) => {
+    pool.query('SELECT * FROM Users natural join Drivers WHERE uid = $1', [uid] ,(err, data) => {
         res.render('driver/viewSalary', { title: 'View Salary' , data: data.rows});
 	});
     
