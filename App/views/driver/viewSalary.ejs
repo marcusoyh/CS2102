@@ -26,20 +26,20 @@
 <body>
 
     <h1><%= title%></h1>
+    <p id = "date" style = "font-weight:bold"></p>
     <p>Base Salary: <%= data[0].salary%></p>
-    <!-- need to show base monthly/weekly salary based on whether FT or PT
-    & show total salary received since he started (actl this is a problem already like maybe need take note
-    of when the driver joined so can calculate that) -->
+    <p>Sign Up Date: <%=data[0].day%>/<%= data[0].month%>/<%= data[0].year%></p>
+    <p>Total Commission from Orders: <%=data[0].sumcommission%></p>
+    <p>Total Salary: <%=totalsalary%></p>
 
 </body>
 
 <script>
-    //get today's date so i can use it to minus away the driver's signupdate and calc salary
     var today =  new Date();
     y = today.getFullYear();
     m = today.getMonth() + 1;
     d = today.getDate();
-    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+    document.getElementById("date").innerHTML = "Today's date is: " + d + "/" + m + "/" + y;
     
     (function() {
         window.addEventListener('load', function() {
