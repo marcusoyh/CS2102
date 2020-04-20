@@ -35,6 +35,30 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <h2>All Shifts created</h2>
+    <table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Shift ID</th>
+				<th scope="col">Driver ID</th>
+				<th scope="col">Driver Name</th>
+				<th scope="col">Start Time</th>
+				<th scope="col">End Time</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<data.length; i++) { %>
+			<tr>
+				<td><%= data[i].sid%></td>
+				<td><%= data[i].uid%></td>
+				<td><%= data[i].name%></td>
+				<td><%= data[i].starttime%></td>
+				<td><%= data[i].endtime%></td>
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
 </body>
 
 </html>

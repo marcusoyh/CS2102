@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
 
     var shiftquery = insertshiftquery  + " ('" + sid + "','" + wwsid + "','" + starttime + "','" +  endtime  + "','" + date + "')";
     pool.query(shiftquery, (err, data) => {
-		res.redirect('/restaurants');
+		res.redirect('/viewshifts');
     });
 });
 

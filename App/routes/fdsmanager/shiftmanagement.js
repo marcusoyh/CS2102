@@ -8,7 +8,9 @@ const pool = new Pool({
 
 //generate default management page
 router.get('/', function(req, res, next) {
-    res.render('fdsmanager/shiftmanagement');
+    pool.query('Select * from Shifts natural join WWS', (err, data) => {
+		res.render('fdsmanager/shiftmanagement', {data: data.rows });
+	});
 });
 
 

@@ -10,7 +10,16 @@ const pool = new Pool({
 /* GET method to generate ALL shifts */
 router.get('/', function (req, res, next) {
 	pool.query('Select * from Shifts natural join WWS', (err, data) => {
-		res.render('fdsmanager/viewshifts', { title: 'All Shifts', data: data.rows });
+		res.render('fdsmanager/viewshifts', {date: 'All Shifts', data: data.rows });
+	});
+});
+
+/* GET method to generate shift of specific date */
+router.get('/:date', function (req, res, next) {
+	const date = req.params.date;
+
+	pool.query('Select * from Shifts natural join WWS natural join Users where day = $1',[date], (err, data) => {
+		res.render('fdsmanager/viewshifts', { date : date,  data: data.rows });
 	});
 });
 
