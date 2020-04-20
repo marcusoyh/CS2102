@@ -13,9 +13,11 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+
 router.get('/:id', function(req, res, next) {
 	const id = req.params.id;
-	pool.query('SELECT * FROM Orders WHERE rid = $1', [id] ,(err, data) => {
+	var this_query = "SELECT oid, orderreview, deliveryfee, paymentmode, DATE_TRUNC('minute'" +", timeordered) as timeo, isdelivered, DATE_TRUNC('minute',timeriderdeparts) as timed, DATE_TRUNC('minute',timeriderreachesrestaurant) as timer, DATE_TRUNC('minute', timeriderleavesrestaurant) as timel, DATE_TRUNC('minute',deliverytime) as timet, lid, did, cid FROM Orders WHERE rid =$1";
+	pool.query(this_query, [id] ,(err, data) => {
 		res.render('viewAllOrders', { title: 'All orders created', data: data.rows });
 	});
 });

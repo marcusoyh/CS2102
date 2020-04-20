@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>CS2102 Database Connect</title>
+    <title>RS: View Food Items</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -14,6 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </head>
   <body>
+	  
     <h1><%= title%></h1>
 		<table class="table">
 			<thead>
@@ -28,7 +29,7 @@
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
-                    <td><%= data[i].rid%></td>
+                    <td><%= data[i].cid%></td>
                     <td><%= data[i].foodname%></a></td>
 					<td><%= data[i].maxorders%></td>
                     <td><%= data[i].price%></td>

@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>CS2102 Database Connect</title>
+    <title>RS: View All Orders</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -38,14 +38,14 @@
 				<tr>
                     <td><%= data[i].oid%></td>
                     <td><%= data[i].orderreview%></a></td>
-					<td><%= data[i].deliveryfee%></td>
+					          <td><%= data[i].deliveryfee%></td>
                     <td><%= data[i].paymentmode%></td>
-                    <td><%= data[i].timeordered%></td>
+                    <td><%= data[i].timeo.getHours()%>:<%= data[i].timeo.getMinutes()%></td>
                     <td><%= data[i].isdelivered%></td>
-                    <td><%= data[i].timeriderdeparts%></td>
-                    <td><%= data[i].timeriderreachesrestaurant%></td>
-                    <td><%= data[i].timeriderleavesrestaurant%></td>
-                    <td><%= data[i].deliverytime%></td>
+                    <td><%= data[i].timed.getHours()%>:<%= data[i].timed.getMinutes()%></td>
+                    <td><%= data[i].timer.getHours()%>:<%= data[i].timer.getMinutes()%></td>
+                    <td><%= data[i].timel.getHours()%>:<%= data[i].timel.getMinutes()%></td>
+                    <td><%= data[i].timet.getHours()%>:<%= data[i].timet.getMinutes()%></td>
                     <td><%= data[i].lid%></td>
                     <td><%= data[i].did%></td>
                     <td><%= data[i].cid%></td>
