@@ -14,30 +14,44 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Welcome <%= data[0].name%></h1>
+    <h1>Your userid is <%= uid%></h1>
+    <h1>Your rid is <%= rid%></h1>
     <table class="table">
-      <tr>
-        <th scope="col">User Id</th>
-        <th scope="col">Username</th>
-      </tr>
-      <tr>
-        <td><%= data[0].uid%></td>
-        <td><%= data[0].username%></td>
-      </tr>
-
+        <thead>
+            <tr>
+                <th scope="col">Category's ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number of max order</th>
+                <th scope="col">Price</th>
+                <th scope="col">Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%= data[i].rid%></td>
+                <td><%= data[i].foodname%></a></td>
+                <td><%= data[i].maxorders%></td>
+                <td><%= data[i].price%></td>
+                <td><%= data[i].availability%></td>
+            </tr>
+            <% } %>
+        </tbody>
     </table>
-    <p>Home Page for Customers</p>
-    <li><a href="/restaurants">View All Restaurants</a></li>
-    <form id="createOrder" action="chooseRestaurant" method="post">
-      <input type="hidden" name="uid" value="<%= data[0].uid%>">
-      <button type="submit" class="btn btn-primary">Create New Order</button>
-    </form>
-    <li>View Order History</li>
+    <form id="html_form" action="chooseFoodItemAndQuantity" role="form" method="post">
+        <div class="form-group">
+            <label for="numOfFoodItem">How many kind of food item would you like?</label>
+            <input type="number" class="form-control" id="num" name="num">
+        </div>
 
+        <input type="hidden" name="uid" value="<%= uid%>">
+        <input type="hidden" name="rid" value="<%= rid%>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     <script>
       (function () {
           window.addEventListener('load', function () {
-              var forms = [document.getElementById('createOrder')];
+              var forms = [document.getElementById('html_form')];
               var validation = Array.prototype.filter.call(forms, function (form) {
                   form.addEventListener('submit', check, false);
               });

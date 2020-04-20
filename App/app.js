@@ -62,7 +62,10 @@ var deleterestaurantRouter = require('./routes/fdsmanager/deleterestaurant');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
-var createOrderRouter = require('./routes/order/createOrder')
+var chooseResturantRouter = require('./routes/order/chooseRestaurant');
+var chooseNumberOfFoodItemRouter = require('./routes/order/chooseNumberOfFoodItem');
+var chooseFoodItemAndQuantityRouter = require('./routes/order/chooseFoodItemAndQuantity');
+var chooseAddressRouter = require('./routes/order/chooseAddress');
 /* ---------------------------- */
 
 
@@ -134,7 +137,10 @@ app.use('/deleterestaurant',deleterestaurantRouter);
 
 app.use('/driverRegister', driverRegisterRouter);
 app.use('/viewSalary', viewSalaryRouter);
-app.use('/createOrder', createOrderRouter);
+app.use('/chooseRestaurant', chooseResturantRouter);
+app.use('/chooseNumberOfFoodItem', chooseNumberOfFoodItemRouter);
+app.use('/chooseFoodItemAndQuantity', chooseFoodItemAndQuantityRouter);
+app.use('/chooseAddress', chooseAddressRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

@@ -7,17 +7,16 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL //we need to edit the .env individually, and put it in .gitignore
 });
 
-router.get('/', function (req, res, next) {
-    res.render('createNewOrder/viewRestaurantList', { title: 'Login as Customer'});
-});
 
-// POST customer login
+
+var viewAllQuery = 'SELECT * FROM Restaurants';
+
 router.post('/', function (req, res, next) {
     // Retrieve Information
     var uid = req.body.uid;
-    
-
-    res.render('createNewOrder/viewRestaurantList', { uid:uid});
+	pool.query(viewAllQuery, (err, data) => {
+		res.render('createNewOrder/chooseRestaurantList', { uid : uid , data: data.rows });
+	});
 });
 
 

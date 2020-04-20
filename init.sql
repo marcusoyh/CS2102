@@ -204,6 +204,7 @@ INSERT INTO RestaurantStaff (uid,rid) VALUES (4,1);
 
 INSERT INTO Category (cid, name) VALUES (1,'Fast Food');
 INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Cheeseburger',5,7,1,true);
+INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Coca-cola',10,2,1,true);
 INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) VALUES (1,'Fried Chicken',3,9,2,true);
 
 INSERT INTO FDSPromotions(fpid,name ,discountAmount ,startDate,endDate) VALUES (1,'Christmas', 10,'2015-12-15', '2016-12-17');
@@ -218,6 +219,8 @@ INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (6
 INSERT INTO Locations (lid,uid,address,date) VALUES (1,1,'Woodlands','2015-12-17');
 INSERT INTO Locations (lid,uid,address,date) VALUES (2,6,'Lentor','2014-10-17');
 
+
+INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (1,'Good service',3,'2015-11-17 9:00:00','cash',true,'2015-11-17 10:00:00', '2015-11-17 10:30:00','2015-11-17 11:00:00',2,3,'2015-11-17 11:30:00',1,2,1,1);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (2,'Too cold',2.2,'2015-11-17 18:00:00','cash',false,'2015-11-17 19:00:00', '2015-11-17 19:40:00','2015-11-17 20:10:00',3,4,'2015-11-17 20:30:00',1,2,5,2);

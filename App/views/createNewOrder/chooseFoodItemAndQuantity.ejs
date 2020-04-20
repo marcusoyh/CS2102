@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<!-- Page Title -->
+    <title>Home Page</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+		
+		<!-- CSS for Styling -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		
+		<!-- JavaScript for Interactivity -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>Your userid is <%= uid%></h1>
+    <h1>Your rid is <%= rid%></h1>
+    <h1>Your num is <%= num%></h1>
+    <forrm>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Category's ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number of max order</th>
+                <th scope="col">Price</th>
+                <th scope="col">Availability</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%= data[i].rid%></td>
+                <td><%= data[i].foodname%></a></td>
+                <td><%= data[i].maxorders%></td>
+                <td><%= data[i].price%></td>
+                <td><%= data[i].availability%></td>
+                <td><input type="number" name="quantity"></td>
+                <td><button type="submit" class="btn btn-primary">Submit</button></td>
+            </tr>
+            <% } %>
+        </tbody>
+        </forrm>
+    </table>
+    <form id="html_form" action="chooseAddress" role="form" method="post">
+        <h1> numOfFoodItem is <%= num%></h1>
+        <% for(var i=0; i< num; i++) { %>
+        <p>Food item <%= i+1%></p>
+        <div class="form-group">
+            <label for="foodName<%= i%>">Enter Food Name</label>
+            <input type="text" class="form-control" id="foodName<%= i%>" name="foodName<%= i%>">
+        </div>
+        <div class="form-group">
+            <label for="quantity<%= i%>">Enter Quantity</label>
+            <input type="text" class="form-control" id="quantity<%= i%>" name="quantity<%= i%>">
+        </div>
+
+        <% if (i == num - 1) {%>
+        <input type="hidden" name="uid" value="<%= uid%>">
+        <input type="hidden" name="rid" value="<%= rid%>">
+        <input type="hidden" name="num" value="<%= num%>">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <% } %>
+        <% } %>
+    </form>
+    <script>
+      (function () {
+          window.addEventListener('load', function () {
+              var forms = [document.getElementById('html_form')];
+              var validation = Array.prototype.filter.call(forms, function (form) {
+                  form.addEventListener('submit', check, false);
+              });
+          }, false);
+      })();
+  </script>
+  </body>
+</html>
