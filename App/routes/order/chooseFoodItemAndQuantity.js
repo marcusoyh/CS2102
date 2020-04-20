@@ -14,16 +14,30 @@ router.post('/', function (req, res, next) {
     // Retrieve Information
     const uid = req.body.uid;
     const rid = req.body.rid;
-    const num = req.body.num;
+    var orders = req.body.orders;
+    if (typeof orders === 'undefined') {
+      orders = [];
+    } else {
+      orders = JSON.parse(orders);
+    }
+    const foodname1 = req.body.foodname;
+    const quantity1 = req.body.quantity;
+    const price = req.body.price;
+    if (typeof foodname1 !== 'undefined') {
+      orders.push({
+        foodname : foodname1 ,
+        quantity : quantity1,
+        price : price
+      });
+    }
 
-    const orders = order[num];
 
 
     pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid], (error, data) => {
       if (error) {
         throw error
       }
-      res.render('createNewOrder/chooseFoodItemAndQuantity', {  data: data.rows, uid : uid, rid : rid , num : num});
+      res.render('createNewOrder/chooseFoodItemAndQuantity', {  data: data.rows, uid : uid, rid : rid, orders : JSON.stringify(orders) });
     })
 });
 

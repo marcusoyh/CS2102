@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-		<!-- Page Title -->
+
+<head>
+    <!-- Page Title -->
     <title>Home Page</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-		
-		<!-- CSS for Styling -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-		
-		<!-- JavaScript for Interactivity -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </head>
-  <body>
+
+    <!-- CSS for Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- JavaScript for Interactivity -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
     <h1>Your userid is <%= uid%></h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Restaurant ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Minimum Delivery Amount</th>
-                <th scope="col">Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for(var i=0; i<data.length; i++) { %>
-            <tr>
-                <td><%= data[i].rid%></td>
-                <td><%= data[i].name%></td>
-                <td><%= data[i].mindeliveryamount%></td>
-                <td><%= data[i].address%></td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
-    <form id="chooseFoodItem" action="chooseNumberOfFoodItem" role="form" method="post">
+
+
+    <form id="chooseFoodItem" action="chooseFoodItemAndQuantity" role="form" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Select</th>
+                    <th scope="col">Restaurant ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Minimum Delivery Amount</th>
+                    <th scope="col">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<data.length; i++) { %>
+                <tr>
+                    <td><input type="radio" class="form-control" id="rid" name="rid" value="<%= data[i].rid%>"></td>
+                    <td><%= data[i].rid%></td>
+                    <td><%= data[i].name%></td>
+                    <td><%= data[i].mindeliveryamount%></td>
+                    <td><%= data[i].address%></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <input type="hidden" name="uid" value="<%= uid%>">
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- <form id="chooseFoodItem" action="chooseNumberOfFoodItem" role="form" method="post">
         <div class="form-group">
             <label for="rid">Enter retaurant Id</label>
             <input type="text" class="form-control" id="rid" name="rid">
@@ -43,16 +61,17 @@
         <input type="hidden" name="uid" value="<%= uid%>">
 
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </form> -->
     <script>
-      (function () {
-          window.addEventListener('load', function () {
-              var forms = [document.getElementById('chooseFoodItem')];
-              var validation = Array.prototype.filter.call(forms, function (form) {
-                  form.addEventListener('submit', check, false);
-              });
-          }, false);
-      })();
-  </script>
-  </body>
+        (function () {
+            window.addEventListener('load', function () {
+                var forms = [document.getElementById('chooseFoodItem')];
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', check, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
 </html>
