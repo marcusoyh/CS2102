@@ -39,8 +39,8 @@ router.post('/', function (req, res, next) {
 
     // var uid;
 
-    // pool.query('SELECT max(uid)+ 1 FROM USERS'), (err, res) => {
-    //     uid = res.rows[0];
+    // pool.query('SELECT max(uid)+ 1 FROM USERS'), (err, data) => {
+    //     uid = data.rows[0].uid;
     //     if (err) {
     //         return console.error('Error executing query', err.stack)
     //     }
@@ -53,7 +53,7 @@ router.post('/', function (req, res, next) {
             return console.error('Error executing query', err.stack)
         }
     });
-    
+
     var today = new Date();
     var date = today.getFullYear() + "-" + +(today.getMonth()+1)+'-'+today.getDate();
     
@@ -83,7 +83,7 @@ router.post('/', function (req, res, next) {
     }
 
     pool.query('SELECT * FROM Users natural join Drivers WHERE uid = $1', [uid] ,(err, data) => {
-		res.render('driver/driverhomepage', { name: name });
+		res.render('driver/driverhomepage', { name: name, uid:uid});
     });
     
     pool.end();
