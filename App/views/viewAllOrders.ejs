@@ -32,7 +32,7 @@
                     <th scope="col">Driver ID</th>
                     <th scope="col">Customer ID</th>
 				</tr>
-			</thead>
+			</thead> 
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
@@ -40,12 +40,12 @@
                     <td><%= data[i].orderreview%></a></td>
 					          <td><%= data[i].deliveryfee%></td>
                     <td><%= data[i].paymentmode%></td>
-                    <td><%= data[i].timeo.getHours()%>:<%= data[i].timeo.getMinutes()%></td>
+                    <td><%= hours[data[i].timeo.getHours()]%>:<%= minutes[data[i].timeo.getMinutes()]%></td>
                     <td><%= data[i].isdelivered%></td>
-                    <td><%= data[i].timed.getHours()%>:<%= data[i].timed.getMinutes()%></td>
-                    <td><%= data[i].timer.getHours()%>:<%= data[i].timer.getMinutes()%></td>
-                    <td><%= data[i].timel.getHours()%>:<%= data[i].timel.getMinutes()%></td>
-                    <td><%= data[i].timet.getHours()%>:<%= data[i].timet.getMinutes()%></td>
+                    <td><%= hours[data[i].timed.getHours()]%>:<%= minutes[data[i].timed.getMinutes()]%></td>
+                    <td><%= hours[data[i].timer.getHours()]%>:<%= minutes[data[i].timer.getMinutes()]%></td>
+                    <td><%= hours[data[i].timel.getHours()]%>:<%= minutes[data[i].timel.getMinutes()]%></td>
+                    <td><%= hours[data[i].timet.getHours()]%>:<%= minutes[data[i].timet.getMinutes()]%></td>
                     <td><%= data[i].lid%></td>
                     <td><%= data[i].did%></td>
                     <td><%= data[i].cid%></td>

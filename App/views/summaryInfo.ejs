@@ -24,35 +24,54 @@
 
 <body>
 	<h1><%= title%></h1>
-	<form id="html_form" action="fdsone" role="form" method="post">
+	<form id="html_form" action="summaryInfo" role="form" method="post">
 		<div class="form-group">
-			<label for="monthToFilter">Filter by Month:</label>
-			<input type="text" step="0.01" class="form-control" id="endDate" name="endDate"
-				placeholder="Enter Month (YYYY-MM-DD)">
+			Choose Month:  
+		   <select name ="month" id ="month">
+			   <option value="1">January</option>
+			   <option value="2">February</option>
+			   <option value="3">March</option>
+			   <option value="4">April</option>
+			   <option value="5">May</option>
+			   <option value="6">June</option>
+			   <option value="7">July</option>
+			   <option value="8">August</option>
+			   <option value="9">September</option>
+			   <option value="10">October</option>
+			   <option value="11">November</option>
+			   <option value="12">December</option>
+			</select>
+		</div>
+		<div class="form-group">
+			Choose Year:  
+		   <select name ="year" id ="year">
+			   <option value="2014">2014</option>
+			   <option value="2015">2015</option>
+			   <option value="2016">2016</option>
+			   <option value="2017">2017</option>
+			   <option value="2018">2018</option>
+			   <option value="2019">2019</option>
+			   <option value="2020">2020</option>
+			</select>
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
+	
+	<script>
+		(function() {
+			window.addEventListener('load', function() {
+				var forms = [document.getElementById('html_form')];
+				var validation = Array.prototype.filter.call(forms, function(form) {
+					form.addEventListener('submit', check, false);
+				});
+			}, false);
+		})();
+	</script>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Month</th>
-				<th scope="col">Total Number of Orders</th>
-				<th scope="col">Total Cost</th>
-				<th scope="col">Number of new Customers</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% for(var i=0; i<data.length; i++) { %>
-			<tr>
-				<td><%= months[data[i].month.getMonth()]%> <%=data[i].month.getFullYear()%></td>
-				<td><%= data[i].totalorders%></td>
-				<td><%= data[i].totalcost%></td>
-				<td><%= data[i].topfive%></td>
-			</tr>
-			<% } %>
-		</tbody>
-	</table>
 </body>
+<!--footer-->
+<div style="margin:0px;padding-top: 30px;">
+<img src="https://bit.ly/2102footer">
+</div>
 
 </html>
