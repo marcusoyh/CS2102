@@ -73,6 +73,7 @@ CREATE TABLE PartTimers (
 CREATE TABLE WWS(
   uid INTEGER,
   wwsid INTEGER,
+  startDate DATE,
   PRIMARY KEY(wwsid),
   FOREIGN KEY (uid) REFERENCES Users
 );
@@ -110,7 +111,7 @@ CREATE TABLE Shifts (
   wwsid INTEGER,
   startTime INTEGER NOT NULL,
   endTime INTEGER NOT NULL,
-  day VARCHAR(20) NOT NULL,
+  day DATE NOT NULL,
   PRIMARY KEY (sid),
   FOREIGN KEY (wwsid) references WWS
 );

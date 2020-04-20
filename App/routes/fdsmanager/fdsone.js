@@ -18,7 +18,6 @@ router.get('/', function (req, res, next) {
 	var getQuery = viewOne + viewTwo + selectQuery;
 	//this coalesce is the way to join two tables on a common column, but overlap instead of inner joining!
 	
-
 	pool.query(getQuery, (err, data) => {
 		res.render('fdsmanager/fdsone', { title: 'Summary One', months: months, data: data.rows });
 	});
