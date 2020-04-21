@@ -77,6 +77,8 @@ var chooseAddressRouter = require('./routes/order/chooseAddress');
 var viewWorkScheduleRouter = require('./routes/driver/viewWorkSchedule');
 var viewshifts2Router = require('./routes/driver/viewShifts');
 var viewDriverSummaryInfoRouter = require('./routes/driver/viewDriverSummaryInfo');
+var manageOrdersAssignedRouter = require('./routes/driver/manageOrdersAssigned');
+var deliverOrderRouter = require('./routes/driver/deliverOrder');
 /* ---------------------------- */
 
 
@@ -163,6 +165,8 @@ app.use('/chooseFoodItemAndQuantity', chooseFoodItemAndQuantityRouter);
 app.use('/chooseAddress', chooseAddressRouter);
 app.use('/viewShifts2', viewshifts2Router);
 app.use('/viewDriverSummaryInfo', viewDriverSummaryInfoRouter);
+app.use('/manageOrdersAssigned', manageOrdersAssignedRouter);
+app.use('/deliverOrder', deliverOrderRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

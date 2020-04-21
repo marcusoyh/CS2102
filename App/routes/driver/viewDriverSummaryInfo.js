@@ -11,9 +11,9 @@ const pool = new Pool({
 // number of orders delivered this week/month
 router.get('/:uid', function (req, res, next) {
     const uid = req.params.uid;
-    var query = "";
-	pool.query("Select * from Shifts natural join WWS where uid = $1", [uid], (err, data) => {
-		res.render('driver/viewShifts', {title: 'Shifts for the week', data: data.rows, uid:uid});
+    var this_query = "with shiftswws as (select * from shifts natural join wws where uid = $1) select distinct startdate, starttime, endtime, day, extract(month from day) as month, uid from shiftswws join orders on uid = did;";
+	pool.query(this_query, [uid], (err, data) => {
+		res.render('driver/viewDriverSummaryInfo', {title: 'Summary Info', data: data.rows, uid:uid});
 	});
 });
 

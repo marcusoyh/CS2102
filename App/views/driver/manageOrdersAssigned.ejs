@@ -3,7 +3,7 @@
 
 <head>
 	<!-- Page Title -->
-	<title>View Driver Summary Info</title>
+	<title>Manage Orders Assigned</title>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 
 	<!-- CSS for Styling -->
@@ -23,35 +23,36 @@
 </head>
 
 <body>
-    <h1><%= title%></h1>
-    <p id = "date" style = "font-weight:bold"></p>
-    <%var totalhours = 0 %>
-    <%for (var i = 0; i < data.length; i++) {%> 
-        <%totalhours += ((data[i].endtime - data[i].starttime)/100)%>
-    <%}%>
-    <p>Total hours worked since joining: <%= totalhours%></p>
-
-    <%var today = new Date() %>
-    <%var tdyMth = today.getMonth()+1 %>
-    <%var numOrders = 0 %>
-    <%for (var j = 0; j < data.length; j++) {%> 
-        <% if (data[j].month = tdyMth) {%>
-            <%numOrders++%>
-        <%}%>
-    <%}%>
-    <p>Number of Orders Delivered this month: <%=numOrders%></p>
+	<h1><%= title%></h1>
+    <table class="table">
+		<thead>
+			<tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Customer's Address</th>
+                <th scope="col">Time Ordered</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<data.length; i++) { %>
+			<tr>
+                <td><%= data[i].oid%></td>
+                <td><%= data[i].address%></td>
+                <% var mins = 0 %>
+                <% if (data[i].minutes == "0") {%>
+                    <% mins = "00"%>
+                <%} else {%>
+                    <% mins = data[i].minutes%>
+                <%}%>
+                <td><%= data[i].hours%> : <%=mins%></td>
+                <td><a href="/deliverOrder/<%= data[i].oid%>">Deliver Order</a></td>
+			</tr>
+			<% } %>
+		</tbody>
+    </table>
     <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button>
 </body>
 
 <script>
-
-var today =  new Date();
-    y = today.getFullYear();
-    d = today.getDate();
-    var months    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    var thisMonth = months[today.getMonth()]; //
-    document.getElementById("date").innerHTML = "Today's date is: " + d + " " + thisMonth + ", " + y;
-
     function goBack() {
         window.history.back();
     }
