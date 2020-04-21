@@ -23,8 +23,9 @@
 </head>
 
 <body>
-	<form id="addshift" action="addshift" method="post">
-		<input type="hidden" name="date" value="<%= date%>">
+	<form id="addshift" action="viewshifts" method="post">
+		<input type="hidden" name="date" value="<%= date%>"> 
+		<!-- small problem here because when viewing all shifts, title is passed over instead -->
 		<button type="submit" class="btn btn-primary">Create New Shift</button>
 	</form>
 	<!-- this shouldnt direct to my addshift page, it should direct to some other place that can take in 

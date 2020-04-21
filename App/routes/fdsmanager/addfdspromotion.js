@@ -35,11 +35,12 @@ router.post('/', function (req, res, next) {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
+        res.redirect('./fdspromotionmanagement');
     });
 
-    pool.query('SELECT * FROM FDSPromotions', (err, data) => {
-        res.render('fdsmanager/fdspromotionmanagement', { title: 'All FDS Promotions', data: data.rows });
-    });
+    // pool.query('SELECT * FROM FDSPromotions', (err, data) => {
+    //     res.render('fdsmanager/fdspromotionmanagement', { title: 'All FDS Promotions', data: data.rows });
+    // });
 
 });
 

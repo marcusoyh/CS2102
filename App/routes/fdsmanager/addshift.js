@@ -25,8 +25,6 @@ router.post('/', function(req, res, next) {
     
 
     var insertwwsidquery = 'INSERT INTO WWS VALUES';
-    //var wwsidquery = 'INSERT INTO WWS VALUES (2,2)';
-    
     var wwsidquery = insertwwsidquery + " ('" + uid + "','" + wwsid+ "','" + date + "')";
     pool.query(wwsidquery, (err, data) => {
         if (err) {
