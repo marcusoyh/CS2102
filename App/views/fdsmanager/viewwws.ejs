@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <form id="addshift" action="addshift" method="post">
+    <form id="addshift" action="wwsdetail" method="post">
         <input type="hidden" name="date" value="<%= date%>">
         <button type="submit" class="btn btn-primary">Create New Shift</button>
     </form>
@@ -50,10 +50,19 @@ the form, so that user doesnt have to input the date and can just directly use t
                 <% var month = parseInt(data[i].startdate.getMonth()) + 1 %>
                 <% var date = data[i].startdate.getDate() %>
                 <% var dateString = year + "-" + month + "-" + date %>
-                <td><li><a href="/viewwws/<%=dateString%>"><%= data[i].startdate.getDate()%>
-                <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
+                <!-- <td><li><a href="/viewwws/<%=dateString%>"><%= data[i].startdate.getDate()%>-->
+                <td>
+                    <li><a href="/wwsdetail/<%=dateString%>"><%= data[i].startdate.getDate()%>
+                            <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
                 </td>
                 <td><%= data[i].num%></td>
+                <td>
+                    <form id="addshift" action="wwsdetail" method="post">
+                        <input type="hidden" name="date" value="<%= dateString%>">
+                        <!-- small problem here because when viewing all shifts, title is passed over instead -->
+                        <button type="submit" class="btn btn-primary">Create New Shift</button>
+                    </form>
+                </td>
             </tr>
             <% } %>
         </tbody>

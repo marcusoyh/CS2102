@@ -25,7 +25,7 @@ router.get('/:date', function (req, res, next) {
 
 //my post method here that takes in date from WWS side, and brings user to 
 //the addshifts side, and we continue passing the date along
-router.post('/:', function (req, res, next) {
+router.post('/', function (req, res, next) {
 	const date = req.body.date;
 	res.render('fdsmanager/addshift', { date : date, title: 'Adding a Shift' });
 });
