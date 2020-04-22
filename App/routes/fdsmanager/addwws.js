@@ -36,11 +36,7 @@ router.post('/', function (req, res, next) {
         }
     });
 
-
-
     var userQuery = 'INSERT INTO WWS VALUES';
-    
-
 
     pool.query('Select * from drivers', (err, driverdata) => {
         if (err) {
@@ -61,12 +57,14 @@ router.post('/', function (req, res, next) {
             // console.log(driverIds[i]);
             // console.log('Driver id inside loop is' + id);
         }
-
-        
-
-        
     });
-    res.redirect('/shiftmanagement');
+    pool.query('Select * from Users natural join Drivers natural join wws where startdate = $1', [startdate], (err, data) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+        res.render('fdsmanager/createshifts', {date: startdate, data: data.rows});
+    });
+    
 
 });
 
