@@ -24,21 +24,22 @@ router.get('/:date', function (req, res, next) {
     });
 });
 
-// POST method to generate shifts for a CERTAIN WEEK
+// POST method to create shifts for a day within some selected week
 router.post('/', function (req, res, next) {
     // Retrieve Information
-    var dateString = req.body.date;
+    var dateString = req.body.date; //the first day of that week
+    res.render("fdsmanager/addshift", { title: 'Adding a Shift to Week of ', firstdayofweek: dateString })
     //date.isValid() is a method that returns true/false, can validate whether legit date was entered
 
-    pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [dateString], (err, data) => {
-        // here you set that all templates are located in `/views` directory
-        // app.set('fdsmanager', __dirname + '/fdsmanager');
-        // app.set('view engine', 'ejs');
+    // pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [dateString], (err, data) => {
+    //     here you set that all templates are located in `/views` directory
+    //     app.set('fdsmanager', __dirname + '/fdsmanager');
+    //     app.set('view engine', 'ejs');
 
-        // res.render("fdsmanager/wwsdetail", { title: 'Shifts on ', data: data.rows, date: dateString })
+    //     res.render("fdsmanager/wwsdetail", { title: 'Shifts on ', data: data.rows, date: dateString })
 
-        res.render("fdsmanager/addshift", { title: 'Shifts on ', data: data.rows, firstdayofweek: dateString })
-    });
+    //     res.render("fdsmanager/addshift", { title: 'Shifts on ', data: data.rows, firstdayofweek: dateString })
+    // });
 
 });
 

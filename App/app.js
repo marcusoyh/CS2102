@@ -158,7 +158,7 @@ app.use('/addrestaurantstaff',addrestaurantstaffRouter);
 app.use('/shiftmanagement',shiftmanagementRouter)
 app.use('/addshift',addshiftRouter)
 app.use('/deleterestaurantstaff',deleterestaurantstaffRouter)
-app.use('/viewshifts',viewshiftsRouter)
+ app.use('/viewshifts',viewshiftsRouter)
 app.use('/deletepromotion',deletepromotionRouter)
 app.use('/addwws',addwwsRouter)
 app.use('/viewwws',viewwwsRouter)

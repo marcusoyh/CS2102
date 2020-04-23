@@ -10,11 +10,7 @@ const pool = new Pool({
 /* GET method to generate ALL shifts */
 router.get('/', function (req, res, next) {
 	pool.query('Select * from Shifts natural join WWS', (err, data) => {
-<<<<<<< HEAD
 		res.render('fdsmanager/viewshifts', {title: 'All Shifts', data: data.rows, date: ' '});
-=======
-		res.render('fdsmanager/viewshifts', {date: 'All Shifts', data: data.rows});
->>>>>>> 8ff232b164a9232acaaf11feaf9593d5eddcefd5
 	});
 });
 
@@ -27,7 +23,6 @@ router.get('/:date', function (req, res, next) {
 	});
 });
 
-<<<<<<< HEAD
 //my post method here that takes in date that the guy wants to manage shifts,
 //returns a viewShfits with shifts on that date
 router.post('/', function (req, res, next) {
@@ -37,13 +32,6 @@ router.post('/', function (req, res, next) {
 		res.render('fdsmanager/viewshifts', { date : date,  data: data.rows, title: 'Shifts on' });
 	});
 	//res.render('fdsmanager/viewshifts', { date : date, title: 'Shifts on ' });
-=======
-//my post method here that takes in date from WWS side, and brings user to 
-//the addshifts side, and we continue passing the date along
-router.post('/', function (req, res, next) {
-	const date = req.body.date;
-	res.render('fdsmanager/addshift', { date : date, title: 'Adding a Shift' });
->>>>>>> 8ff232b164a9232acaaf11feaf9593d5eddcefd5
 });
 
 
