@@ -17,10 +17,10 @@ router.get('/', function (req, res, next) {
 
 /* GET method to generate shift of specific date */
 router.get('/:date', function (req, res, next) {
-    const date = req.params.date;
+    const firstdayofweek = req.params.date;
 
-    pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [date], (err, data) => {
-        res.render('fdsmanager/wwsdetail', { date: date, data: data.rows });
+    pool.query('Select * from Shifts natural join WWS natural join Users where firstdayofweek = $1 order by day, starttime', [firstdayofweek], (err, data) => {
+        res.render('fdsmanager/wwsdetail', { firstdayofweek: firstdayofweek, data: data.rows });
     });
 });
 
@@ -37,7 +37,7 @@ router.post('/', function (req, res, next) {
 
         // res.render("fdsmanager/wwsdetail", { title: 'Shifts on ', data: data.rows, date: dateString })
 
-        res.render("fdsmanager/addshift", { title: 'Shifts on ', data: data.rows, date: dateString })
+        res.render("fdsmanager/addshift", { title: 'Shifts on ', data: data.rows, firstdayofweek: dateString })
     });
 
 });
