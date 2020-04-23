@@ -25,21 +25,21 @@
 <body>
     <h1>Shift Management Page</h1>
     <li><a href="/addshift">Create a new Shift</a></li>
+    <h5>Dont create shifts from here, go into viewing all WWS then create by week</h5>
     <li><a href="/addwws">Generate a new WWS</a></li>
     <li><a href="/viewwws">View all WWS</a></li>
     
     <form id="html_form" action="viewshifts" role="form" method="post">
         <div class="form-group">
-            <label for="date">Date</label>
+            <label for="date">Enter Date to view shifts on that day</label>
             <input type="text" class="form-control" id="date" name="date" aria-describedby="userIdHelp" 
-                placeholder="Enter Date to manage shifts">
+                placeholder="Enter Date">
             <small id="matricHelp" class="form-text text-muted"></small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-
-    <h2>All Shifts created</h2>
+    <!-- <h2>All Shifts created</h2>
     <table class="table">
 		<thead>
 			<tr>
@@ -61,7 +61,7 @@
 			</tr>
 			<% } %>
 		</tbody>
-	</table>
+	</table> -->
 </body>
 
 </html>

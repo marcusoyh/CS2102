@@ -10,7 +10,7 @@ const pool = new Pool({
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 /* GET method to generate ALL schedules */
 router.get('/', function (req, res, next) {
-    pool.query('Select startdate, count(*) as num from WWS natural join Users group by startdate order by startdate', (err, data) => {
+    pool.query('Select startdate, count(*) as num from WWS natural join Users group by startdate order by startdate desc', (err, data) => {
         res.render('fdsmanager/viewwws', { date: 'All Weekly Schedules Created', data: data.rows, months: months });
     });
 });

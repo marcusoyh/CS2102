@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-/* GET method to generate shift of specific date */
+/* GET method to generate shift of a CERTAIN WEEK */
 router.get('/:date', function (req, res, next) {
     const firstdayofweek = req.params.date;
 
@@ -24,7 +24,7 @@ router.get('/:date', function (req, res, next) {
     });
 });
 
-// POST method to generate shifts for specific date
+// POST method to generate shifts for a CERTAIN WEEK
 router.post('/', function (req, res, next) {
     // Retrieve Information
     var dateString = req.body.date;

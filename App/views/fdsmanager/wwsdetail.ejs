@@ -23,11 +23,10 @@
 </head>
 
 <body>
-	<form id="addshift" action="wwsdetail" method="post">
+	<!-- <form id="addshift" action="wwsdetail" method="post">
 		<input type="hidden" name="date" value="<%= firstdayofweek%>">
-		<!-- small problem here because when viewing all shifts, title is passed over instead -->
 		<button type="submit" class="btn btn-primary">Create New Shift</button>
-	</form>
+	</form> -->
 	<!-- this shouldnt direct to my addshift page, it should direct to some other place that can take in 
 	this button value through POST METHOD.
 or maybe we pass to addShift's post method and update it there? 
@@ -60,6 +59,9 @@ the form, so that user doesnt have to input the date and can just directly use t
 			<% } %>
 		</tbody>
 	</table>
+
+	<li><a href="/viewwws">Back to All Weekly Schedules</a></li>
+	<li><a href="/shiftmanagement">Back to Shift Management Homepage</a></li>
 </body>
 
 </html>
