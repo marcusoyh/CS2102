@@ -97,11 +97,12 @@ CREATE TABLE FDSPromotions(
 
 CREATE TABLE RestaurantPromotions(
   rpid INTEGER,
-  name VARCHAR(20) NOT NULL,
+  rid INTEGER not null,
+  name VARCHAR(100) NOT NULL,
   discountAmount REAL NOT NULL,
   startDate DATE NOT NULL,
   endDate DATE NOT NULL,
-  rid INTEGER references Restaurants not null,
+  FOREIGN KEY (rid) references Restaurants,
   PRIMARY KEY (rpid) 
 );
 
@@ -209,6 +210,8 @@ INSERT INTO RestaurantFoodItems (cid,foodName,maxOrders,price,rid,availability) 
 
 INSERT INTO FDSPromotions(fpid,name ,discountAmount ,startDate,endDate) VALUES (1,'Christmas', 10,'2015-12-15', '2016-12-17');
 INSERT INTO FDSPromotions(fpid,name ,discountAmount ,startDate,endDate) VALUES (2,'CNY', 20,'2016-10-12', '2016-12-17');
+INSERT INTO RestaurantPromotions(rpid,rid,name,discountAmount,startDate,endDate) VALUES (1,1, 'COVID SALES', 10,'2014-11-14','2014-12-30');
+INSERT INTO RestaurantPromotions(rpid,rid,name,discountAmount,startDate,endDate) VALUES(2,1, 'Store Wide Sales', 30, '2015-12-10', '2015-12-17');
 
 INSERT INTO Users (uid, name, password,username) VALUES (5, 'lebron','password','lebron');
 INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (5,'2020-03-14','1122334455667788', '2022-12-17',61);
@@ -222,8 +225,8 @@ INSERT INTO Locations (lid,uid,address,date) VALUES (2,6,'Lentor','2014-10-17');
 
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (1,'Good service',3,'2015-11-17 9:00:00','cash',true,'2015-11-17 10:00:00', '2015-11-17 10:30:00','2015-11-17 11:00:00',2,3,'2015-11-17 11:30:00',32,1,2,1,1);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (2,'Too cold',2.2,'2015-11-17 18:00:00','cash',false,'2015-11-17 19:00:00', '2015-11-17 19:40:00','2015-11-17 20:10:00',3,4,'2015-11-17 20:30:00',15,1,2,5,1);
-INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (3,'Not bad',2,'2014-12-17 12:00:00','cash',false,'2014-12-17 13:00:00', '2014-12-17 13:30:00','2014-12-17 13:40:00',2,3,'2014-12-17 14:10:00',20,1,2,6,1);
-INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (4,'Slow delivery',2.2,'2015-11-17 12:40:00','cash',false,'2015-12-17 13:40:00', '2015-12-17 14:00:00','2015-12-17 15:00:00',3,5,'2015-12-17 15:30:00',25,1,2,6,1);
+INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (3,'Not bad',2,'2014-12-17 12:00:00','cash',false,'2014-12-17 13:00:00', '2014-12-17 13:30:00','2014-12-17 13:40:00',2,3,'2014-12-17 14:10:00',20,1,2,6,1);
+INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (4,'Slow delivery',2.2,'2015-11-17 12:40:00','cash',false,'2015-12-17 13:40:00', '2015-12-17 14:00:00','2015-12-17 15:00:00',3,5,'2015-12-17 15:30:00',25,1,2,6,1);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (5,'Acceptable',2.2,'2015-12-17 13:20:00','cash',false,'2015-12-17 13:40:00', '2015-12-17 14:00:00','2015-12-17 15:00:00',3,5,'2015-12-17 15:30:00',2,2,1,2);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (6,'Decent',2.2,'2015-12-31 13:05:10','cash',false,'2015-12-31 13:40:00', '2015-12-31 14:00:00','2015-12-31 15:00:00',2,5,'2015-12-31 15:30:00',2,2,5,2);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,lid,did,cid,rid) VALUES (7,'Alright',2.2,'2020-04-30 11:50:00','cash',false,'2020-04-30 13:40:00', '2020-04-30 14:00:00','2020-04-30 15:00:00',2,5,'2020-04-30 15:30:00',2,2,1,2);

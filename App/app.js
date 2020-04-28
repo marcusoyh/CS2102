@@ -51,6 +51,8 @@ var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
 var viewFoodItemsRouter = require('./routes/viewFoodItems');
 var viewAllOrdersRouter = require('./routes/viewAllOrders');
 var deleteRestaurantFoodItemRouter = require('./routes/deleteRestaurantFoodItem');
+var addRestaurantPromotionRouter = require('./routes/addRestaurantPromotion');
+var viewRestaurantPromotionsRouter = require('./routes/viewRestaurantPromotions');
 var summaryInfoRouter = require('./routes/summaryInfo');
 var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 var fdsoneRouter = require('./routes/fdsmanager/fdsone');
@@ -132,7 +134,8 @@ app.use('/fdspromotionmanagement',fdspromotionmanagementRouter);
 app.use('/restaurantmanagement',restaurantmanagementRouter);
 app.use('/addrestaurant',addrestaurantRouter);
 app.use('/deleterestaurant',deleterestaurantRouter);
-
+app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
+app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);
 app.use('/driverRegister', driverRegisterRouter);
 app.use('/viewSalary', viewSalaryRouter)
 /* ---------------------------- */
