@@ -9,7 +9,7 @@ const pool = new Pool({
 
 router.get('/:id', function(req, res, next) {
 	const id = req.params.id;
-	pool.query('SELECT * FROM RestaurantPromotions WHERE rid = $1', [id] ,(err, data) => {
+	pool.query('SELECT * FROM RestaurantPromotions WHERE rid = $1 ORDER BY rpid', [id] ,(err, data) => {
 		res.render('viewRestaurantPromotions', { title: 'All Restaurant Promotions', data: data.rows });
 	});
 });

@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>CS2102 Database Connect</title>
+    <title>RS: Delete Restaurant Promotion</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -15,10 +15,10 @@
   </head>
   <body>
     <h1><%= title%></h1>
-    <form id="html_form" action="deleteRestaurantFoodItem" role="form" method="post">
+    <form id="html_form" action="deleteRestaurantPromotion" role="form" method="post">
         <div class="form-group">
-            <label for="foodName">Food Item Name:</label>
-            <input type="text" class="form-control" id="foodName" name="foodName" placeholder="Enter the food name">
+            <label for="rpid">Restaurant Promotion's ID:</label>
+            <input type="text" class="form-control" id="rpid" name="rpid" placeholder="Enter the promotion's ID">
         </div>
         <div class="form-group">
             From which Restaurant:  
@@ -33,21 +33,21 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">Category's ID</th>
+					<th scope="col">Restaurant Promotion ID</th>
 					<th scope="col">Name</th>
-					<th scope="col">Number of max order</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Availability</th>
+					<th scope="col">Discount Amount</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
-                    <td><%= data[i].rid%></td>
-                    <td><%= data[i].foodname%></a></td>
-					<td><%= data[i].maxorders%></td>
-                    <td><%= data[i].price%></td>
-                    <td><%= data[i].availability%></td>
+                    <td><%= data[i].rpid%></td>
+                    <td><%= data[i].name%></a></td>
+					<td><%= data[i].discountamount%></td>
+                    <td><%= data[i].startdate%></td>
+                    <td><%= data[i].enddate%></td>
 				</tr>
 				<% } %>
 			</tbody>
