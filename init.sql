@@ -70,21 +70,21 @@ CREATE TABLE PartTimers (
   FOREIGN KEY (uid) REFERENCES Users
 );
 
+CREATE TABLE MWS(
+  uid INTEGER,
+  mwsid INTEGER not null,
+  PRIMARY KEY (mwsid),
+  FOREIGN KEY (uid) REFERENCES Users
+);
+
 CREATE TABLE WWS(
   uid INTEGER,
   wwsid INTEGER,
   startDate DATE,
+  mwsid INTEGER,
   PRIMARY KEY(wwsid),
-  FOREIGN KEY (uid) REFERENCES Users
-);
-
-CREATE TABLE MWS(
-  uid INTEGER,
-  mwsid INTEGER not null,
-  wwsid INTEGER not null,
-  PRIMARY KEY (mwsid),
-  foreign key (wwsid) references WWS,
-  FOREIGN KEY (uid) REFERENCES Users
+  FOREIGN KEY (uid) REFERENCES Users,
+  FOREIGN KEY (mwsid) REFERENCES MWS
 );
 
 CREATE TABLE FDSPromotions(
@@ -95,6 +95,7 @@ CREATE TABLE FDSPromotions(
   endDate DATE NOT NULL,
   PRIMARY KEY (fpid)
 );
+
 
 CREATE TABLE RestaurantPromotions(
   rpid INTEGER,
@@ -209,14 +210,13 @@ INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES 
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (4, 1, 1400, 1600, '2020-04-09', '2020-04-06');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (5, 1, 1500, 1900, '2020-04-10', '2020-04-06');
 
-INSERT INTO WWS (uid, wwsid, startDate) VALUES (7, 2, '2020-04-06');
+INSERT INTO MWS (uid, mwsid) VALUES (7, 1);
+INSERT INTO WWS (uid, wwsid, startDate, mwsid) VALUES (7, 2, '2020-04-06', 1);
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (6, 2, 1200, 1600, '2020-04-06', '2020-04-06');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (7, 2, 1800, 2200, '2020-04-06', '2020-04-06');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (8, 2, 1000, 1300, '2020-04-08', '2020-04-06');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day ,firstDayOfWeek) VALUES (9, 2, 1700, 1900, '2020-04-09', '2020-04-06');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (10, 2, 1500, 1900, '2020-04-10', '2020-04-06');
-
-INSERT INTO MWS (uid, mwsid, wwsid) VALUES (7, 1, 2);
 
 INSERT INTO Users (uid, name, password,username) VALUES (3, 'Marcus', 'password','Marcus');
 INSERT INTO FDSManagers (uid) VALUES (3);

@@ -74,6 +74,8 @@ var deletepromotionRouter = require('./routes/fdsmanager/deletepromotion');
 var addwwsRouter = require('./routes/fdsmanager/addwws');
 var viewwwsRouter = require('./routes/fdsmanager/viewwws');
 var wwsdetailRouter = require('./routes/fdsmanager/wwsdetail');
+var adddriverwwsRouter = require('./routes/fdsmanager/adddriverwws');
+var fillftwwsRouter = require('./routes/fdsmanager/fillftwws');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
@@ -167,6 +169,8 @@ app.use('/deletepromotion',deletepromotionRouter)
 app.use('/addwws',addwwsRouter)
 app.use('/viewwws',viewwwsRouter)
 app.use('/wwsdetail',wwsdetailRouter)
+app.use('/adddriverwws',adddriverwwsRouter)
+app.use('/fillftwws',fillftwwsRouter)
 
 app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
 app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);
