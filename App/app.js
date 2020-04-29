@@ -86,6 +86,11 @@ var viewshifts2Router = require('./routes/driver/viewShifts');
 var viewDriverSummaryInfoRouter = require('./routes/driver/viewDriverSummaryInfo');
 var manageOrdersAssignedRouter = require('./routes/driver/manageOrdersAssigned');
 var deliverOrderRouter = require('./routes/driver/deliverOrder');
+var chooseDateRouter = require('./routes/order/chooseDate');
+var chooseDiscountRouter = require('./routes/order/chooseDiscount');
+var discountedRouter = require('./routes/order/discounted');
+var orderSummaryRouter = require('./routes/order/orderSummary');
+var confirmOrderRouter = require('./routes/order/confirmOrder');
 /* ---------------------------- */
 
 
@@ -181,6 +186,11 @@ app.use('/viewShifts2', viewshifts2Router);
 app.use('/viewDriverSummaryInfo', viewDriverSummaryInfoRouter);
 app.use('/manageOrdersAssigned', manageOrdersAssignedRouter);
 app.use('/deliverOrder', deliverOrderRouter);
+app.use('/chooseDate', chooseDateRouter);
+app.use('/chooseDiscount', chooseDiscountRouter);
+app.use('/discounted', discountedRouter);
+app.use('/orderSummary', orderSummaryRouter);
+app.use('/confirmOrder', confirmOrderRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
