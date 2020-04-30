@@ -59,8 +59,9 @@ router.post('/:id', function(req, res, next) {
 			top5 += data[i] + ", ";
 		  
 		}
+		myList.push(top5);
 	});
-	myList.push(top5);
+	
 
 	res.render('summaryInfo2', { title: 'View Summary Information', months: months, data: myList });
 });

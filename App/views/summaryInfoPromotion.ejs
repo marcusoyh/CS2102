@@ -30,8 +30,10 @@
                 <th scope="col">Name of Promotion</th>
                 <th scope="col">ID</th>
                 <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>                
-				
+                <th scope="col">End Date</th>
+                <th scope="col">Duration of Promotion (in days)</th>               
+                <th scope="col">Number Orders with Promotion</th>  
+                <th scope="col">Average Number of orders</th>  
 			</tr>
 		</thead>
 		<tbody>
@@ -42,10 +44,14 @@
                 <td><%= data[i].startdate%></td>
                 <td><%= data[i].enddate%></td>
                 <td><%= Math.floor(data[i].enddate - data[i].startdate)/1000/60/60/24 %></td>
+                <td><%= data[i].numordered%></td>
+                <td><%= data[i].numordered/Math.floor(data[i].enddate - data[i].startdate)/1000/60/60/24 %></td>
             </tr>
             <% } %>
 		</tbody>
-	</table>
+    </table>
 </body>
-
+<footer>
+    <img src="https://bit.ly/2102footerV10">
+</footer>
 </html>
