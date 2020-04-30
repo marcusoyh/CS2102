@@ -54,6 +54,7 @@ var deleteRestaurantFoodItemRouter = require('./routes/deleteRestaurantFoodItem'
 var addRestaurantPromotionRouter = require('./routes/addRestaurantPromotion');
 var viewRestaurantPromotionsRouter = require('./routes/viewRestaurantPromotions');
 var deleteRestaurantPromotionRouter = require('./routes/deleteRestaurantPromotion');
+var summaryInfoPromotionRouter = require('./routes/summaryInfoPromotion');
 var summaryInfoRouter = require('./routes/summaryInfo');
 var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 var fdsoneRouter = require('./routes/fdsmanager/fdsone');
@@ -127,6 +128,7 @@ app.use('/viewAllOrders', viewAllOrdersRouter);
 app.use('/deleteRestaurantFoodItem', deleteRestaurantFoodItemRouter);
 app.use('/summaryInfo',summaryInfoRouter);
 app.use('/deleteRestaurantPromotion',deleteRestaurantPromotionRouter);
+app.use('/summaryInfoPromotion',summaryInfoPromotionRouter);
 app.use('/addfdspromotion', addfdspromotionRouter);
 app.use('/unassignedorders', unassignedOrdersRouter);
 app.use('/fdsone',fdsoneRouter);
