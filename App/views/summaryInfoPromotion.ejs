@@ -20,13 +20,6 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
-    <script>
-        var days = function(timestamp1, timestamp2) {
-        var difference = timestamp1 - timestamp2;
-        var daysDifference = Math.floor(difference/1000/60/60/24);
-        return daysDifference;
-        }
-    </script>
 </head>
 
 <body>
@@ -48,7 +41,7 @@
                 <td><%= data[i].rpid%></td>
                 <td><%= data[i].startdate%></td>
                 <td><%= data[i].enddate%></td>
-                <td><%= days(data[i].startdate,data[i].enddate)%></td>
+                <td><%= Math.floor(data[i].enddate - data[i].startdate)/1000/60/60/24 %></td>
             </tr>
             <% } %>
 		</tbody>
