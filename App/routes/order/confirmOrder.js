@@ -21,8 +21,9 @@ router.post('/', function (req, res, next) {
     const lid = req.body.lid;
     const totalPrice = req.body.totalPrice;
     var count;
-    
-    pool.query('Select count(*) AS "count" from Orders', (err, data) => {	
+    // var orderQuery = 'WITH TotalOrder TO AS ( SELECT count(*) AS "count" from Orders) INSERT INTO Orders (oid, lid, cid, rid) VALUES( TO.count + 1,' + lid + ',' + uid + ',' + rid + ')';  
+
+    pool.query('Select count(*) AS "count" from Orders', (err, data) => {
         console.log(data.rows);
         console.log(data.rows[0].count);
         count = Number(data.rows[0].count) + 1;
@@ -32,21 +33,32 @@ router.post('/', function (req, res, next) {
         console.log(lid);
         console.log(rid);
         console.log(uid);
+        console.log("order length" + orders.length);
     });
     var datesplit = orderDate.split('T');
-    if (datesplit[1].charAt(0) === "0") {
-        datesplit[1] = datesplit[1].substring(1);
-    }
     orderDate = datesplit[0] + " " + datesplit[1] + ":00"
-    var orderQuery = 'INSERT INTO Orders (oid,timeOrdered,paymentMode,isDelivered,totalprice,lid,cid,rid) VALUES '; 
-    var orderInput = orderQuery + "(" + count + ",'" + orderDate + "', 'cash' ,false," + totalPrice + ',' + lid + ',' + uid + ',' + rid + ')';
-    pool.query(orderInput, (err, data) => {
+    var orderQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO Orders (oid,deliveryFee,timeOrdered,paymentMode,isDelivered,totalprice,lid,cid,rid) VALUES('
+    var orderQuery1 = orderQuery + "(SELECT count from TotalOrder) + 1,3,'" + orderDate + "', 'cash', false," + totalPrice + "," + lid + "," + uid + "," + rid + ")";  
+    pool.query(orderQuery1, (err, data) => {
         if (err) {
             throw err
         }
-    }); 
+    });
+    console.log("out of loop");
+    console.log(orders.length);
+    for (let index = 0; index < orders.length; index++) {
+        console.log("came here");
+        var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFoodItems VALUES ('
+        var orderContainsQuery1 = orderContainsQuery + "(SELECT count from TotalOrder), " + rid + ",'" + orders[index].foodname + "'," + orders[index].quantity + ")";
+        pool.query(orderContainsQuery1, (err, data) => {
+            if (err) {
+                throw err
+            }
+        });
+    }
+    var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO '
     res.render('createNewOrder/done', {});
-    
+
 });
 
 
