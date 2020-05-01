@@ -43,9 +43,7 @@ var restaurantRouter = require('./routes/restaurants');
 var loginRestaurantStaffRouter = require('./routes/login/loginrestaurantstaff');
 var loginFDSManagerRouter = require('./routes/login/loginfdsmanager');
 var loginDriverRouter = require('./routes/login/logindriver');
-var fdspromotionsRouter = require('./routes/fdsmanager/fdspromotions');
 var ordersRouter = require('./routes/orders');
-var addfdspromotionRouter = require('./routes/fdsmanager/addfdspromotion');
 
 var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
 var viewFoodItemsRouter = require('./routes/viewFoodItems');
@@ -56,26 +54,36 @@ var viewRestaurantPromotionsRouter = require('./routes/viewRestaurantPromotions'
 var deleteRestaurantPromotionRouter = require('./routes/deleteRestaurantPromotion');
 var summaryInfoRouter = require('./routes/summaryInfo');
 var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
-var fdsoneRouter = require('./routes/fdsmanager/fdsone');
-var fdstwoRouter = require('./routes/fdsmanager/fdstwo');
-var fdsthreeRouter = require('./routes/fdsmanager/fdsthree');
-var fdspromotionmanagementRouter = require('./routes/fdsmanager/fdspromotionmanagement');
-var restaurantmanagementRouter = require('./routes/fdsmanager/restaurantmanagement');
-var addrestaurantRouter = require('./routes/fdsmanager/addrestaurant');
-var deleterestaurantRouter = require('./routes/fdsmanager/deleterestaurant');
-var restaurantstaffmanagementRouter = require('./routes/fdsmanager/restaurantstaffmanagement');
-var viewallrestaurantstaffRouter = require('./routes/fdsmanager/viewallrestaurantstaff');
-var addrestaurantstaffRouter = require('./routes/fdsmanager/addrestaurantstaff');
-var shiftmanagementRouter = require('./routes/fdsmanager/shiftmanagement');
-var addshiftRouter = require('./routes/fdsmanager/addshift');
-var deleterestaurantstaffRouter = require('./routes/fdsmanager/deleterestaurantstaff');
-var viewshiftsRouter = require('./routes/fdsmanager/viewshifts');
-var deletepromotionRouter = require('./routes/fdsmanager/deletepromotion');
-var addwwsRouter = require('./routes/fdsmanager/addwws');
-var viewwwsRouter = require('./routes/fdsmanager/viewwws');
-var wwsdetailRouter = require('./routes/fdsmanager/wwsdetail');
-var adddriverwwsRouter = require('./routes/fdsmanager/adddriverwws');
-var fillftwwsRouter = require('./routes/fdsmanager/fillftwws');
+
+//SUMMARIES
+var fdsoneRouter = require('./routes/fdsmanager/summaries/fdsone');
+var fdstwoRouter = require('./routes/fdsmanager/summaries/fdstwo');
+var fdsthreeRouter = require('./routes/fdsmanager/summaries/fdsthree');
+//FDS PROMOTIONS
+var fdspromotionsRouter = require('./routes/fdsmanager/fdspromotion/fdspromotions');
+var addfdspromotionRouter = require('./routes/fdsmanager/fdspromotion/addfdspromotion');
+var fdspromotionmanagementRouter = require('./routes/fdsmanager/fdspromotion/fdspromotionmanagement');
+var deletepromotionRouter = require('./routes/fdsmanager/fdspromotion/deletepromotion');
+//RESTAURANT MANAGEMENT
+var deleterestaurantRouter = require('./routes/fdsmanager/restaurantmanagement/deleterestaurant');
+var restaurantmanagementRouter = require('./routes/fdsmanager/restaurantmanagement/restaurantmanagement');
+var addrestaurantRouter = require('./routes/fdsmanager/restaurantmanagement/addrestaurant');
+//RESTAURANT STAFF MANAGEMENT
+var addrestaurantstaffRouter = require('./routes/fdsmanager/staffmanagement/addrestaurantstaff');
+var restaurantstaffmanagementRouter = require('./routes/fdsmanager/staffmanagement/restaurantstaffmanagement');
+var viewallrestaurantstaffRouter = require('./routes/fdsmanager/staffmanagement/viewallrestaurantstaff');
+var deleterestaurantstaffRouter = require('./routes/fdsmanager/staffmanagement/deleterestaurantstaff');
+//SHIFT MANAGEMENT
+var shiftmanagementRouter = require('./routes/fdsmanager/shiftmanagement/shiftmanagement');
+var addshiftRouter = require('./routes/fdsmanager/shiftmanagement/addshift');
+var viewshiftsRouter = require('./routes/fdsmanager/shiftmanagement/viewshifts');
+var addwwsRouter = require('./routes/fdsmanager/shiftmanagement/addwws');
+var viewwwsRouter = require('./routes/fdsmanager/shiftmanagement/viewwws');
+var wwsdetailRouter = require('./routes/fdsmanager/shiftmanagement/wwsdetail');
+var adddriverwwsRouter = require('./routes/fdsmanager/shiftmanagement/adddriverwws');
+var fillftwwsRouter = require('./routes/fdsmanager/shiftmanagement/fillftwws');
+var addptwwsRouter = require('./routes/fdsmanager/shiftmanagement/addptwws');
+var fillptwwsRouter = require('./routes/fdsmanager/shiftmanagement/fillptwws');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
@@ -161,16 +169,18 @@ app.use('/deleterestaurant',deleterestaurantRouter);
 app.use('/restaurantstaffmanagement',restaurantstaffmanagementRouter);
 app.use('/viewallrestaurantstaff', viewallrestaurantstaffRouter);
 app.use('/addrestaurantstaff',addrestaurantstaffRouter);
-app.use('/shiftmanagement',shiftmanagementRouter)
-app.use('/addshift',addshiftRouter)
-app.use('/deleterestaurantstaff',deleterestaurantstaffRouter)
- app.use('/viewshifts',viewshiftsRouter)
-app.use('/deletepromotion',deletepromotionRouter)
-app.use('/addwws',addwwsRouter)
-app.use('/viewwws',viewwwsRouter)
-app.use('/wwsdetail',wwsdetailRouter)
-app.use('/adddriverwws',adddriverwwsRouter)
-app.use('/fillftwws',fillftwwsRouter)
+app.use('/shiftmanagement',shiftmanagementRouter);
+app.use('/addshift',addshiftRouter);
+app.use('/deleterestaurantstaff',deleterestaurantstaffRouter);
+app.use('/viewshifts',viewshiftsRouter);
+app.use('/deletepromotion',deletepromotionRouter);
+app.use('/addwws',addwwsRouter);
+app.use('/viewwws',viewwwsRouter);
+app.use('/wwsdetail',wwsdetailRouter);
+app.use('/addptwws',addptwwsRouter);
+app.use('/fillptwws',fillptwwsRouter);
+app.use('/adddriverwws',adddriverwwsRouter);
+app.use('/fillftwws',fillftwwsRouter);
 
 app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
 app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);

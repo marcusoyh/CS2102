@@ -82,6 +82,7 @@ CREATE TABLE WWS(
   wwsid INTEGER,
   startDate DATE,
   mwsid INTEGER,
+  unique(startDate,uid), --Dont allow creating another WWs for the same driver with the same starting date 
   PRIMARY KEY(wwsid),
   FOREIGN KEY (uid) REFERENCES Users,
   FOREIGN KEY (mwsid) REFERENCES MWS
@@ -266,3 +267,53 @@ INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 INSERT INTO OrderContainsFoodItems VALUES (1,1,'Cheeseburger',2) ;
 INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 
+CREATE OR REPLACE FUNCTION check_shifts () RETURNS TRIGGER  AS $$
+DECLARE
+  time text;
+  conflict text;
+  hourcount integer;
+
+BEGIN
+  IF (NEW.starttime >= NEW.endtime) THEN
+    time = NEW.starttime;
+  END IF;
+
+  SELECT sum(endtime-starttime) into hourcount
+    FROM Shifts S
+    WHERE S.wwsid = NEW.wwsid;
+
+  SELECT S.starttime into conflict
+    FROM Shifts S
+    WHERE S.sid <> NEW.sid AND
+    S.day = NEW.day AND
+    S.wwsid = NEW.wwsid AND
+    ((NEW.starttime >= S.starttime AND
+    NEW.starttime <= S.endtime) OR
+    (S.starttime >= NEW.starttime AND
+    S.starttime <= NEW.endtime)
+    )
+    ;
+  
+  IF time IS NOT NULL THEN
+    RAISE exception 'Start Time earlier or same as End Time';
+  END IF;
+  IF conflict IS NOT NULL THEN
+    RAISE exception 'Conflicting Shift Timing';
+  END IF;
+  IF hourcount IS NOT NULL THEN
+    IF hourcount > 4800 THEN
+      RAISE exception 'Shift Limit Hit';
+    END IF;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS shift_trigger ON Shifts CASCADE;
+CREATE TRIGGER shift_trigger 
+  AFTER INSERT ON Shifts
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_shifts();
+
+    
