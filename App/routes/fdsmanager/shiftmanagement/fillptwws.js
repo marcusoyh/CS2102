@@ -42,8 +42,11 @@ router.post('/', function (req, res, next) {
     var insertshiftquery = 'Insert into Shifts Values';
     var finalquery = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + starttime + "','" + endtime + "','" + datestringarray[shiftday] + "','" + weekstartdate + "')";
 
-    console.log("WWSID IS:");
-    console.log(wwsid);
+    console.log("SHIFT DAY IS " +shiftday);
+    console.log("DATE IS:");
+    console.log(datestringarray[shiftday]);
+    console.log(weekstartdate);
+
     pool.query(finalquery, (err, insertdata) => {
         if (err) {
             return console.error('Error inserting a new shift', err.stack)
@@ -55,10 +58,11 @@ router.post('/', function (req, res, next) {
             }
             res.render('fdsmanager/fillptwws', {
                 data: data.rows, startdate: weekstartdate, wwsid: wwsid, sid: sid, months: months, totalhours: totalhours,
-                hourtargethit: hourtargethit
+                hourtargethit: hourtargethit, insertdata:insertdata.rows
             });
         });
     });
+
     sid = parseInt(sid) + 1;
 
 

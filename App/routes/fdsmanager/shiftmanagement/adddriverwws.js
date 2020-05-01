@@ -51,32 +51,33 @@ router.post('/', function (req, res, next) {
     var mwsquery = 'INSERT INTO MWS VALUES';
     var insertmws = mwsquery + "('" + uid + "','" + mwsid + "')";
 
-    pool.query(insertmws, (err, data) => {
+    pool.query(insertmws, (err, mwsdata) => {
         if (err) {
-            return console.error('Error executing query', err.stack)
+            return console.error('Error inserting mws', err.stack)
         }
+        pool.query(firstinsert, (err, data) => {
+            if (err) {
+                return console.error('Error inserting week 1 schedule ', err.stack)
+            }
+        });
+        pool.query(secondinsert, (err, data) => {
+            if (err) {
+                return console.error('Error inserting weeek 2 schedule', err.stack)
+            }
+        });
+        pool.query(thirdinsert, (err, data) => {
+            if (err) {
+                return console.error('Error inserting week 3 schedule', err.stack)
+            }
+        });
+        pool.query(fourthinsert, (err, data) => {
+            if (err) {
+                return console.error('Error inserting week 4 schedule', err.stack)
+            }
+        });
     });
 
-    pool.query(firstinsert, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    });
-    pool.query(secondinsert, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    });
-    pool.query(thirdinsert, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    });
-    pool.query(fourthinsert, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    });
+    
 
 
     console.log('*************');

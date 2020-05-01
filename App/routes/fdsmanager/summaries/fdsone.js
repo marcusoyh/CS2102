@@ -12,7 +12,7 @@ var months = ["January", "February", "March", "April", "May", "June", "July", "A
 	
 /* GET method to generate the tables */
 router.get('/', function (req, res, next) {
-
+	
 	var viewOne = 'with viewone as (SELECT DATE_TRUNC(' + "'month'" + ',timeriderdeparts) AS month, count(oid) as totalorders, sum(deliveryfee) as totalcost from orders group by month)';
 	var viewTwo = ', viewtwo as (SELECT DATE_TRUNC(' + "'month'" + ',signupdate) AS month, count(uid) as totalsignups from customers group by month)';
 	var getQuery = viewOne + viewTwo + selectQuery;
