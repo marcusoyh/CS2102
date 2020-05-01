@@ -19,7 +19,9 @@ var sql_query = 'INSERT INTO RestaurantPromotions VALUES ';
 
 // GET
 router.get('/:id', function(req, res, next) {
-	res.render('addRestaurantPromotion', { title: 'Add a new Restaurant Promotion' });
+  pool.query('SELECT * FROM Restaurants',(err,restaurants) => {
+	res.render('addRestaurantPromotion', { title: 'Add a new Restaurant Promotion',restaurants: restaurants.rows });
+  });
 });
 
 // POST
