@@ -34,14 +34,14 @@ router.post('/:id', function(req, res, next) {
 
 	// Construct Specific SQL Query
 	//var viewOne = 'with viewone as (SELECT DATE_TRUNC(' + "'month'" + ',timeriderdeparts) AS month, count(oid) as totalorders, sum(price) as totalcost from orders natural join OrderContainsFoodItems natural join RestaurantFoodItems where rid =$1 group by month)';
-	var query_one = 'SELECT count(oid) as totalorders, sum(totalprice) as totalcost from Orders natural join OrderContainsFoodItems where rid =$1 AND timeriderdeparts between ' + startMonth +'and' + endMonth;
-	var temptable = 'WITH FoodCount AS (SELECT count(name) as totalFoodOrders, name from Orders natural join OrderContainsFoodItems where rid=$1 AND timeriderdeparts between ' + startMonth + 'and' + endMonth + 'group by name)';
+	var query_one = 'SELECT count(oid) as totalorders, sum(totalprice) as totalcost from Orders natural join OrderContainsFoodItems where rid =$1 AND timeriderdeparts between ' + startMonth +' and ' + endMonth;
+	var temptable = 'WITH FoodCount AS (SELECT count(name) as totalFoodOrders, name from Orders natural join OrderContainsFoodItems where rid=$1 AND timeriderdeparts between ' + startMonth + ' and ' + endMonth + ' group by name)';
 	var query_two = 'SELECT name from FoodCount ORDER BY totalFoodOrders DESC limit 5)';
 	var query_combine = temptable + query_two;
 	//var query_combineOne = viewOne + selectQuery;
 	var myList = []; //myList = [month,year,totalnumOrders,totalCost,top5]
 	var top5 = "";
-
+	
 	pool.query(query_one, [id],(err, data) => {	
 		myList.push(data);
 	});
@@ -59,8 +59,9 @@ router.post('/:id', function(req, res, next) {
 			top5 += data[i] + ", ";
 		  
 		}
+		myList.push(top5);
 	});
-	myList.push(top5);
+	console.log("hello");
 
 	res.render('summaryInfo2', { title: 'View Summary Information', months: months, data: myList });
 });

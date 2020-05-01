@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Page Title -->
+	<title>RS:Summary Information</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+
+	<!-- CSS for Styling -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<!-- JavaScript for Interactivity -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<h1><%= title%></h1>
+	<form id="html_form" action="fdsfour" role="form" method="post">
+		<div class="form-group">
+			Choose Month:  
+		   <select name ="month" id ="month">
+			   <option value="1">January</option>
+			   <option value="2">February</option>
+			   <option value="3">March</option>
+			   <option value="4">April</option>
+			   <option value="5">May</option>
+			   <option value="6">June</option>
+			   <option value="7">July</option>
+			   <option value="8">August</option>
+			   <option value="9">September</option>
+			   <option value="10">October</option>
+			   <option value="11">November</option>
+			   <option value="12">December</option>
+			</select>
+		</div>
+		<div class="form-group">
+			Choose Year:  
+		   <select name ="year" id ="year">
+			   <option value="2014">2014</option>
+			   <option value="2015">2015</option>
+			   <option value="2016">2016</option>
+			   <option value="2017">2017</option>
+			   <option value="2018">2018</option>
+			   <option value="2019">2019</option>
+			   <option value="2020">2020</option>
+			</select>
+        <div class="form-group">
+				<label for="rider">Rider Name:</label>
+				<input type="text" class="form-control" id="rider" name="rider" placeholder="Enter the Driver's name">
+	    </div>
+        
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	
+	<script>
+		(function() {
+			window.addEventListener('load', function() {
+				var forms = [document.getElementById('html_form')];
+				var validation = Array.prototype.filter.call(forms, function(form) {
+					form.addEventListener('submit', check, false);
+				});
+			}, false);
+		})();
+	</script>
+
+</body>
+<!--footer-->
+<div style="margin:0px;padding-top: 30px;">
+<img src="https://bit.ly/2102footer">
+</div>
+
+</html>
