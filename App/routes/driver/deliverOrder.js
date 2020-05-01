@@ -20,7 +20,7 @@ router.post('/:oid', function (req, res, next) {
     const oid = req.params.oid;
     var timedepart = req.body.timeriderdeparts;
 
-    pool.query('UPDATE ORDERS SET timeriderdeparts = timedepart where oid = $1', [oid] ,(err, data) => {
+    pool.query('UPDATE ORDERS SET timeriderdeparts = $2 where oid = $1', [oid, timedepart] ,(err, data) => {
 	});
 
 });
