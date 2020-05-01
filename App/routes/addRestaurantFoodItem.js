@@ -19,7 +19,11 @@ var sql_query = 'INSERT INTO RestaurantFoodItems VALUES ';
 
 // GET
 router.get('/:id', function(req, res, next) {
-	res.render('addRestaurantFoodItem', { title: 'Adding a new food item' });
+	pool.query('SELECT * FROM Restaurants',(err,restaurants) => {
+		pool.query('SELECT * FROM Category',(err,categories)=>{
+			res.render('addRestaurantFoodItem', { title: 'Adding a new food item', restaurants: restaurants.rows, categories: categories.rows });
+		});
+	});
 });
 
 // POST
@@ -38,9 +42,9 @@ router.post('/:id', function(req, res, next) {
 	pool.query(insert_query, (err, data) => {});
 
 	pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid] ,(err, data) => {
-		res.render('viewFoodItems', { title: 'All food items available', data: data.rows });
-	});
-});
+				res.render('viewFoodItems', { title: 'All food items available', data: data.rows });
+			});
+		});
 
 
 module.exports = router;
