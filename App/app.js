@@ -79,6 +79,9 @@ var viewshifts2Router = require('./routes/driver/viewShifts');
 var viewDriverSummaryInfoRouter = require('./routes/driver/viewDriverSummaryInfo');
 var manageOrdersAssignedRouter = require('./routes/driver/manageOrdersAssigned');
 var deliverOrderRouter = require('./routes/driver/deliverOrder');
+var postTimeReachedResRouter = require('./routes/driver/postTimeReachedRes');
+var postTimeLeftResRouter = require('./routes/driver/postTimeLeftRes');
+var postTimeDeliveredRouter = require('./routes/driver/postTimeDelivered');
 /* ---------------------------- */
 
 
@@ -167,6 +170,9 @@ app.use('/viewShifts2', viewshifts2Router);
 app.use('/viewDriverSummaryInfo', viewDriverSummaryInfoRouter);
 app.use('/manageOrdersAssigned', manageOrdersAssignedRouter);
 app.use('/deliverOrder', deliverOrderRouter);
+app.use('/postTimeReachesRes', postTimeReachedResRouter);
+app.use('/postTimeLeftRes', postTimeLeftResRouter);
+app.use('/postTimeDelivered', postTimeDeliveredRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
