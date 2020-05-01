@@ -23,7 +23,7 @@ router.post('/', function (req, res, next) {
     var discountAmount = req.body.discountAmount;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
-    
+
     //date.isValid() is a method that returns true/false, can validate whether legit date was entered
 
     // Construct Insert Query
@@ -32,8 +32,15 @@ router.post('/', function (req, res, next) {
 
 
     pool.query(insert_query, (err, data) => {
-    	res.redirect('/fdspromotions')
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+        res.redirect('./fdspromotionmanagement');
     });
+
+    // pool.query('SELECT * FROM FDSPromotions', (err, data) => {
+    //     res.render('fdsmanager/fdspromotionmanagement', { title: 'All FDS Promotions', data: data.rows });
+    // });
 
 });
 

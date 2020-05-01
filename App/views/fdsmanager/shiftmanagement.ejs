@@ -24,19 +24,33 @@
 
 <body>
     <h1>Shift Management Page</h1>
-    <li><a href="/addshift">Create a new Shift</a></li>
+    <li><a href="/adddriverwws">Generate a WWS for a FT Driver</a></li>
+    <h6>Generate WWS for a PT Driver</h6>
+    <h6>Add Shift to existing schedule</h6>
+    <h6>Check for scheduling violations</h6>
 
     <form id="html_form" action="viewshifts" role="form" method="post">
         <div class="form-group">
-            <label for="date">Date</label>
-            <input type="text" class="form-control" id="date" name="date" aria-describedby="userIdHelp"
-                placeholder="Enter Date to manage shifts">
+            <label for="date">Enter Date to view shifts on that day</label>
+            <input type="text" class="form-control" id="date" name="date" aria-describedby="userIdHelp" 
+                placeholder="Enter Date">
             <small id="matricHelp" class="form-text text-muted"></small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    
+    <h1> </h1>
+    <h1> </h1>
+    <h1> </h1>
+    <li><a href="/addshift">Create a new Shift</a></li>
+    <h5>Dont create shifts from here, go into viewing all WWS then create by week</h5>
+    <li><a href="/addwws">Generate a new WWS for All Drivers</a></li>
+    <li><a href="/viewwws">View all WWS</a></li>
+    <h5>Generate WWWS for Full Time Driver</h5>
+    
+    
 
-    <h2>All Shifts created</h2>
+    <!-- <h2>All Shifts created</h2>
     <table class="table">
 		<thead>
 			<tr>
@@ -58,7 +72,7 @@
 			</tr>
 			<% } %>
 		</tbody>
-	</table>
+	</table> -->
 </body>
 
 </html>

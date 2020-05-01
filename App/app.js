@@ -51,6 +51,10 @@ var addRestaurantFoodItemRouter = require('./routes/addRestaurantFoodItem');
 var viewFoodItemsRouter = require('./routes/viewFoodItems');
 var viewAllOrdersRouter = require('./routes/viewAllOrders');
 var deleteRestaurantFoodItemRouter = require('./routes/deleteRestaurantFoodItem');
+var addRestaurantPromotionRouter = require('./routes/addRestaurantPromotion');
+var viewRestaurantPromotionsRouter = require('./routes/viewRestaurantPromotions');
+var deleteRestaurantPromotionRouter = require('./routes/deleteRestaurantPromotion');
+var summaryInfoPromotionRouter = require('./routes/summaryInfoPromotion');
 var summaryInfoRouter = require('./routes/summaryInfo');
 var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 var fdsoneRouter = require('./routes/fdsmanager/fdsone');
@@ -67,6 +71,12 @@ var shiftmanagementRouter = require('./routes/fdsmanager/shiftmanagement');
 var addshiftRouter = require('./routes/fdsmanager/addshift');
 var deleterestaurantstaffRouter = require('./routes/fdsmanager/deleterestaurantstaff');
 var viewshiftsRouter = require('./routes/fdsmanager/viewshifts');
+var deletepromotionRouter = require('./routes/fdsmanager/deletepromotion');
+var addwwsRouter = require('./routes/fdsmanager/addwws');
+var viewwwsRouter = require('./routes/fdsmanager/viewwws');
+var wwsdetailRouter = require('./routes/fdsmanager/wwsdetail');
+var adddriverwwsRouter = require('./routes/fdsmanager/adddriverwws');
+var fillftwwsRouter = require('./routes/fdsmanager/fillftwws');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
@@ -142,6 +152,8 @@ app.use('/orders', ordersRouter);
 app.use('/viewAllOrders', viewAllOrdersRouter);
 app.use('/deleteRestaurantFoodItem', deleteRestaurantFoodItemRouter);
 app.use('/summaryInfo',summaryInfoRouter);
+app.use('/deleteRestaurantPromotion',deleteRestaurantPromotionRouter);
+app.use('/summaryInfoPromotion',summaryInfoPromotionRouter);
 app.use('/addfdspromotion', addfdspromotionRouter);
 app.use('/unassignedorders', unassignedOrdersRouter);
 app.use('/fdsone',fdsoneRouter);
@@ -157,8 +169,16 @@ app.use('/addrestaurantstaff',addrestaurantstaffRouter);
 app.use('/shiftmanagement',shiftmanagementRouter)
 app.use('/addshift',addshiftRouter)
 app.use('/deleterestaurantstaff',deleterestaurantstaffRouter)
-app.use('/viewshifts',viewshiftsRouter)
+ app.use('/viewshifts',viewshiftsRouter)
+app.use('/deletepromotion',deletepromotionRouter)
+app.use('/addwws',addwwsRouter)
+app.use('/viewwws',viewwwsRouter)
+app.use('/wwsdetail',wwsdetailRouter)
+app.use('/adddriverwws',adddriverwwsRouter)
+app.use('/fillftwws',fillftwwsRouter)
 
+app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
+app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);
 app.use('/driverRegister', driverRegisterRouter);
 app.use('/viewSalary', viewSalaryRouter);
 app.use('/viewWorkSchedule', viewWorkScheduleRouter);

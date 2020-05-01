@@ -18,15 +18,11 @@
   </head>
   <body>
     <h1><%= title%></h1>
-		<form id="html_form" action="deleterestaurantstaff" role="form" method="post">
+		<form id="html_form" action="deletepromotion" role="form" method="post">
 			<div class="form-group">
-				<label for="uid">Staff ID</label>
-				<input type="text" class="form-control" id="uid" name="uid" aria-describedby="userIdHelp" placeholder="Enter Staff ID">
+				<label for="fpid">Promotion ID</label>
+				<input type="text" class="form-control" id="fpid" name="fpid" aria-describedby="userIdHelp" placeholder="Enter Promotion ID">
 				<small id="matricHelp" class="form-text text-muted"></small>
-			</div>
-			<div class="form-group">
-				<label for="username">Username</label>
-				<input type="text" class="form-control" id="username" name="username" placeholder="Enter Staff Userame">
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
