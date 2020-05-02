@@ -13,6 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 //POST method: this is the loopable shift creation form
 router.post('/', function (req, res, next) {
     var sid = req.body.sid;
@@ -22,8 +23,6 @@ router.post('/', function (req, res, next) {
     var wwsid = req.body.wwsid;
     var weekstartdate = req.body.startdate; //date of first day of week
     var totalhours = req.body.totalhours;
-
-    totalhours = parseInt(totalhours) + (parseInt(endtime) - parseInt(starttime)) / 100;
     var hourtargethit = parseInt(totalhours) >= 10;
 
     console.log('SID PASSED OVER');
@@ -33,34 +32,50 @@ router.post('/', function (req, res, next) {
     var datestringarray = new Array(); //dates for each day of the week
     var tempfirstdate = new Date(weekstartdate);
 
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
         datestringarray.push(tempfirstdate.getFullYear() + '-' + (tempfirstdate.getMonth() + 1) + '-' + tempfirstdate.getDate());
         tempfirstdate.setDate(tempfirstdate.getDate() + 1);
     }
 
 
     var insertshiftquery = 'Insert into Shifts Values';
-    var finalquery = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + starttime + "','" + endtime + "','" + datestringarray[shiftday] + "','" + weekstartdate + "')";
+    var finalinsertquery = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + starttime + "','" + endtime + "','" + datestringarray[shiftday] + "','" + weekstartdate + "')";
 
-    console.log("SHIFT DAY IS " +shiftday);
-    console.log("DATE IS:");
-    console.log(datestringarray[shiftday]);
-    console.log(weekstartdate);
+    console.log("SHIFT DAY IS " + shiftday);
+    console.log("DATE ARRAY FIRST ELEMENT IS " +datestringarray[0]);
+    console.log("SHIFT DATE IS:" + datestringarray[shiftday]);
+    console.log("WEEK START DATE IS " + weekstartdate);
 
-    pool.query(finalquery, (err, insertdata) => {
+    var errormessage = " ";
+    pool.query(finalinsertquery, (err, insertdata) => {
         if (err) {
-            return console.error('Error inserting a new shift', err.stack)
-        }
- 
-        pool.query('Select * from Shifts natural join Users natural join WWS where wwsid = $1 order by day', [wwsid], (err, data) => {
-            if (err) {
-                return console.error('Error executing query', err.stack)
-            }
-            res.render('fdsmanager/fillptwws', {
-                data: data.rows, startdate: weekstartdate, wwsid: wwsid, sid: sid, months: months, totalhours: totalhours,
-                hourtargethit: hourtargethit, insertdata:insertdata.rows
+            errormessage = err.message;
+            pool.query('Select * from Shifts natural join Users natural join WWS where wwsid = $1 order by day', [wwsid], (err, data) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+                res.render('fdsmanager/fillptwws', {
+                    data: data.rows, startdate: weekstartdate, wwsid: wwsid, sid: sid, months: months, totalhours: totalhours,
+                    hourtargethit: hourtargethit,errormessage: errormessage, days:days
+                });
             });
-        });
+            //return console.error('Error inserting a new shift', err.stack);
+        } else {
+            //adding hours only done if successfully inserted
+            totalhours = parseInt(totalhours) + (parseInt(endtime) - parseInt(starttime)) / 100;
+
+            hourtargethit = parseInt(totalhours) >= 10;
+            
+            pool.query('Select * from Shifts natural join Users natural join WWS where wwsid = $1 order by day', [wwsid], (err, data) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+                res.render('fdsmanager/fillptwws', {
+                    data: data.rows, startdate: weekstartdate, wwsid: wwsid, sid: sid, months: months, totalhours: totalhours,
+                    hourtargethit: hourtargethit,errormessage: errormessage, days:days
+                });
+            });
+        }
     });
 
     sid = parseInt(sid) + 1;
@@ -73,8 +88,5 @@ router.post('/', function (req, res, next) {
     //     res.render('fdsmanager/fillptwws', {data:data.rows, startdate: weekstartdate, wwsid: wwsid, sid : sid});
     //     //let me try redirect instead, and we will access the get method on top?
     // });
-
-
 });
-
 module.exports = router;

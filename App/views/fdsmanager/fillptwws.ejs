@@ -85,31 +85,35 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <li><a href="/shiftmanagement">Finish and Return to Schedule Management</a></li>
-
+    <h3><%=errormessage%></h3>
     <h3>Total Number of hours: <%=totalhours%></h3>
     <h4>10 Hour Minimum Hit: <%=hourtargethit%></h4>
     <h4>Shifts Created for this Week:</h4>
     <table class="table">
         <thead>
             <tr>
+                <th scope="col">Day</th>
                 <th scope="col">Date</th>
                 <th scope="col">Start Time</th>
                 <th scope="col">End Time</th>
+                <th scope="col">Shift Duration (Hours)</th>
                 <th scope="col">Shift ID</th>
             </tr>
         </thead>
         <tbody>
             <% for(var i=0; i<data.length; i++) { %>
             <tr>
+                <td><%=days[data[i].day.getDate() - parseInt(startdate.split("-")[2])]%></td>
                 <td><%=data[i].day.getDate()%> <%= months[data[i].day.getMonth()]%> <%=data[i].day.getFullYear()%></td>
                 <td><%= data[i].starttime%></td>
                 <td><%= data[i].endtime%></td>
+                <td><%= (data[i].endtime - data[i].starttime)/100 %></td>
                 <td><%= data[i].sid%></td>
             </tr>
             <% } %>
         </tbody>
     </table>
+    <li><a href="/shiftmanagement">Finish and Return to Schedule Management</a></li>
 
     <script>
         (function () {

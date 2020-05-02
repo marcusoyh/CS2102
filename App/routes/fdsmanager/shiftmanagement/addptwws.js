@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
 });
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 // POST method creates the WWS for the pt driver, redirects to the shift creating page
 router.post('/', function (req, res, next) {
     var uid = req.body.uid;
@@ -40,7 +41,8 @@ router.post('/', function (req, res, next) {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
-        res.render('fdsmanager/fillptwws', {data:data.rows, startdate: startdatestring, wwsid: wwsid, sid : sid, totalhours: 0, hourtargethit: false, months: months});
+        res.render('fdsmanager/fillptwws', {data:data.rows, startdate: startdatestring, wwsid: wwsid, sid : sid, 
+            totalhours: 0, hourtargethit: false, months: months, errormessage:" ", days:days});
     });
 });
 

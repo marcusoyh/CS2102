@@ -302,7 +302,7 @@ BEGIN
   END IF;
   IF hourcount IS NOT NULL THEN
     IF hourcount > 4800 THEN
-      RAISE exception 'Shift Limit Hit';
+      RAISE exception '48h Weekly Limit Hit';
     END IF;
   END IF;
 
