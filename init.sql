@@ -294,17 +294,18 @@ BEGIN
     )
     ;
   
+  IF hourcount IS NOT NULL THEN
+    IF hourcount > 4800 THEN
+      RAISE exception '48h Weekly Limit Hit';
+    END IF;
+  END IF;
   IF time IS NOT NULL THEN
     RAISE exception 'Start Time earlier or same as End Time';
   END IF;
   IF conflict IS NOT NULL THEN
     RAISE exception 'Conflicting Shift Timing';
   END IF;
-  IF hourcount IS NOT NULL THEN
-    IF hourcount > 4800 THEN
-      RAISE exception '48h Weekly Limit Hit';
-    END IF;
-  END IF;
+  
 
   RETURN NULL;
 END;
