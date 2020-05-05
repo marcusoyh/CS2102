@@ -145,76 +145,84 @@ router.post('/', function (req, res, next) {
             shiftquery8 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1700 + "','" + 2100 + "','" + datestringarray[i + 21 + startday] + "','" + datestringarray[21] + "')";
             sid = parseInt(sid) + 1;
         } else if (daytimingarray[i] == '1pm') {
+            console.log('sid1 is ' +sid);
             //WEEK 1
             shiftquery1 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1300 + "','" + 1700 + "','" + datestringarray[i + startday] + "','" + firstdayofweek + "')";
             sid = parseInt(sid) + 1;
+            console.log('sid2 is ' +sid);
             shiftquery2 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1800 + "','" + 2200 + "','" + datestringarray[i + startday] + "','" + firstdayofweek + "')";
             sid = parseInt(sid) + 1;
+            console.log('sid3 is ' +sid);
             wwsid = parseInt(wwsid) + 1;
             //WEEK 2
             shiftquery3 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1300 + "','" + 1700 + "','" + datestringarray[i + 7 + startday] + "','" + datestringarray[7] + "')";
             sid = parseInt(sid) + 1;
+            console.log('sid4 is ' +sid);
             shiftquery4 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1800 + "','" + 2200 + "','" + datestringarray[i + 7 + startday] + "','" + datestringarray[7] + "')";
             sid = parseInt(sid) + 1;
+            console.log('sid5 is ' +sid);
             wwsid = parseInt(wwsid) + 1;
             //WEEK 3
-            shiftquery3 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1300 + "','" + 1700 + "','" + datestringarray[i + 14 + startday] + "','" + datestringarray[14] + "')";
+            shiftquery5 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1300 + "','" + 1700 + "','" + datestringarray[i + 14 + startday] + "','" + datestringarray[14] + "')";
             sid = parseInt(sid) + 1;
-            shiftquery4 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1800 + "','" + 2200 + "','" + datestringarray[i + 14 + startday] + "','" + datestringarray[14] + "')";
+            console.log('sid6 is ' +sid);
+            shiftquery6 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1800 + "','" + 2200 + "','" + datestringarray[i + 14 + startday] + "','" + datestringarray[14] + "')";
             sid = parseInt(sid) + 1;
+            console.log('sid7 is ' +sid);
             wwsid = parseInt(wwsid) + 1;
             //WEEK 4
-            shiftquery3 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1300 + "','" + 1700 + "','" + datestringarray[i + 21 + startday] + "','" + datestringarray[21] + "')";
+            shiftquery7 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1300 + "','" + 1700 + "','" + datestringarray[i + 21 + startday] + "','" + datestringarray[21] + "')";
             sid = parseInt(sid) + 1;
-            shiftquery4 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1800 + "','" + 2200 + "','" + datestringarray[i + 21 + startday] + "','" + datestringarray[21] + "')";
+            console.log('sid8 is ' +sid);
+            shiftquery8 = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + 1800 + "','" + 2200 + "','" + datestringarray[i + 21 + startday] + "','" + datestringarray[21] + "')";
             sid = parseInt(sid) + 1;
         }
         //INSERT QUERIES
         pool.query(shiftquery1, (err, data) => {
             if (err) {
-                return console.error('Error executing insert1', err.stack)
+                return console.error(shiftquery1, err.stack)
             }
         });
 
         pool.query(shiftquery2, (err, data) => {
             if (err) {
-                return console.error('Error executing insert2', err.stack)
+                return console.error(shiftquery2, err.stack)
             }
         });
 
         pool.query(shiftquery3, (err, data) => {
             if (err) {
-                return console.error('Error executing insert3', err.stack)
+                return console.error(shiftquery3, err.stack)
             }
         });
 
         pool.query(shiftquery4, (err, data) => {
             if (err) {
-                return console.error('Error executing insert4', err.stack)
+                return console.error(shiftquery4, err.stack)
             }
         });
 
         pool.query(shiftquery5, (err, data) => {
             if (err) {
-                return console.error('Error executing insert5', err.stack)
+                return console.error(shiftquery5, err.stack)
             }
         });
 
         pool.query(shiftquery6, (err, data) => {
             if (err) {
-                return console.error('Error executing insert6', err.stack)
+                return console.error(shiftquery6, err.stack)
             }
         });
 
         pool.query(shiftquery7, (err, data) => {
             if (err) {
-                return console.error('Error executing insert7', err.stack)
+                return console.error(shiftquery7, err.stack)
             }
         });
 
         pool.query(shiftquery8, (err, data) => {
             if (err) {
-                return console.error('Error executing insert8', err.stack)
+                return console.error(shiftquery8, err.stack)
             }
         });
     }
