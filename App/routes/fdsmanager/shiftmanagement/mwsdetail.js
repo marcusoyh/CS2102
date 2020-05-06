@@ -9,22 +9,21 @@ const pool = new Pool({
 
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-/* GET method to generate ALL schedules */
+/* GET method to view ALL WWS/*/
 router.get('/', function (req, res, next) {
-    var selectQuery = 'with viewone as (Select uid, min(startdate) as startdate, mwsid from MWS natural join WWS group by mwsid) select * from Users natural join viewone';
-    pool.query(selectQuery, (err, data) => {
-        res.render('fdsmanager/viewmws', { date: 'All Monthly Schedules Created', data: data.rows, months: months });
+    pool.query ('Select * from WWS order by startDate', (err, data) => {
+        res.render('fdsmanager/mwsdetail', { date: 'All Weekly Schedules created', data: data.rows, months: months });
     });
 });
 
 
-/* POST method to generate the 4 schedules for this specific month  */
+/* POST method  */
 router.get('/:mwsid', function (req, res, next) {
     mwsid = req.params.mwsid;
-    console.log("**** mwsid is" +mwsid);
+
     //var selectQuery = 'with viewone as (Select uid, min(startdate) as startdate, mwsid from MWS natural join WWS group by mwsid) select * from Users natural join viewone';
-    pool.query ('Select * from WWS where mwsid=$1', [mwsid], (err,data) => {
-        res.render('fdsmanager/mwsdetail', { date: 'All Weekly Schedules Created for this Month:', data: data.rows, months: months });
+    pool.query ('Select * from WWS where mwsid=$1', [mwsid], (err, data) => {
+        res.render('fdsmanager/mwsdetail', { date: '4 Weekly Schedules Created for this Month', data: data.rows, months: months });
     });
 });
 

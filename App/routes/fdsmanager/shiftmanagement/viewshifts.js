@@ -14,7 +14,8 @@ router.get('/', function (req, res, next) {
 	});
 });
 
-/* GET method to generate shift of specific date */
+/* GET method to view shifts of specific date */
+//ADDING IN A FILTER WHERE I DISPLAY SHFITS BASED ON DATE / ID, DEPENDING ON WHAT IS PASSED IN
 router.get('/:date', function (req, res, next) {
 	const date = req.params.date;
 
@@ -34,18 +35,6 @@ router.post('/', function (req, res, next) {
 	//res.render('fdsmanager/viewshifts', { date : date, title: 'Shifts on ' });
 });
 
-
-// POST method to generate shifts for specific date,
-//this method shouldnt be needed now because we do it via the get method instead
-// router.post('/', function (req, res, next) {
-// 	// Retrieve Information
-// 	 var dateString = req.body.date;
-// 	//date.isValid() is a method that returns true/false, can validate whether legit date was entered
-// 	pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [dateString], (err, data) => {
-// 		res.render('fdsmanager/viewshifts', { title: 'Shifts on ' , data: data.rows, date:dateString })
-// 	});
-
-// });
 
 //to query for searching for specific months, we do select * from orders where timeDelivered between '2015-10-10' and '2016-10-10';
 module.exports = router;

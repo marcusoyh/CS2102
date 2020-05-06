@@ -28,8 +28,6 @@
         <thead>
             <tr>
                 <th scope="col">Start Date</th>
-                <th scope="col">Driver ID</th>
-                <th scope="col">MWS ID</th>
             </tr>
         </thead>
         <tbody>
@@ -41,11 +39,9 @@
                 <% var dateString = year + "-" + month + "-" + date %>
                 <!-- <td><li><a href="/viewwws/<%=dateString%>"><%= data[i].startdate.getDate()%>-->
                 <td>
-                    <li><a href="/viewmws/<%=data[i].mwsid%>"><%= data[i].startdate.getDate()%>
+                    <li><a href="/viewshifts/<%=dateString%>"><%= data[i].startdate.getDate()%>
                             <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
                 </td>
-                <td><%=data[i].uid%></td>
-                <td><%data[i].mwsid%></td>
             </tr>
             <% } %>
         </tbody>
