@@ -48,11 +48,16 @@
 			</tr>
 			<% } %>
 		</tbody>
-    </table>
+	</table>
+	<p id="uid" style = "color:white"><%=uid%></p>
     <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button>
 </body>
 
 <script>
+	var uid = document.getElementById("uid").innerHTML;
+	window.alert(uid)
+	window.sessionStorage.setItem("uid", uid);
+
     function goBack() {
         window.history.back();
     }

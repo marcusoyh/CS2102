@@ -39,54 +39,61 @@ router.post('/', function (req, res, next) {
 
     // var uid;
 
-    // pool.query('SELECT max(uid)+ 1 FROM USERS'), (err, data) => {
-    //     uid = data.rows[0].uid;
-    //     if (err) {
-    //         return console.error('Error executing query', err.stack)
-    //     }
-    // }
+    pool.query('SELECT max(uid)+ 1 as uid FROM USERS', (err, data) => {
+        uid = data.rows[0].uid;
+        console.log(uid);
+        console.log("****DEBUG ONE*****")
 
-    //insert into users
-    var insert_query = sql_user_query + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
-    pool.query(insert_query, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    });
+         //insert into users
+        var insert_query = sql_user_query + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
+        pool.query(insert_query, (err, data) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
 
-    var today = new Date();
-    var date = today.getFullYear() + "-" + +(today.getMonth()+1)+'-'+today.getDate();
-    
+        console.log("****DEBUG TWO*****")    
 
-    //insert into drivers and either PT or FT
-    if (isFullTime) {
-        var insert_query_ft_2 = sql_driver_query + "(" + uid + "," + true + "," + salary + ",'" + date + "')";
-        pool.query(insert_query_ft_2, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-     });
-        var insert_query_ft = sql_fulltimers_query + "(" + uid + ")";
-        pool.query(insert_query_ft, (err, data) => {
-        });
+        var today = new Date();
+        var date = today.getFullYear() + "-" + +(today.getMonth()+1)+'-'+today.getDate();
         
-    } else { //part time
-        var insert_query_pt_2 = sql_driver_query + "(" + uid + "," + true + "," + salary + ",'" + date + "')";
-        pool.query(insert_query_pt_2, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-     });
-        var insert_query_pt = sql_parttimers_query + "(" + uid + ")";
-        pool.query(insert_query_pt, (err, data) => {
-        });
-    }
 
-    pool.query('SELECT * FROM Users natural join Drivers WHERE uid = $1', [uid] ,(err, data) => {
-		res.render('driver/driverhomepage', { name: name, uid:uid});
+        //insert into drivers and either PT or FT
+        if (isFullTime) {
+            var insert_query_ft_2 = sql_driver_query + "(" + uid + "," + true + "," + salary + ",'" + date + "')";
+            pool.query(insert_query_ft_2, (err, data) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+            });
+
+            console.log("****DEBUG THREE*****")
+
+            var insert_query_ft = sql_fulltimers_query + "(" + uid + ")";
+            pool.query(insert_query_ft, (err, data) => {});
+            
+        } else { //part time
+            var insert_query_pt_2 = sql_driver_query + "(" + uid + "," + true + "," + salary + ",'" + date + "')";
+            pool.query(insert_query_pt_2, (err, data) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+            });
+            var insert_query_pt = sql_parttimers_query + "(" + uid + ")";
+            pool.query(insert_query_pt, (err, data) => {});
+        }
+
+            pool.query('SELECT * FROM Users natural join Drivers WHERE uid = $1', [uid] ,(err, data) => {
+                res.render('driver/driverhomepage', { name: name, uid:uid});
+            });
+
+        });
+
     });
+
+   
+
     
-    pool.end();
+    // pool.end();
 
 });
 

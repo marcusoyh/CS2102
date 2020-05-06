@@ -18,17 +18,15 @@
   </head>
   <body>
 	<h1><%= title%></h1>
-		<form id="html_form" action="deliverOrder" role="form" method="post">
-			<div class="form-group">
-				<label for="timeriderdeparts">Time Departed</label>
+        <form id="html_form" action="postTimeLeftRes" role="form" method="post">    
+            <div class="form-group">
+				<label for="timeriderleavesrestaurant">Time Left Restaurant</label>
 				<input type="hidden" name="oid" value="<%= oid%>">
-				<input type="datetime-local" class="form-control" id="timeriderdeparts" name="timeriderdeparts">
+				<input type="datetime-local" class="form-control" id="timeriderleavesrestaurant" name="timeriderleavesrestaurant">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-		</form>
-		<a href="/postTimeReachedRes/<%= oid%>" style="float:right; padding: 20; border: none; cursor:pointer">Next</a>
-        <!-- <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button> -->
-
+        </form>
+        <a href="/postTimeDelivered/<%= oid%>" style="float:right; padding: 20; border: none; cursor:pointer">Next</a>
         
 		<script>
 

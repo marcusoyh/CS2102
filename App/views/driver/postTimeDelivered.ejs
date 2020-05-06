@@ -17,20 +17,24 @@
 		<script src="javascripts/insertScript.js"></script>
   </head>
   <body>
-	<h1><%= title%></h1>
-		<form id="html_form" action="deliverOrder" role="form" method="post">
+    <h1><%= title%></h1>
+        <form id="html_form" action="postTimeDelivered" role="form" method="post">    
 			<div class="form-group">
-				<label for="timeriderdeparts">Time Departed</label>
-				<input type="hidden" name="oid" value="<%= oid%>">
-				<input type="datetime-local" class="form-control" id="timeriderdeparts" name="timeriderdeparts">
+				<label for="deliveryTime">Time Order Delivered</label>
+                <input type="hidden" name="oid" value="<%= oid%>">
+                <input id = "uid" type="hidden" name="uid">
+				<input type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-		</form>
-		<a href="/postTimeReachedRes/<%= oid%>" style="float:right; padding: 20; border: none; cursor:pointer">Next</a>
-        <!-- <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button> -->
-
-        
+			<button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <a style="float:right; padding: 20; border: none; cursor:pointer; color:white"></a>
+       
 		<script>
+
+        var uid = sessionStorage.getItem("uid");
+        window.alert(uid)    
+        
+        document.getElementById("uid").innerHTML = uid;
 
         function goBack() {
                 window.history.back();
