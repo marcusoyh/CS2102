@@ -28,6 +28,7 @@
         <thead>
             <tr>
                 <th scope="col">Start Date</th>
+                <th scope="col">Driver Name</th>
                 <th scope="col">Driver ID</th>
                 <th scope="col">MWS ID</th>
             </tr>
@@ -44,8 +45,9 @@
                     <li><a href="/viewmws/<%=data[i].mwsid%>"><%= data[i].startdate.getDate()%>
                             <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
                 </td>
+                <td><%=data[i].name%></td>
                 <td><%=data[i].uid%></td>
-                <td><%data[i].mwsid%></td>
+                <td><%=data[i].mwsid%></td>
             </tr>
             <% } %>
         </tbody>

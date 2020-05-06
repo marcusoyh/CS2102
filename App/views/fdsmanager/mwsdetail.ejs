@@ -28,6 +28,7 @@
         <thead>
             <tr>
                 <th scope="col">Start Date</th>
+                <th scope="col">WWS ID</th>
             </tr>
         </thead>
         <tbody>
@@ -39,19 +40,16 @@
                 <% var dateString = year + "-" + month + "-" + date %>
                 <!-- <td><li><a href="/viewwws/<%=dateString%>"><%= data[i].startdate.getDate()%>-->
                 <td>
-                    <li><a href="/viewshifts/<%=dateString%>"><%= data[i].startdate.getDate()%>
+                    <li><a href="/viewshifts/<%=data[i].wwsid%>"><%= data[i].startdate.getDate()%>
                             <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
                 </td>
+                <td><%= data[i].wwsid%></td>
             </tr>
             <% } %>
         </tbody>
     </table>
     <li><a href="/shiftmanagement">Back to Shift Management Homepage</a></li>
-    <div>
-        <form id="fdsHomepage" action="fdsHomepage" method="post">
-            <button type="submit" class="btn btn-primary">Home Page</button>
-        </form>
-    </div>
+
 </body>
 
 </html>

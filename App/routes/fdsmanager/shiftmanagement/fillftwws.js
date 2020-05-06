@@ -228,7 +228,7 @@ router.post('/', function (req, res, next) {
     }
 
     pool.query('Select startdate, count(*) as num from WWS natural join Users group by startdate order by startdate desc', (err, data) => {
-        res.render('fdsmanager/viewwws', { date: 'All Weekly Schedules Created', data: data.rows, months: months });
+        res.render('fdsmanager/viewwws', {data: data.rows, months: months });
     });
 
     // if (day1 == '11am') {

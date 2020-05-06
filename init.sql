@@ -328,9 +328,8 @@ CREATE OR REPLACE FUNCTION check_shifts () RETURNS TRIGGER  AS $$
 DECLARE
   time text;
   conflict text;
+  breaktime text;
   hourcount integer;
-  startonhour text;
-  endonhour text;
   shiftstarttiming integer;
   shiftendtiming integer;
 
@@ -346,6 +345,13 @@ BEGIN
   SELECT sum(endtime-starttime) into hourcount
     FROM Shifts S
     WHERE S.wwsid = NEW.wwsid;
+
+  SELECT S.endtime into breaktime
+    FROM Shifts S
+    WHERE S.sid <> NEW.sid AND
+    S.day = NEW.day AND
+    S.wwsid = NEW.wwsid AND
+    NEW.starttime = S.endtime;
 
   SELECT S.starttime into conflict
     FROM Shifts S
@@ -369,6 +375,9 @@ BEGIN
   END IF;
   IF time IS NOT NULL THEN
     RAISE exception 'Start Time earlier or same as End Time';
+  END IF;
+  IF breaktime IS NOT NULL THEN
+    RAISE exception '1h Break needed at %',breaktime;
   END IF;
   IF conflict IS NOT NULL THEN
     RAISE exception 'Conflicting Shift Timing';

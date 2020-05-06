@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-/* POST method  */
+/* POST method to view the 4 WWS for the chosen MWS*/
 router.get('/:mwsid', function (req, res, next) {
     mwsid = req.params.mwsid;
 

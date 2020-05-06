@@ -11,7 +11,7 @@ var months = ["January", "February", "March", "April", "May", "June", "July", "A
 /* GET method to generate ALL schedules */
 router.get('/', function (req, res, next) {
     pool.query('Select startdate, count(*) as num from WWS natural join Users group by startdate order by startdate desc', (err, data) => {
-        res.render('fdsmanager/viewwws', { date: 'All Shifts Created by Week', data: data.rows, months: months });
+        res.render('fdsmanager/viewwws', { data: data.rows, months: months });
     });
 });
 
@@ -21,7 +21,7 @@ router.get('/:mwsid', function (req, res, next) {
 
     //HOW TO QUERY CORRECTLY
     pool.query('Select startdate, count(*) as num from WWS natural join Users group by startdate order by startdate desc', (err, data) => {
-        res.render('fdsmanager/viewwws', { date: 'All Weekly Schedules Created', data: data.rows, months: months });
+        res.render('fdsmanager/viewwws', {data: data.rows, months: months });
     });
 });
 

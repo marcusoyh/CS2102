@@ -7,30 +7,33 @@ const pool = new Pool({
 	connectionString: process.env.DATABASE_URL //we need to edit the .env individually, and put it in .gitignore
 });
 
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 /* GET method to generate ALL shifts */
 router.get('/', function (req, res, next) {
 	pool.query('Select * from Shifts natural join WWS', (err, data) => {
-		res.render('fdsmanager/viewshifts', {title: 'All Shifts', data: data.rows, date: ' '});
+		res.render('fdsmanager/viewshifts', {title: 'All Shifts', months:months,data: data.rows, date: ' '});
 	});
 });
 
-/* GET method to view shifts of specific date */
-//ADDING IN A FILTER WHERE I DISPLAY SHFITS BASED ON DATE / ID, DEPENDING ON WHAT IS PASSED IN
-router.get('/:date', function (req, res, next) {
-	const date = req.params.date;
+/* GET method to view shifts BY WWSID*/
+router.get('/:wwsid', function (req, res, next) {
+	const wwsid = req.params.wwsid;
 
-	pool.query('Select * from Shifts natural join WWS natural join Users where day = $1',[date], (err, data) => {
-		res.render('fdsmanager/viewshifts', { date : date,  data: data.rows, title: 'Shifts on' });
+	pool.query('Select * from Shifts natural join WWS natural join Users where wwsid = $1',[wwsid], (err, data) => {
+		res.render('fdsmanager/viewshifts', { wwsid : wwsid, months:months, data: data.rows, title: ('Shifts of WWSID ' +wwsid) });
 	});
 });
 
 //my post method here that takes in date that the guy wants to manage shifts,
 //returns a viewShfits with shifts on that date
+
+//POST METHOD VIEW SHIFT BY SPECIFIC DATE
 router.post('/', function (req, res, next) {
 	const date = req.body.date;
 
 	pool.query('Select * from Shifts natural join WWS natural join Users where day = $1',[date], (err, data) => {
-		res.render('fdsmanager/viewshifts', { date : date,  data: data.rows, title: 'Shifts on' });
+		res.render('fdsmanager/viewshifts', { data: data.rows, months:months, title: ('Shifts on ' +date) });
 	});
 	//res.render('fdsmanager/viewshifts', { date : date, title: 'Shifts on ' });
 });
