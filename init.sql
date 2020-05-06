@@ -273,12 +273,106 @@ INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 INSERT INTO OrderContainsFoodItems VALUES (1,1,'Cheeseburger',2) ;
 INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 
+--ORDER TRIGGERS--
+CREATE OR REPLACE FUNCTION check_orders() RETURNS TRIGGER  AS $$
+DECLARE
+  idToUpdate integer;
+  timeOfOrderString text;
+  hourInt integer;
+  minInt integer;
+  hourString text;
+  minString text;
+  timeOfOrderInteger integer;
+  fullTimeString text;
+  driverId integer;
+
+BEGIN
+  SELECT O.oid into idToUpdate
+  FROM Orders O
+  WHERE o.oid = NEW.oid;
+
+  SELECT O.timeOrdered into timeOfOrderString
+  FROM Orders O
+  WHERE o.oid = NEW.oid;
+
+  SELECT split_part(timeOfOrderString, ' ', 2) into fullTimeString;
+  SELECT split_part(fullTimeString, ':', 1) into hourString;
+  SELECT split_part(fullTimeString, ':', 2) into minString;
+  
+  hourInt = hourString;
+  minInt = minString;
+  timeOfOrderInteger = hourInt*100 + minInt;
+
+  SELECT sid into driverId
+  FROM Shifts natural join WWS
+  WHERE startTime<=timeOfOrderInteger
+  AND endTime>timeOfOrderInteger;
+
+  IF driverId IS NOT NULL THEN
+    RAISE exception 'Driver chosen has Shift ID of %',driverId;
+  END IF;
+
+  IF idToUpdate IS NOT NULL THEN
+    --first convert timeOfOrderToInteger
+    
+    -- hourOrdered = timeOfOrderString.split(" ")[1].split(":")[0];
+    -- minutesOrdered = timeOfOrderString.split(" ")[1].split(":")[1];
+    -- timeOfOrderInteger = hourOrdered*100 + minutesOrdered;
+    RAISE exception 'Time of Order Integer is %', timeOfOrderInteger;
+
+    update Orders
+    set did = 2
+    where oid = idToUpdate;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS orders_trigger ON Orders CASCADE;
+CREATE TRIGGER orders_trigger 
+  AFTER INSERT ON Orders
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_orders();
+
+
+
+--CATEGORY TRIGGERS--
+CREATE OR REPLACE FUNCTION check_category() RETURNS TRIGGER  AS $$
+DECLARE
+  idToUpdate integer;
+
+BEGIN
+  SELECT C.cid into idToUpdate
+  FROM Category C
+  WHERE C.cid = NEW.cid;
+  
+  IF idToUpdate IS NOT NULL THEN
+    update Category
+    set name = 'triggerudpated'
+    where cid = idToUpdate;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS category_trigger ON Category CASCADE;
+CREATE TRIGGER category_trigger 
+  AFTER INSERT ON Category
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_category();
+
+
+
+
 --FDS PROMOTION TRIGGERS--
 CREATE OR REPLACE FUNCTION check_fdspromotions () RETURNS TRIGGER  AS $$
 DECLARE
   invaliddate date;
 
 BEGIN
+
   IF (NEW.startdate >= NEW.enddate) THEN
     invaliddate = NEW.startdate;
   END IF;

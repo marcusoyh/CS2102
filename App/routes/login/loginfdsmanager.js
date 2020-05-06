@@ -9,7 +9,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('login/loginfdsmanager', { title: 'Login as FDS Manager' });
+    res.render('login/loginfdsmanager', { title: 'Login as FDS Manager',errormessage:' ' });
 });
 
 
@@ -23,7 +23,8 @@ router.post('/', function (req, res, next) {
         if (data.rowCount == 1) {
             res.render('fdsmanager/fdsmanagerhomepage');
         } else {
-            res.render('login/loginfdsmanager', {title: 'Login as FDS Manager'}); //maybe print an error message here somehow
+            //ERROR HERE
+            res.render('login/loginfdsmanager', {title: 'Login as FDS Manager', errormessage:'ERROR: Username/Password Wrong'});
         }
     });
 });

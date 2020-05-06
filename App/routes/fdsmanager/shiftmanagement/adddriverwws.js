@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
-        res.render('fdsmanager/adddriverwws', { title: 'Generating a new WWS', data: data.rows });
+        res.render('fdsmanager/adddriverwws', { title: 'Generating a new schedule for the Month', data: data.rows });
     });
 });
 

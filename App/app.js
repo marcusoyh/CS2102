@@ -93,6 +93,7 @@ var fillftwwsRouter = require('./routes/fdsmanager/shiftmanagement/fillftwws');
 var addptwwsRouter = require('./routes/fdsmanager/shiftmanagement/addptwws');
 var fillptwwsRouter = require('./routes/fdsmanager/shiftmanagement/fillptwws');
 var viewmwsRouter = require('./routes/fdsmanager/shiftmanagement/viewmws');
+var mwsdetailRouter = require('./routes/fdsmanager/shiftmanagement/mwsdetail');
 //FDS HOME PAGE ROUTING
 var fdsHomepageRouter = require('./routes/fdsmanager/fdsHomepage');
 
@@ -209,6 +210,7 @@ app.use('/deletecategory', deletecategoryRouter);
 app.use('/viewmws', viewmwsRouter);
 app.use('/fdstwoviewcustomers', fdstwoviewcustomersRouter);
 app.use('/fdstwoviewordersbycustomer', fdstwoviewordersbycustomerRouter);
+app.use('/mwsdetail', mwsdetailRouter);
 
 app.use('/addRestaurantPromotion', addRestaurantPromotionRouter);
 app.use('/viewRestaurantPromotions', viewRestaurantPromotionsRouter);

@@ -49,6 +49,7 @@ router.post('/', function (req, res, next) {
     var errormessage = " ";
     pool.query(finalinsertquery, (err, insertdata) => {
         if (err) {
+            //ERROR inserting, we render the form again for them to fill. we set error message = err.message (to pass message from command line to the html)
             errormessage = 'ERROR: ' + err.message;
             pool.query('Select * from Shifts natural join Users natural join WWS where wwsid = $1 order by day', [wwsid], (err, data) => {
                 if (err) {
@@ -61,7 +62,7 @@ router.post('/', function (req, res, next) {
             });
             //return console.error('Error inserting a new shift', err.stack);
         } else {
-            //adding hours only done if successfully inserted
+            //inserting done successfuly, render with blank errormessage
             totalhours = parseInt(totalhours) + (parseInt(endtime) - parseInt(starttime)) / 100;
 
             hourtargethit = parseInt(totalhours) >= 10;
