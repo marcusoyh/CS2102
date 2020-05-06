@@ -43,7 +43,7 @@ router.post('/', function (req, res, next) {
     }
 
     console.log("START DATE IS: " +startdate);
-    var query = 'Select * from Users natural join WWS where startdate = $1';
+    var query = 'Select * from Users natural join Parttimers natural join WWS where startdate = $1';
 
     pool.query(query, [dateString], (err, data) => {
         //res.render("fdsmanager/manualaddshifts", { drivers: data.rows, title: 'Adding a Shift to Week of ', days: days, dates:dates, firstdayofweek: dateString });

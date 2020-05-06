@@ -27,6 +27,8 @@
 
 <body>
     <h1><%= title%></h1>
+
+    <h1><%=errormessage%></h1>
     <form id="html_form" action="addrestaurantstaff" role="form" method="post">
         <div class="form-group">
             Restaurant:
@@ -37,12 +39,12 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="userId">Staff ID</label>
             <input type="text" class="form-control" id="uid" name="uid" aria-describedby="userIdHelp"
                 placeholder="Enter your Staff ID">
             <small id="matricHelp" class="form-text text-muted"></small>
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label for="name">Name</label>

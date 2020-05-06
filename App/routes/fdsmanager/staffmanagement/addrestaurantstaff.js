@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
-        res.render('fdsmanager/addrestaurantstaff', { title: 'Adding Restaurant Staff', data: data.rows });
+        res.render('fdsmanager/addrestaurantstaff', { title: 'Adding Restaurant Staff', data: data.rows, errormessage: " " });
     });
 
 });
@@ -38,18 +38,32 @@ router.post('/', function (req, res, next) {
         var uid = parseInt(maxuiddata.rows[0].max) + 1;
         var insertstaffquery = restaurantstaffquery + "(" + uid + "," + rid + ")";
         var insertuserquery = userQuery + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
-        pool.query(insertuserquery, (err, data) => {
-            if (err) {
-                return console.error('Error executing query', err.stack)
+        pool.query(insertuserquery, (insertusererr, insertuserdata) => {
+            if (insertusererr) {
+                pool.query('Select * from Restaurants', (err, data) => {
+                    if (err) {
+                        return console.error('Error executing query', err.stack)
+                    }
+                    res.render('fdsmanager/addrestaurantstaff', { title: 'Adding Restaurant Staff', data: data.rows, errormessage: 'ERROR:' + insertusererr.message });
+                });
+            } else {
+                pool.query(insertstaffquery, (insertstafferr, insertstaffdata) => {
+                    if (insertstafferr) {
+                        pool.query('Select * from Restaurants', (err, data) => {
+                            if (err) {
+                                return console.error('Error executing query', err.stack)
+                            }
+                            res.render('fdsmanager/addrestaurantstaff', { title: 'Adding Restaurant Staff', data: data.rows, errormessage: 'ERROR:' + insertstafferr.message });
+                        });
+                        //return console.error('Error executing query', insertstafferr.stack)
+                    } else {
+                        res.redirect('/viewallrestaurantstaff');
+                    }
+                });
             }
         });
 
-        pool.query(insertstaffquery, (err, data) => {
-            if (err) {
-                return console.error('Error executing query', err.stack)
-            }
-            res.redirect('/viewallrestaurantstaff');
-        });
+
     });
 
 

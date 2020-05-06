@@ -173,8 +173,8 @@ Create table CustomerSavesLocations (
 
 Create table OrderContainsFoodItems (
   oid INTEGER,
-  rid INTEGER,
-  name varchar(20),
+   rid INTEGER,
+   name varchar(20),
   Quantity INTEGER,
   Foreign key (oid) references Orders,
   Foreign key (rid, name) references RestaurantFoodItems
@@ -246,6 +246,8 @@ INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (6
 INSERT INTO Locations (lid,uid,address,date) VALUES (1,1,'Woodlands','2015-12-17');
 INSERT INTO Locations (lid,uid,address,date) VALUES (2,6,'Lentor','2014-10-17');
 
+
+
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (1,'Good service',3,'2015-11-17 9:00:00','cash',true,'2015-11-17 10:00:00', '2015-11-17 10:30:00','2015-11-17 11:00:00',2,3,'2015-11-17 11:30:00',32,1,2,1,1);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (2,'Too cold',2.2,'2015-11-17 18:00:00','cash',false,'2015-11-17 19:00:00', '2015-11-17 19:40:00','2015-11-17 20:10:00',3,4,'2015-11-17 20:30:00',15,1,2,5,1);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime,totalprice,lid,did,cid,rid) VALUES (3,'Not bad',2,'2014-12-17 12:00:00','cash',false,'2014-12-17 13:00:00', '2014-12-17 13:30:00','2014-12-17 13:40:00',2,3,'2014-12-17 14:10:00',20,1,2,6,1);
@@ -291,13 +293,7 @@ BEGIN
     S.starttime <= NEW.endtime)
     )
     ;
-  IF NEW.starttime<1000 THEN
-    RAISE exception 'Earliest start time is 1000'
-  END IF;
-  IF NEW.endtime>2200 THEN
-    RAISE exception 'Latest end time is 2200'
-  END IF;
-
+  
   IF hourcount IS NOT NULL THEN
     IF hourcount > 4800 THEN
       RAISE exception '48h Weekly Limit Hit';
