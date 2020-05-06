@@ -28,11 +28,13 @@
 <body>
     <h1>Shifts for Week of <%= startdate%></h1>
     <form id="html_form" action="fillftwws" role="form" method="post">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="sid">Shift ID</label>
             <input type="text" class="form-control" id="sid" name="sid" placeholder="Enter Shift ID">
-        </div>
+        </div> -->
         
+        <input type="hidden" class="form-control" id="sid" name="sid" value=<%= sid%>>
+
         <div class="form-group">
             Work Days:
             <select name="startday" id="startday">
