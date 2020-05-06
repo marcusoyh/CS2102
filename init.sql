@@ -50,7 +50,7 @@ CREATE TABLE Customers (
 );
 
 CREATE TABLE Locations (
-  lid INTEGER SERIAL,
+  lid SERIAL,
   uid INTEGER not null,
   address VARCHAR(60),
   date DATE not null,
@@ -244,13 +244,13 @@ INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (5
 INSERT INTO Users (uid, name, password,username) VALUES (6, 'kobe','password','kobe');
 INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (6,'2020-02-14','1122334455667788', '2022-12-17',81);
 
-INSERT INTO Locations (lid,uid,address,date) VALUES (1,1,'15 ABC ROAD','2015-12-17');
-INSERT INTO Locations (lid,uid,address,date) VALUES (3,1,'33 XY ROAD #01-01','2015-12-18');
-INSERT INTO Locations (lid,uid,address,date) VALUES (4,1,'35 asdca road','2015-12-19');
-INSERT INTO Locations (lid,uid,address,date) VALUES (5,1,'123','2015-12-20');
-INSERT INTO Locations (lid,uid,address,date) VALUES (6,1,'Woodlands','2015-12-21');
-INSERT INTO Locations (lid,uid,address,date) VALUES (7,1,'asfwsfe','2015-12-30');
-INSERT INTO Locations (lid,uid,address,date) VALUES (2,6,'Lentor','2014-10-17');
+INSERT INTO Locations (uid,address,date) VALUES (1,'15 ABC ROAD','2015-12-17');
+INSERT INTO Locations (uid,address,date) VALUES (1,'33 XY ROAD #01-01','2015-12-18');
+INSERT INTO Locations (uid,address,date) VALUES (1,'35 asdca road','2015-12-19');
+INSERT INTO Locations (uid,address,date) VALUES (1,'123','2015-12-20');
+INSERT INTO Locations (uid,address,date) VALUES (1,'Woodlands','2015-12-21');
+INSERT INTO Locations (uid,address,date) VALUES (1,'asfwsfe','2015-12-30');
+INSERT INTO Locations (uid,address,date) VALUES (6,'Lentor','2014-10-17');
 
 
 
@@ -328,9 +328,8 @@ CREATE OR REPLACE FUNCTION check_shifts () RETURNS TRIGGER  AS $$
 DECLARE
   time text;
   conflict text;
+  breaktime text;
   hourcount integer;
-  startonhour text;
-  endonhour text;
   shiftstarttiming integer;
   shiftendtiming integer;
 
@@ -346,6 +345,13 @@ BEGIN
   SELECT sum(endtime-starttime) into hourcount
     FROM Shifts S
     WHERE S.wwsid = NEW.wwsid;
+
+  SELECT S.endtime into breaktime
+    FROM Shifts S
+    WHERE S.sid <> NEW.sid AND
+    S.day = NEW.day AND
+    S.wwsid = NEW.wwsid AND
+    NEW.starttime = S.endtime;
 
   SELECT S.starttime into conflict
     FROM Shifts S
@@ -370,11 +376,13 @@ BEGIN
   IF time IS NOT NULL THEN
     RAISE exception 'Start Time earlier or same as End Time';
   END IF;
+  IF breaktime IS NOT NULL THEN
+    RAISE exception '1h Break needed at %',breaktime;
+  END IF;
   IF conflict IS NOT NULL THEN
     RAISE exception 'Conflicting Shift Timing';
   END IF;
   
-
   RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;

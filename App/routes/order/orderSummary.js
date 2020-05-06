@@ -36,20 +36,19 @@ router.post('/', function (req, res, next) {
             if (err) {
                 throw err;
             } else {
-                flag = false;
+                pool.query("SELECT address FROM Locations L WHERE L.address=$1", [address], (err, data) => {
+                    if (err) {
+                        throw err;
+                    }
+                    lid = data[0].lid;
+                    console.log(lid);
+                });
             }
         });
 
     }
 
-    if (!flag) {
-        pool.query("SELECT address FROM Location L WHERE L.address=$1", [address], (err, data) => {
-            if (err) {
-                throw err;
-            }
-            lid = data[0].lid;
-        });
-    }
+
     if (rpid != "" && fpid == "") {
         pool.query(query, [lid, rid, rpid], (err, data) => {
             if (err) {
