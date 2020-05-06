@@ -19,11 +19,12 @@
   <body>
     <h1>CS2102: <%= title%></h1>
 		<form id="html_form" action="addrestaurant" role="form" method="post">
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="userId">Restaurant ID</label>
 				<input type="text" class="form-control" id="rid" name="rid" aria-describedby="userIdHelp" placeholder="Enter your restaurant ID">
 				<small id="matricHelp" class="form-text text-muted"></small>
-			</div>
+			</div> -->
+			<input type="hidden" id="rid" name="rid" value=<%=data.rows[0].max%>>
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input type="text" class="form-control" id="name" name="name" placeholder="Enter Restaurant Name">
@@ -38,6 +39,13 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
+
+		<li><a href="/restaurantmanagement">Back to Restaurant Management Homepage</a></li>
+		<div>
+			<form id="fdsHomepage" action="fdsHomepage" method="post">
+				<button type="submit" class="btn btn-primary">Home Page</button>
+			</form>
+		</div>
 		
 		<script>
 			(function() {

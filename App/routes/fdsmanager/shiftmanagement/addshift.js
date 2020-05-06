@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 // POST method for adding shifts to existing schedules
 router.post('/', function (req, res, next) {
     // Retrieve Information
-    var sid = req.body.sid;
+    //var sid = req.body.sid;
     var wwsid = req.body.wwsid;
     var starttime = req.body.starttime;
     var endtime = req.body.endtime;
@@ -30,10 +30,10 @@ router.post('/', function (req, res, next) {
     }
     var shiftdatestring = firstdaydate.getFullYear() + '-' + (firstdaydate.getMonth() + 1) + '-' + firstdaydate.getDate();
 
-    console.log("Before inserting");
+    //console.log("Before inserting");
     var insertshiftquery = 'INSERT INTO Shifts VALUES';
-    var shiftquery = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + starttime + "','" + endtime + "','" + shiftdatestring + "','" + firstdayofweek + "')";
-    console.log(shiftquery);
+    //var shiftquery = insertshiftquery + " ('" + sid + "','" + wwsid + "','" + starttime + "','" + endtime + "','" + shiftdatestring + "','" + firstdayofweek + "')";
+    //console.log(shiftquery);
 
 
     //CREATING DATE ARRAY AND DAYS ARRAY
@@ -44,20 +44,25 @@ router.post('/', function (req, res, next) {
         dates.push(startdate.getFullYear() + '-' + (startdate.getMonth() + 1) + '-' + startdate.getDate());
         startdate.setDate(startdate.getDate() + 1);
     }
-    pool.query(shiftquery, (inserterr, data) => {
-        if (inserterr) {
-            console.log(inserterr.message);
+    pool.query('Select max(sid) from shifts', (maxsiderr, maxsiddata) => {
+        var maxSid = parseInt(maxsiddata.rows[0].max) + 1;
+         var shiftquery = insertshiftquery + " ('" + maxSid + "','" + wwsid + "','" + starttime + "','" + endtime + "','" + shiftdatestring + "','" + firstdayofweek + "')";
+    
+        pool.query(shiftquery, (inserterr, data) => {
+            if (inserterr) {
+                console.log(inserterr.message);
+                console.log(shiftquery);
+                pool.query('Select * from Users natural join WWS where startdate = $1', [firstdayofweek], (err, data) => {
+                    res.render("fdsmanager/addshift", { drivers: data.rows, title: 'Adding a Shift to Week of ', days: days, dates: dates, firstdayofweek: firstdayofweek, errormessage: 'ERROR: ' + inserterr.message });
+                });
 
-            pool.query( 'Select * from Users natural join WWS where startdate = $1', [firstdayofweek], (err, data) => {
-                res.render("fdsmanager/addshift", { drivers: data.rows, title: 'Adding a Shift to Week of ', days: days, dates:dates, firstdayofweek: firstdayofweek, errormessage: 'ERROR: ' + inserterr.message });
-          });
+                //res.render('fdsmanager/addshift', { title: 'Adding a Shift', errormessage: ' ' });
 
-            //res.render('fdsmanager/addshift', { title: 'Adding a Shift', errormessage: ' ' });
-            
-        } else {
-            console.log("Before redirecting");
-            res.redirect('/viewwws');
-        }
+            } else {
+                console.log("Before redirecting");
+                res.redirect('/viewwws');
+            }
+        });
     });
 
     // var insertwwsidquery = 'INSERT INTO WWS VALUES';

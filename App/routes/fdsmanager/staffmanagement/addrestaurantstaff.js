@@ -12,9 +12,9 @@ router.get('/', function (req, res, next) {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
-        res.render('fdsmanager/addrestaurantstaff', { title: 'Adding Restaurant Staff', data: data.rows});
+        res.render('fdsmanager/addrestaurantstaff', { title: 'Adding Restaurant Staff', data: data.rows });
     });
-    
+
 });
 
 
@@ -22,30 +22,37 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     // Retrieve Information
     var rid = req.body.rid;
-    var uid = req.body.uid;
+    //var uid = req.body.uid;
     var name = req.body.name;
     var username = req.body.username;
     var password = req.body.password;
 
     var userQuery = 'INSERT INTO Users VALUES';
 
-    var insertuserquery = userQuery + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
-    pool.query(insertuserquery, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-    });
+
 
     // Construct Specific SQL Query
     var restaurantstaffquery = 'INSERT INTO RestaurantStaff VALUES';
-    var insertstaffquery = restaurantstaffquery + "(" + uid + "," + rid + ")";
 
-    pool.query(insertstaffquery, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }
-        res.redirect('/viewallrestaurantstaff');
+    pool.query('Select max(uid) from Users', (maxuiderr, maxuiddata) => {
+        var uid = parseInt(maxuiddata.rows[0].max) + 1;
+        var insertstaffquery = restaurantstaffquery + "(" + uid + "," + rid + ")";
+        var insertuserquery = userQuery + "(" + uid + ",'" + name + "','" + password + "','" + username + "')";
+        pool.query(insertuserquery, (err, data) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+        });
+
+        pool.query(insertstaffquery, (err, data) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            res.redirect('/viewallrestaurantstaff');
+        });
     });
+
+
 
     // pool.query('SELECT u.name,r.name as rname, u.uid FROM RestaurantStaff rs natural join Users u join Restaurants r on rs.rid = r.rid ', (err, data) => {
     //     res.render('fdsmanager/viewallrestaurantstaff', { title: 'All Registered Restaurant Staff', data: data.rows });

@@ -24,32 +24,36 @@
 
 <body>
     <h1>Shift Management Page</h1>
-    <li><a href="/adddriverwws">Generate a WWS for a FT Driver</a></li>
-    <li><a href="/addptwws">Generate a WWS for a PT Driver</a></li>
+    <li><a href="/adddriverwws">Generate a Schedule (by Month) for a FT Driver</a></li>
+    <li><a href="/addptwws">Generate a Schedule (by Week) for a PT Driver</a></li>
     <li><a href="/viewwws">View all Weekly Schedules Created</a></li>
-    
-    <h6>Add Shift to existing schedule</h6>
-    <h6>Check for scheduling violations</h6>
+
+    <h6>Check for 5 minimum drivers</h6>
 
     <form id="html_form" action="viewshifts" role="form" method="post">
         <div class="form-group">
             <label for="date">Enter Date to view shifts on that day</label>
-            <input type="text" class="form-control" id="date" name="date" aria-describedby="userIdHelp" 
+            <input type="text" class="form-control" id="date" name="date" aria-describedby="userIdHelp"
                 placeholder="Enter Date">
             <small id="matricHelp" class="form-text text-muted"></small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    
+
     <br></br>
     <br></br>
-    
-    <li><a href="/addshift">Create a new Shift</a></li>
-    <h5>Dont create shifts from here, go into viewing all WWS then create by week</h5>
+
+    <div>
+        <form id="fdsHomepage" action="fdsHomepage" method="post">
+            <button type="submit" class="btn btn-primary">Home Page</button>
+        </form>
+    </div>
+
+    <h5>Dont use stuff below here</h5>
     <li><a href="/addwws">Generate a new WWS for All Drivers</a></li>
-    
-    
-    
+
+
+
 
     <!-- <h2>All Shifts created</h2>
     <table class="table">

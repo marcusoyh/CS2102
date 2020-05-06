@@ -85,6 +85,8 @@ var adddriverwwsRouter = require('./routes/fdsmanager/shiftmanagement/adddriverw
 var fillftwwsRouter = require('./routes/fdsmanager/shiftmanagement/fillftwws');
 var addptwwsRouter = require('./routes/fdsmanager/shiftmanagement/addptwws');
 var fillptwwsRouter = require('./routes/fdsmanager/shiftmanagement/fillptwws');
+//FDS HOME PAGE ROUTING
+var fdsHomepageRouter = require('./routes/fdsmanager/fdsHomepage');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
@@ -183,6 +185,7 @@ app.use('/addptwws',addptwwsRouter);
 app.use('/fillptwws',fillptwwsRouter);
 app.use('/adddriverwws',adddriverwwsRouter);
 app.use('/fillftwws',fillftwwsRouter);
+app.use('/fdsHomepage',fdsHomepageRouter);
 
 app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
 app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);

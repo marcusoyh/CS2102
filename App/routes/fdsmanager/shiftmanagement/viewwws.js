@@ -16,30 +16,30 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET method to generate shift of specific date */
-router.get('/:date', function (req, res, next) {
-    const date = req.params.date;
+// router.get('/:date', function (req, res, next) {
+//     const date = req.params.date;
 
-    pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [date], (err, data) => {
-        res.render('fdsmanager/viewshifts', { date: date, data: data.rows });
-    });
-});
+//     pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [date], (err, data) => {
+//         res.render('fdsmanager/viewshifts', { date: date, data: data.rows });
+//     });
+// });
 
 
-// POST method to generate shifts for specific date
-router.post('/', function (req, res, next) {
-    // Retrieve Information
-    var dateString = req.body.date;
-    //date.isValid() is a method that returns true/false, can validate whether legit date was entered
+// // POST method to generate shifts for specific date
+// router.post('/', function (req, res, next) {
+//     // Retrieve Information
+//     var dateString = req.body.date;
+//     //date.isValid() is a method that returns true/false, can validate whether legit date was entered
 
-    pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [dateString], (err, data) => {
-        // here you set that all templates are located in `/views` directory
-        app.set('fdsmanager', __dirname + '/fdsmanager');
-        app.set('view engine', 'ejs');
+//     pool.query('Select * from Shifts natural join WWS natural join Users where day = $1', [dateString], (err, data) => {
+//         // here you set that all templates are located in `/views` directory
+//         app.set('fdsmanager', __dirname + '/fdsmanager');
+//         app.set('view engine', 'ejs');
 
-        res.render("viewshifts", { title: 'Shifts on ', data: data.rows, date: dateString })
-    });
+//         res.render("viewshifts", { title: 'Shifts on ', data: data.rows, date: dateString })
+//     });
 
-});
+// });
 
 //to query for searching for specific months, we do select * from orders where timeDelivered between '2015-10-10' and '2016-10-10';
 module.exports = router;

@@ -20,10 +20,11 @@
 	<h1><%= title%></h1>
 	<p></p>
 		<form id="html_form" action="addfdspromotion" role="form" method="post">
-            <div class="form-group">
+            <!-- <div class="form-group">
 				<label for="fpid">FDS Promotion ID</label>
 				<input type="text" class="form-control" id="fpid" name="fpid" placeholder="Enter Promotion ID">
-            </div>
+			</div> -->
+			<input type="hidden" id="fpid" name="fpid" value=<%=data.rows[0].max%>>
             <div class="form-group">
 				<label for="name">Promotion Name:</label>
 				<input type="text" class="form-control" id="name" name="name" placeholder="Enter the Promotion Name">
@@ -42,6 +43,13 @@
             </div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
+		
+		<li><a href="/fdspromotionmanagement">Back to FDS Promotion Management Homepage</a></li>
+		<div>
+			<form id="fdsHomepage" action="fdsHomepage" method="post">
+				<button type="submit" class="btn btn-primary">Home Page</button>
+			</form>
+		</div>
 		
 		<script>
 			(function() {
