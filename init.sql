@@ -273,12 +273,43 @@ INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 INSERT INTO OrderContainsFoodItems VALUES (1,1,'Cheeseburger',2) ;
 INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 
+
+--CATEGORY TRIGGERS--
+CREATE OR REPLACE FUNCTION check_category() RETURNS TRIGGER  AS $$
+DECLARE
+  idToUpdate integer;
+
+BEGIN
+  SELECT C.cid into idToUpdate
+  FROM Category C
+  WHERE C.cid = NEW.cid;
+  
+  IF idToUpdate IS NOT NULL THEN
+    update Category
+    set name = 'triggerudpated'
+    where cid = idToUpdate;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS category_trigger ON Category CASCADE;
+CREATE TRIGGER category_trigger 
+  AFTER INSERT ON Category
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_category();
+
+
+
+
 --FDS PROMOTION TRIGGERS--
 CREATE OR REPLACE FUNCTION check_fdspromotions () RETURNS TRIGGER  AS $$
 DECLARE
   invaliddate date;
 
 BEGIN
+
   IF (NEW.startdate >= NEW.enddate) THEN
     invaliddate = NEW.startdate;
   END IF;
