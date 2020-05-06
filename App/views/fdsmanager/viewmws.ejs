@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Page Title -->
+    <title>CS2102 Database Connect</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <!-- CSS for Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- JavaScript for Interactivity -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1><%= date%></h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Start Date</th>
+                <th scope="col">Driver ID</th>
+                <th scope="col">MWS ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<data.length; i++) { %>
+            <tr>
+                <% var year = data[i].startdate.getFullYear() %>
+                <% var month = parseInt(data[i].startdate.getMonth()) + 1 %>
+                <% var date = data[i].startdate.getDate() %>
+                <% var dateString = year + "-" + month + "-" + date %>
+                <!-- <td><li><a href="/viewwws/<%=dateString%>"><%= data[i].startdate.getDate()%>-->
+                <td>
+                    <li><a href="/wwsdetail/<%=dateString%>"><%= data[i].startdate.getDate()%>
+                            <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
+                </td>
+                <td><%=data[i].uid%></td>
+                <td><%data[i].mwsid%></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <li><a href="/shiftmanagement">Back to Shift Management Homepage</a></li>
+    <div>
+        <form id="fdsHomepage" action="fdsHomepage" method="post">
+            <button type="submit" class="btn btn-primary">Home Page</button>
+        </form>
+    </div>
+</body>
+
+</html>

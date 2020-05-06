@@ -19,21 +19,47 @@
 			<thead>
 				<tr>
 					<th scope="col">Month </th>
-					<th scope="col">Customer Username </th>
+					<!-- <th scope="col"> test</th> -->
+					<!-- <th scope="col">Customer Username </th>
                     <th scope="col">Total Number of Orders</th>
-                    <th scope="col">Total Cost</th>
+                    <th scope="col">Total Cost</th> -->
 				</tr>
 			</thead>
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
-                    <td><%= months[data[i].month.getMonth()]%> <%=data[i].month.getFullYear()%></td>
-                   <td><%= data[i].username%></td>
-					 <td><%= data[i].totalorders%></td>
-                    <td><%= data[i].totalcost%></td>
+					<%var months = ['January','February','March','April','May','June','July','August','September','October','November','December']%>
+					<%var m = months[data[i].month -1]%>
+					<td><%=m%> <%=data[i].year%></td> 
+                    <% var year = data[i].year %>
+					<% var month = parseInt(data[i].month) %>
+					<% if (month < 10) {%>
+						<%month = "0" + month%>
+					<%}%>
+					<% var date = "01"%>
+					<% var dateString = year + "-" + month + "-" + date %>
+				    <!-- <td><%=dateString%></td> -->
+					<!-- view customers per month -->
+					<td><a href="/fdstwoviewcustomers/<%= dateString%>">View Customers</a></td>
 				</tr>
 				<% } %>
 			</tbody>
 		</table>
+		<button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button>
+
+
+		<div>
+			<form id="fdsHomepage" action="fdsHomepage" method="post">
+				<button type="submit" class="btn btn-primary">Home Page</button>
+			</form>
+		</div>
+	
   </body>
+
+  <script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
 </html>

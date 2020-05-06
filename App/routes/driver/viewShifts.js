@@ -7,10 +7,11 @@ const pool = new Pool({
 });
 
 /* GET method to generate ALL shifts */
-router.get('/:uid', function (req, res, next) {
-    const uid = req.params.uid;
-	pool.query("Select * from Shifts natural join WWS where firstdayofweek = $1", [uid], (err, data) => {
-		res.render('driver/viewShifts', {title: 'Shifts for the week', data: data.rows, uid:uid});
+router.get('/:wwsid', function (req, res, next) {
+	const wwsid = req.params.wwsid;
+	//AND WHERE firstdayofweek = ??? 
+	pool.query("Select * from Shifts natural join WWS WHERE wwsid = $1", [wwsid], (err, data) => {
+		res.render('driver/viewShifts', {title: 'Shifts for the week', data: data.rows});
 	});
 });
 

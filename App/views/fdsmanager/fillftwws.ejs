@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Page Title -->
+    <title>CS2102 Modifying Database</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <!-- CSS for Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- JavaScript for Interactivity -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+    <!-- ADDED JavaScript -->
+    <script src="javascripts/insertScript.js"></script>
+</head>
+
+<body>
+    <h1>Shifts for Week of <%= startdate%></h1>
+    <form id="html_form" action="fillftwws" role="form" method="post">
+        <!-- <div class="form-group">
+            <label for="sid">Shift ID</label>
+            <input type="text" class="form-control" id="sid" name="sid" placeholder="Enter Shift ID">
+        </div> -->
+        
+        <input type="hidden" class="form-control" id="sid" name="sid" value=<%= sid%>>
+
+        <div class="form-group">
+            Work Days:
+            <select name="startday" id="startday">
+                <option value=0> Monday to Friday</option>
+                <option value=1> Tuesday to Saturday </option>
+                <option value=2> Wednesday to Sunday </option>
+                <option value=3> Thursday to Monday </option>
+                <option value=4> Friday to Tuesday </option>
+                <option value=5> Saturday to Wednesday </option>
+                <option value=6> Sunday to Thursday </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Day 1:
+            <select name="day1" id="day1">
+                <option value='10am'> 10am to 2pm and 3pm to 7pm</option>
+                <option value='11am'> 11am to 3pm and 4pm to 8pm</option>
+                <option value='12pm'> 12pm to 4pm and 5pm to 9pm </option>
+                <option value='1pm'> 1pm to 5pm and 6pm to 10pm</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Day 2:
+            <select name="day2" id="day2">
+                <option value='10am'> 10am to 2pm and 3pm to 7pm</option>
+                <option value='11am'> 11am to 3pm and 4pm to 8pm</option>
+                <option value='12pm'> 12pm to 4pm and 5pm to 9pm </option>
+                <option value='1pm'> 1pm to 5pm and 6pm to 10pm</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Day 3:
+            <select name="day3" id="day3">
+                <option value='10am'> 10am to 2pm and 3pm to 7pm</option>
+                <option value='11am'> 11am to 3pm and 4pm to 8pm</option>
+                <option value='12pm'> 12pm to 4pm and 5pm to 9pm </option>
+                <option value='1pm'> 1pm to 5pm and 6pm to 10pm</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Day 4:
+            <select name="day4" id="day4">
+                <option value='10am'> 10am to 2pm and 3pm to 7pm</option>
+                <option value='11am'> 11am to 3pm and 4pm to 8pm</option>
+                <option value='12pm'> 12pm to 4pm and 5pm to 9pm </option>
+                <option value='1pm'> 1pm to 5pm and 6pm to 10pm</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Day 5:
+            <select name="day5" id="day5">
+                <option value='10am'> 10am to 2pm and 3pm to 7pm</option>
+                <option value='11am'> 11am to 3pm and 4pm to 8pm</option>
+                <option value='12pm'> 12pm to 4pm and 5pm to 9pm </option>
+                <option value='1pm'> 1pm to 5pm and 6pm to 10pm</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="wwsid" value="<%= wwsid%>">
+        <input type="hidden" name="startdate" value="<%= startdate%>">
+            
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+        (function () {
+            window.addEventListener('load', function () {
+                var forms = [document.getElementById('html_form')];
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', check, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>

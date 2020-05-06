@@ -12,7 +12,7 @@ const pool = new Pool({
 router.get('/:uid', function(req, res, next) {
     const uid = req.params.uid;
     //figure out how to make the minute pretty
-    var this_query = "SELECT distinct oid, address, EXTRACT(HOUR from timeordered) as hours, EXTRACT(MINUTE from timeordered) as minutes from Orders join Locations on uid = cid where did = $1 AND timeriderdeparts IS NOT NULL";
+    var this_query = "SELECT distinct oid, address, EXTRACT(HOUR from timeordered) as hours, EXTRACT(MINUTE from timeordered) as minutes from Orders join Locations on uid = cid where did = $1 AND timeriderdeparts IS NULL";
     pool.query(this_query, [uid] ,(err, data) => {
         res.render('driver/manageOrdersAssigned', { title: 'Manage Orders Assigned' , data: data.rows, uid:uid});
     });

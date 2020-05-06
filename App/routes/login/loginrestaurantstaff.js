@@ -9,7 +9,9 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('login/loginrestaurantstaff', { title: 'Login as Restaurant Staff' });
+    pool.query('SELECT * FROM Restaurants',(err,restaurants)=> {
+    res.render('login/loginrestaurantstaff', { title: 'Login as Restaurant Staff', restaurants:restaurants.rows });
+});
 });
 
 
@@ -19,14 +21,14 @@ router.post('/', function (req, res, next) {
     var password = req.body.password;
     var username = req.body.username;
     var rid = req.body.rid;
-
-
+    console.log(rid);
     pool.query('SELECT * FROM Users natural join RestaurantStaff WHERE username=$1 and password=$2', [username, password], (err, data) => {
-        if (data.rowCount == 1) {
-            res.render('restaurantstaffindex', { name: username, rid: rid });
-        } else {
-            res.render('login/loginrestaurantstaff',{ title: 'Login as Restaurant Staff' }); //maybe print an error message here somehow
-        }
+            if (data.rowCount == 1) {
+                console.log(rid);
+                res.render('restaurantstaffindex', { name: username, rid: rid });
+            } else {
+                res.render('login/loginrestaurantstaff',{ title: 'Login as Restaurant Staff' }); //maybe print an error message here somehow
+            }
     });
 });
 

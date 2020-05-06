@@ -25,13 +25,13 @@
 				<input type="text" class="form-control" id="rpid" name="rpid" placeholder="Enter Promotion ID">
             </div>
             <div class="form-group">
-				For which Restaurant:  
-			   <select name ="rid" id ="rid">
-				   <option value="1">MacDonald</option>
-				   <option value="2">KFC</option>
-				   <option value="3">Burger King</option>
+				From Which Restaurant:
+				<select name="rid" id="rid">
+				  <% for(var i=0; i<restaurants.length; i++) { %>
+				  <option value=<%=restaurants[i].rid%>> <%=restaurants[i].name%> </option>
+				  <% } %>
 				</select>
-			</div>
+			  </div>
             <div class="form-group">
 				<label for="name">Promotion Name:</label>
 				<input type="text" class="form-control" id="name" name="name" placeholder="Enter the Promotion Name">
