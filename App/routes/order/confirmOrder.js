@@ -22,7 +22,7 @@ router.post('/', function (req, res, next) {
     const totalPrice = req.body.totalPrice;
     var count;
     // var orderQuery = 'WITH TotalOrder TO AS ( SELECT count(*) AS "count" from Orders) INSERT INTO Orders (oid, lid, cid, rid) VALUES( TO.count + 1,' + lid + ',' + uid + ',' + rid + ')';  
-
+    console.log("before query");
     pool.query('Select count(*) AS "count" from Orders', (err, data) => {
         console.log(data.rows);
         console.log(data.rows[0].count);
@@ -34,30 +34,43 @@ router.post('/', function (req, res, next) {
         console.log(rid);
         console.log(uid);
         console.log("order length" + orders.length);
-    });
-    var datesplit = orderDate.split('T');
-    orderDate = datesplit[0] + " " + datesplit[1] + ":00"
-    var orderQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO Orders (oid,deliveryFee,timeOrdered,paymentMode,isDelivered,totalprice,lid,cid,rid) VALUES('
-    var orderQuery1 = orderQuery + "(SELECT count from TotalOrder) + 1,3,'" + orderDate + "', 'cash', false," + totalPrice + "," + lid + "," + uid + "," + rid + ")";  
-    pool.query(orderQuery1, (err, data) => {
         if (err) {
             throw err
-        }
+        } else {
+            console.log("after query");
+            var datesplit = orderDate.split('T');
+            orderDate = datesplit[0] + " " + datesplit[1] + ":00"
+            var orderQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO Orders (oid,deliveryFee,timeOrdered,paymentMode,isDelivered,totalprice,lid,cid,rid) VALUES('
+            var orderQuery1 = orderQuery + "(SELECT count from TotalOrder) + 1,3,'" + orderDate + "', 'cash', false," + totalPrice + "," + lid + "," + uid + "," + rid + ")";
+            pool.query(orderQuery1, (err, data) => {
+                if (err) {
+                    throw err
+                } else {
+                    console.log("order lenth here : " + orders.length)
+                    for (let index = 0; index < orders.length; index++) {
+                        console.log("came here");
+                        console.log(orders.length);
+                        var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFoodItems VALUES ('
+                        var orderContainsQuery1 = orderContainsQuery + "(SELECT count from TotalOrder), " + rid + ",'" + orders[index].foodname + "'," + orders[index].quantity + ")";
+                        pool.query(orderContainsQuery1, (err, data) => {
+                            if (err) {
+                                throw err
+                            } else {
+                                res.render('createNewOrder/done', {});
+                            }
+                        });
+                    }
+                    
+                }
+            });
+        }  
     });
-    console.log("out of loop");
-    console.log(orders.length);
-    for (let index = 0; index < orders.length; index++) {
-        console.log("came here");
-        var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFoodItems VALUES ('
-        var orderContainsQuery1 = orderContainsQuery + "(SELECT count from TotalOrder), " + rid + ",'" + orders[index].foodname + "'," + orders[index].quantity + ")";
-        pool.query(orderContainsQuery1, (err, data) => {
-            if (err) {
-                throw err
-            }
-        });
-    }
-    var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO '
-    res.render('createNewOrder/done', {});
+
+    // console.log("out of loop");
+    // console.log(orders.length);
+
+    // var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO '
+    // res.render('createNewOrder/done', {});
 
 });
 
