@@ -21,8 +21,17 @@ router.post('/', function (req, res, next) {
     pool.query(sql, [rid, orderDate], (error, data) => {
         if (error) {
             throw error
+        } else {
+            var sql2 = 'SELECT * FROM FDSPromotions WHERE $1 between startDate and endDate';
+            pool.query(sql2, [orderDate], (error, data2) => {
+                if (error) {
+                    throw error
+                } else {
+                    res.render('createNewOrder/chooseDiscount', { data: data.rows, data2: data2.rows, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                }
+            });
+
         }
-        res.render('createNewOrder/chooseDiscount', { data: data.rows, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
     });
 })
     

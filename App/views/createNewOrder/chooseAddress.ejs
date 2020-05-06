@@ -50,8 +50,11 @@
         <input type="hidden" name="orders" value="<%= orders%>">
         <input type="hidden" name="orderDate" value="<%= orderDate%>">
         <input type="hidden" name="rpid" value="<%= rpid%>">
+        <input type="hidden" name="fpid" value="<%= fpid%>">
         <button type="submit" class="btn btn-primary">Select Address</button>
     </form>
+    <h1>Rpid: <%= rpid%></h1>
+    <h1>Rid: <%= rid%></h1>
     <h1>Enter other address</h1>
     <form id="enterAddress_form" action="orderSummary2" role="form" method="post">
         <label for="address">Enter Address</label>

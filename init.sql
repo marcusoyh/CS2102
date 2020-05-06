@@ -186,7 +186,7 @@ create table OrderContainsFP (
 );
 
 create table OrderContainsRP ( 
-  Oid INTEGER,
+  oid INTEGER,
   rpid INTEGER,
   foreign key (oid) references Orders,
   foreign key(rpid) references RestaurantPromotions

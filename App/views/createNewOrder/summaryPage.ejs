@@ -49,8 +49,10 @@
         </tbody>
     </table>
     <h1>Total Price: $<%=totalPrice%></h1>
-    <% totalPrice = totalPrice * (1 - 0.001 * data[0].discountamount) %>
-    <h1>With Discount: $<%= totalPrice %></h1>
+    <% if (data[0].discountamount != null) {%>
+        <% totalPrice = totalPrice * (1 - 0.01 * data[0].discountamount) %>
+    <% } %>
+    <h1>With Discount(if applicable): $<%= totalPrice %></h1>
     <h1>Incl Delivery Fee($3): $<%= totalPrice + 3 %></h1>
     <h1>Deliver To: <%= data[0].address%></h1>
         <form id="form" action="confirmOrder" role="form" method="post">
@@ -61,6 +63,7 @@
         <input type="hidden" name="orderDate" value="<%= orderDate%>">
         <input type="hidden" name="totalPrice" value="<%= totalPrice%>">
         <input type="hidden" name="rpid" value="<%= rpid%>">
+        <input type="hidden" name="fpid" value="<%= fpid%>">
     <button type="submit" class="btn btn-primary">Confirm</button>
     </form>
 </body>

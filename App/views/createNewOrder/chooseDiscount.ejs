@@ -69,6 +69,17 @@
                 </tr>
                 <% } %>
             </tbody>
+            <tbody>
+                <% for(var i=0; i<data2.length; i++) { %>
+                <tr>
+                    <td><input type="radio" class="form-control" id="fpid" name="fpid" value="<%= data2[i].fpid%>"></td>
+                    <td><%= data2[i].name%></td>
+                    <td><%= data2[i].discountamount%></td>
+                    
+                </tr>
+                <% } %>
+            </tbody>
+
         </table>
         <input type="hidden" name="uid" value="<%= uid%>">
         <input type="hidden" name="rid" value="<%= rid%>">

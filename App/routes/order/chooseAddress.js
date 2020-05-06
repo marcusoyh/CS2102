@@ -16,6 +16,7 @@ router.post('/', function (req, res, next) {
     const rid = req.body.rid;
     var orders = req.body.orders;
     const rpid = req.body.rpid;
+    const fpid = req.body.fpid;
     orders = JSON.parse(orders);
     const orderDate = req.body.orderDate;
     var sql = 'SELECT * FROM Locations WHERE uid = $1 ORDER BY date DESC LIMIT 5';
@@ -25,7 +26,7 @@ router.post('/', function (req, res, next) {
             throw error
         }
 
-        res.render('createNewOrder/chooseAddress', { rpid: rpid, data: data.rows, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+        res.render('createNewOrder/chooseAddress', { rpid: rpid, fpid:fpid, data: data.rows, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
     })
 });
 

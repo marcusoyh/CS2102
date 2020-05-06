@@ -16,11 +16,22 @@ router.post('/', function (req, res, next) {
     const rid = req.body.rid;
     var orders = req.body.orders;
     const rpid = req.body.rpid;
+    const fpid = req.body.fpid;
     orders = JSON.parse(orders);
     var orderDate = req.body.orderDate;
     const lid = req.body.lid;
     const totalPrice = req.body.totalPrice;
     var count;
+    function pad(number, length) {
+
+        var str = '' + number;
+        while (str.length < length) {
+            str = '0' + str;
+        }
+
+        return str;
+
+    }
     // var orderQuery = 'WITH TotalOrder TO AS ( SELECT count(*) AS "count" from Orders) INSERT INTO Orders (oid, lid, cid, rid) VALUES( TO.count + 1,' + lid + ',' + uid + ',' + rid + ')';  
     console.log("before query");
     pool.query('Select count(*) AS "count" from Orders', (err, data) => {
@@ -31,9 +42,12 @@ router.post('/', function (req, res, next) {
         console.log(totalPrice);
         console.log(count);
         console.log(lid);
-        console.log(rid);
-        console.log(uid);
+        console.log("rid: " + rid);
+        console.log("uid: " + uid);
+        console.log("rpid: " + rpid);
+        console.log("fpid: " + fpid);
         console.log("order length" + orders.length);
+
         if (err) {
             throw err
         } else {
@@ -56,14 +70,41 @@ router.post('/', function (req, res, next) {
                             if (err) {
                                 throw err
                             } else {
-                                res.render('createNewOrder/done', {});
+                                var date = new Date();
+                                var updateLocationQuery = "UPDATE Locations SET date=" + "'" + date.getFullYear() + '-' + pad(date.getMonth() + 1, 2) + '-' + pad(date.getDate(), 2) + "' WHERE lid = " + lid;
+
+                                pool.query(updateLocationQuery, (err, data) => {
+                                    if (err) {
+                                        throw err
+                                    } else {
+                                        if (rpid != ""  && fpid == "") {
+                                            pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
+                                                if (err) {
+                                                    throw err
+                                                } else {
+                                                    res.render('createNewOrder/done', {});
+                                                }
+                                            });
+                                        } else if (fpid != "" && rpid == "") {
+                                            pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
+                                                if (err) {
+                                                    throw err
+                                                } else {
+                                                    res.render('createNewOrder/done', {});
+                                                }
+                                            });
+                                        } else {
+                                            res.render('createNewOrder/done', {});
+                                        }
+                                    }
+                                });
                             }
                         });
                     }
-                    
+
                 }
             });
-        }  
+        }
     });
 
     // console.log("out of loop");
