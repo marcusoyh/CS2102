@@ -324,18 +324,21 @@ BEGIN
     where uid = driverId;
 
    IF driverId IS NOT NULL THEN
-   --REAL shit begins here broskis, this is where we do stuff with the driver ID
-     RAISE exception 'Driver chosen has UID of %',driverId;
+   --REAL shit begins here broskis, this is where we update the Order with the driver ID
+    update Orders
+    set did = driverId
+    where oid = idToUpdate;
+    --RAISE exception 'Driver chosen has UID of %',driverId;
    END IF;
 
   orderDate = make_date(yearInt, monthInt, dayInt);
-  IF idToUpdate IS NOT NULL THEN
-    RAISE exception 'Date of Order is %', orderDate;
+  -- IF idToUpdate IS NOT NULL THEN
+  --   RAISE exception 'Date of Order is %', orderDate;
 
-    update Orders
-    set did = 2
-    where oid = idToUpdate;
-  END IF;
+  --   update Orders
+  --   set did = 2
+  --   where oid = idToUpdate;
+  -- END IF;
 
   RETURN NULL;
 END;
