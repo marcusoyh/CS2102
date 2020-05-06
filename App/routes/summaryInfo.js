@@ -8,7 +8,7 @@ const pool = new Pool({
 });
 
 var selectQuery = 'SELECT month, totalorders, totalcost from viewOne group by month';
-var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var months = ["-","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 // GET
 router.get('/:id', function(req, res, next) {
