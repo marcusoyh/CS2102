@@ -14,4 +14,16 @@ router.get('/', function (req, res, next) {
         res.render('fdsmanager/viewwws', { date: 'All Weekly Schedules Created', data: data.rows, months: months });
     });
 });
+
+//GET method to see all WWS with the same MWS (linked from VIEWMWS.ejs!)
+router.get('/:mwsid', function (req, res, next) {
+    const mwsid = req.params.mwsid;
+
+    //HOW TO QUERY CORRECTLY
+    pool.query('Select startdate, count(*) as num from WWS natural join Users group by startdate order by startdate desc', (err, data) => {
+        res.render('fdsmanager/viewwws', { date: 'All Weekly Schedules Created', data: data.rows, months: months });
+    });
+});
+
+
 module.exports = router;
