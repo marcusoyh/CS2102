@@ -38,10 +38,9 @@ router.post('/', function(req, res, next) {
 	console.log(endMonth);
     // Construct Specific SQL Query
     //total number of hours, salary - this query works on psql
-    var query_first = "SELECT name, count(oid) as totalOrders, sum(EXTRACT(EPOCH FROM (deliveryTime::timestamp  - timeRiderLeavesRestaurant::timestamp))), sum(riderRating) as totalRating FROM Users natural join Drivers natural join Orders WHERE timeRiderLeavesRestaurant between "+ startMonth + " AND " + endMonth + " AND uid = " + uid + " GROUP BY name";
+    var query_first = "SELECT name, count(oid) as totalOrders, sum(endTime-startTime) as totalHours, sum(EXTRACT(EPOCH FROM (deliveryTime::timestamp  - timeRiderLeavesRestaurant::timestamp))), sum(riderRating) as totalRating FROM Shifts Natural join WWS natural join Users natural join Drivers natural join Orders WHERE timeRiderLeavesRestaurant between "+ startMonth + " AND " + endMonth + " AND uid = " + uid + " GROUP BY name";
 	//salary - this query works on psql
 	var query_one = "SELECT salary, count(WWS) as weeks, sum(commission) as sumcommission FROM Drivers NATURAL JOIN Users NATURAL JOIN WWS NATURAL JOIN Orders WHERE uid = " + uid + " AND did = " + uid +" AND timeRiderDeparts between " + startMonth + " AND "+ endMonth + " GROUP BY uid";
-	//left totalhours -celesse will do after IS3106
 	
 	pool.query(query_first, (err,data) =>{
 		console.log(data.rows[0].sum);

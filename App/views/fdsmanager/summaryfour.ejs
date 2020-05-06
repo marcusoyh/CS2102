@@ -34,6 +34,7 @@
                 <th scope="col">Average Delivery Time(in Minutes)</th>
                 <th scope="col">Average Rating</th>
                 <th scope="col">Total Salary</th>
+                <th scope="col">Total Hours Worked</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +47,8 @@
                 <td><%= (data[i].sum/60)/data[i].totalorders%></td>
                 <td><%= data[i].totalrating/data[i].totalorders%></td>
                 <td><%= totalsalary%></td>
+                <td><%= data[i].totalhours%></td>
+                
             </tr>
             <% } %>
         </tbody>
