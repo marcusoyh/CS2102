@@ -17,4 +17,15 @@ router.get('/', function (req, res, next) {
     });
 });
 
+
+/* POST method to generate WWS for each MWS  */
+router.get('/:mwsid', function (req, res, next) {
+    mwsid = req.params.mwsid;
+
+    //var selectQuery = 'with viewone as (Select uid, min(startdate) as startdate, mwsid from MWS natural join WWS group by mwsid) select * from Users natural join viewone';
+    pool.query ('Select * from WWS where mwsid=$1', [mwsid], data => {
+        res.render('fdsmanager/mwsdetail', { date: 'All Weekly Schedules Created', data: data.rows, months: months }
+    });
+});
+
 module.exports = router;
