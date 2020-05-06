@@ -52,7 +52,7 @@ router.post('/', function (req, res, next) {
             if (inserterr) {
                 console.log(inserterr.message);
                 console.log(shiftquery);
-                pool.query('Select * from Users natural join WWS where startdate = $1', [firstdayofweek], (err, data) => {
+                pool.query('Select * from Users natural join PartTimers natural join WWS where startdate = $1', [firstdayofweek], (err, data) => {
                     res.render("fdsmanager/addshift", { drivers: data.rows, title: 'Adding a Shift to Week of ', days: days, dates: dates, firstdayofweek: firstdayofweek, errormessage: 'ERROR: ' + inserterr.message });
                 });
 

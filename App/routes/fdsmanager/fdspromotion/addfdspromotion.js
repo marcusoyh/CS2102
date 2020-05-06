@@ -13,7 +13,7 @@ const pool = new Pool({
 // GET
 router.get('/', function (req, res, next) {
     pool.query('Select max(fpid) from FDSPromotions', (maxerr, maxdata) => {
-        res.render('fdsmanager/addfdspromotion', { title: 'Adding FDS Promotion', data: maxdata });
+        res.render('fdsmanager/addfdspromotion', { title: 'Adding FDS Promotion', data: maxdata, errormessage:' ' });
     });
 });
 
@@ -31,11 +31,15 @@ router.post('/', function (req, res, next) {
     // Construct Insert Query
     var sql_query = 'INSERT INTO FDSPromotions VALUES ';
     var insert_query = sql_query + "('" + fpid + "','" + name + "','" + discountAmount + "','" + startDate + "','" + endDate + "')";
-    pool.query(insert_query, (err, data) => {
-        if (err) {
-            return console.error('Error executing query', err.stack)
+    pool.query(insert_query, (inserterr, data) => {
+        if (inserterr) {
+            pool.query('Select max(fpid) from FDSPromotions', (maxerr, maxdata) => {
+                res.render('fdsmanager/addfdspromotion', { title: 'Adding FDS Promotion', data: maxdata, errormessage: 'ERROR: ' + inserterr.message });
+            });
+        } else {
+            res.redirect('./fdspromotionmanagement');
         }
-        res.redirect('./fdspromotionmanagement');
+        
     });
 
 

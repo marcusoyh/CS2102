@@ -121,7 +121,7 @@ CREATE TABLE Shifts (
 );
 
 CREATE TABLE Category (
-  cid INTEGER,
+  cid SERIAL,
   name VARCHAR(20) NOT NULL,
   PRIMARY KEY (cid)
 );
@@ -267,13 +267,72 @@ INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 INSERT INTO OrderContainsFoodItems VALUES (1,1,'Cheeseburger',2) ;
 INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 
+--FDS PROMOTION TRIGGERS--
+CREATE OR REPLACE FUNCTION check_fdspromotions () RETURNS TRIGGER  AS $$
+DECLARE
+  invaliddate date;
+
+BEGIN
+  IF (NEW.startdate >= NEW.enddate) THEN
+    invaliddate = NEW.startdate;
+  END IF;
+  
+  IF invaliddate IS NOT NULL THEN
+    RAISE exception 'Start Date entered is earlier or same End Date';
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS fdspromotion_trigger ON FDSPromotions CASCADE;
+CREATE TRIGGER fdspromotion_trigger 
+  AFTER INSERT ON FDSPromotions
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_fdspromotions();
+
+--RESTAURANT PROMOTION TRIGGERS--
+CREATE OR REPLACE FUNCTION check_restaurantpromotions () RETURNS TRIGGER  AS $$
+DECLARE
+  invaliddate date;
+
+BEGIN
+  IF (NEW.startdate >= NEW.enddate) THEN
+    invaliddate = NEW.startdate;
+  END IF;
+  
+  IF invaliddate IS NOT NULL THEN
+    RAISE exception 'Start Date entered is earlier or same End Date';
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS restaurantpromotions_trigger ON RestaurantPromotions CASCADE;
+CREATE TRIGGER restaurantpromotions_trigger 
+  AFTER INSERT ON RestaurantPromotions
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_restaurantpromotions();
+
+
+
+--SHIFT TRIGGERS--
 CREATE OR REPLACE FUNCTION check_shifts () RETURNS TRIGGER  AS $$
 DECLARE
   time text;
   conflict text;
   hourcount integer;
+  startonhour text;
+  endonhour text;
+  shiftstarttiming integer;
+  shiftendtiming integer;
 
 BEGIN
+
+  shiftstarttiming = NEW.starttime;
+  shiftendtiming = NEW.endtime;
+
   IF (NEW.starttime >= NEW.endtime) THEN
     time = NEW.starttime;
   END IF;
@@ -293,7 +352,10 @@ BEGIN
     S.starttime <= NEW.endtime)
     )
     ;
-  
+
+  IF shiftendtiming - shiftstarttiming >400 THEN
+    RAISE exception 'Maximum Shift duration is 4 hours';
+  END IF;
   IF hourcount IS NOT NULL THEN
     IF hourcount > 4800 THEN
       RAISE exception '48h Weekly Limit Hit';

@@ -49,7 +49,7 @@ router.post('/', function (req, res, next) {
     var errormessage = " ";
     pool.query(finalinsertquery, (err, insertdata) => {
         if (err) {
-            errormessage = err.message;
+            errormessage = 'ERROR: ' + err.message;
             pool.query('Select * from Shifts natural join Users natural join WWS where wwsid = $1 order by day', [wwsid], (err, data) => {
                 if (err) {
                     return console.error('Error executing query', err.stack)

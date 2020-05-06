@@ -60,6 +60,10 @@ var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 var fdsoneRouter = require('./routes/fdsmanager/summaries/fdsone');
 var fdstwoRouter = require('./routes/fdsmanager/summaries/fdstwo');
 var fdsthreeRouter = require('./routes/fdsmanager/summaries/fdsthree');
+//FOOD CATEGORIES
+var categorymanagementRouter = require('./routes/fdsmanager/category/categorymanagement');
+var addcategoryRouter = require('./routes/fdsmanager/category/addcategory');
+var deletecategoryRouter = require('./routes/fdsmanager/category/deletecategory');
 //FDS PROMOTIONS
 var fdspromotionsRouter = require('./routes/fdsmanager/fdspromotion/fdspromotions');
 var addfdspromotionRouter = require('./routes/fdsmanager/fdspromotion/addfdspromotion');
@@ -186,6 +190,9 @@ app.use('/fillptwws',fillptwwsRouter);
 app.use('/adddriverwws',adddriverwwsRouter);
 app.use('/fillftwws',fillftwwsRouter);
 app.use('/fdsHomepage',fdsHomepageRouter);
+app.use('/categorymanagement',categorymanagementRouter);
+app.use('/addcategory',addcategoryRouter);
+app.use('/deletecategory',deletecategoryRouter);
 
 app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
 app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);
