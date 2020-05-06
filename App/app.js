@@ -93,6 +93,11 @@ var deliverOrderRouter = require('./routes/driver/deliverOrder');
 var postTimeReachedResRouter = require('./routes/driver/postTimeReachedRes');
 var postTimeLeftResRouter = require('./routes/driver/postTimeLeftRes');
 var postTimeDeliveredRouter = require('./routes/driver/postTimeDelivered');
+var chooseDateRouter = require('./routes/order/chooseDate');
+var chooseDiscountRouter = require('./routes/order/chooseDiscount');
+var discountedRouter = require('./routes/order/discounted');
+var orderSummaryRouter = require('./routes/order/orderSummary');
+var confirmOrderRouter = require('./routes/order/confirmOrder');
 /* ---------------------------- */
 
 
@@ -195,6 +200,11 @@ app.use('/deliverOrder', deliverOrderRouter);
 app.use('/postTimeReachesRes', postTimeReachedResRouter);
 app.use('/postTimeLeftRes', postTimeLeftResRouter);
 app.use('/postTimeDelivered', postTimeDeliveredRouter);
+app.use('/chooseDate', chooseDateRouter);
+app.use('/chooseDiscount', chooseDiscountRouter);
+app.use('/discounted', discountedRouter);
+app.use('/orderSummary', orderSummaryRouter);
+app.use('/confirmOrder', confirmOrderRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

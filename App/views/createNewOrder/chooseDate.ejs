@@ -23,47 +23,7 @@
 </head>
 
 <body>
-    <h1>Your userid is <%= uid%></h1>
-    <h1>Your rid is <%= rid%></h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Category's ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Number of max order</th>
-                <th scope="col">Price</th>
-                <th scope="col">Availability</th>
-                <th scope="col">Quantity</th>
-                <th></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <% for(var i=0; i<data.length; i++) { %>
-            <tr>
-                <td><%= data[i].rid%></td>
-                <td><%= data[i].foodname%></a></td>
-                <td><%= data[i].maxorders%></td>
-                <td><%= data[i].price%></td>
-                <td><%= data[i].availability%></td>
-                <form id="html_form" action="chooseFoodItemAndQuantity" role="form" method="post">
-                    <input type="hidden" name="uid" value="<%= uid%>">
-                    <input type="hidden" name="rid" value="<%= rid%>">
-                    <input type="hidden" name="orders" value="<%= orders%>">
-                    <% console.log("IN EJB") %>
-                    <% console.log(JSON.parse(orders)) %>
-                    <input type="hidden" name="foodname" value="<%= data[i].foodname%>">
-                    
-                    <td><input type="number" name="quantity"></td>
-                    <input type="hidden" name="price" value="<%= data[i].price%>">
-                    <td><button type="submit" class="btn btn-primary">Add to cart</button></td>
-                </form>
-
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
-    <h1>Your current order so far</h1>
+    <h1>Your current order</h1>
     <table class="table">
         <thead>
             <tr>
@@ -83,32 +43,25 @@
                 <td><%= ordersA[i].price%></td>
                 <td><%= ordersA[i].quantity * ordersA[i].price%></td>
                 <%totalPrice +=  ordersA[i].quantity * ordersA[i].price %>
-                
+
             </tr>
             <% } %>
         </tbody>
     </table>
     <h1>Total Price: $<%=totalPrice%></h1>
-    <form id="foodItem_form" action="chooseDate" role="form" method="post">
+    <form id="date_form" action="chooseDiscount" role="form" method="post">
+        <label for="timeriderdeparts">Choose date</label>
+		<input type="datetime-local" class="form-control" id="orderDate" name="orderDate">
         <input type="hidden" name="uid" value="<%= uid%>">
         <input type="hidden" name="rid" value="<%= rid%>">
         <input type="hidden" name="orders" value="<%= orders%>">
 
-        <button type="submit" class="btn btn-primary">Checkout</button>
+        <button type="submit" class="btn btn-primary">Select Date</button>
     </form>
-
     <script>
         (function () {
             window.addEventListener('load', function () {
-                var forms = [document.getElementById('html_form')];
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', check, false);
-                });
-            }, false);
-        })();
-        (function () {
-            window.addEventListener('load', function () {
-                var forms = [document.getElementById('foodItem_form')];
+                var forms = [document.getElementById('date_form')];
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', check, false);
                 });

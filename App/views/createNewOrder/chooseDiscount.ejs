@@ -23,56 +23,75 @@
 </head>
 
 <body>
-    <h1>
-        chooseAddress
-    </h1>
-    <form id="chooseAddress_form" action="orderSummary" role="form" method="post">
+    <h1>Your current order</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Food Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% const ordersA = JSON.parse(orders) %>
+            <% var totalPrice = 0 %>
+            <% for(var i=0; i < ordersA.length; i++) { %>
+            <tr>
+                <td><%= ordersA[i].foodname%></td>
+                <td><%= ordersA[i].quantity%></td>
+                <td><%= ordersA[i].price%></td>
+                <td><%= ordersA[i].quantity * ordersA[i].price%></td>
+                <%totalPrice +=  ordersA[i].quantity * ordersA[i].price %>
+
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <h1>Total Price: $<%=totalPrice%></h1>
+    <form id="chooseDiscount_form" action="discounted" role="form" method="post">
         <table class="table">
+            <h2>Available Promotion</h2>
             <thead>
                 <tr>
                     <th scope="col">Select</th>
-                    <th scope="col">Address</th>
+                    <th scope="col">Promotion name</th>
+                    <th scope="col">Promotion discount amount(%)</th>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i<data.length; i++) { %>
                 <tr>
-                    <td><input type="radio" class="form-control" id="lid" name="lid" value="<%= data[i].lid%>"></td>
-                    <td><%= data[i].address%></td>
-                    
+                    <td><input type="radio" class="form-control" id="rpid" name="rpid" value="<%= data[i].rpid%>"></td>
+                    <td><%= data[i].name%></td>
+                    <td><%= data[i].discountamount%></td>
                     
                 </tr>
                 <% } %>
             </tbody>
+            <tbody>
+                <% for(var i=0; i<data2.length; i++) { %>
+                <tr>
+                    <td><input type="radio" class="form-control" id="fpid" name="fpid" value="<%= data2[i].fpid%>"></td>
+                    <td><%= data2[i].name%></td>
+                    <td><%= data2[i].discountamount%></td>
+                    
+                </tr>
+                <% } %>
+            </tbody>
+
         </table>
         <input type="hidden" name="uid" value="<%= uid%>">
         <input type="hidden" name="rid" value="<%= rid%>">
         <input type="hidden" name="orders" value="<%= orders%>">
         <input type="hidden" name="orderDate" value="<%= orderDate%>">
-        <input type="hidden" name="rpid" value="<%= rpid%>">
-        <input type="hidden" name="fpid" value="<%= fpid%>">
-        <button type="submit" class="btn btn-primary">Select Address</button>
-    </form>
-    <h1>Rpid: <%= rpid%></h1>
-    <h1>Rid: <%= rid%></h1>
-    <h1>Enter other address</h1>
-    <form id="enterAddress_form" action="orderSummary2" role="form" method="post">
-        <label for="address">Enter Address</label>
-        <input id="address" type="text" name="address">
-        <button type="submit" class="btn btn-primary">Confirm Address</button>
+
+        <button type="submit" class="btn btn-primary">Apply</button>
     </form>
     <script>
         (function () {
             window.addEventListener('load', function () {
                 var forms = [document.getElementById('chooseDiscount_form')];
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', check, false);
-                });
-            }, false);
-        })();
-        (function () {
-            window.addEventListener('load', function () {
-                var forms = [document.getElementById('enterAddress_form')];
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', check, false);
                 });
