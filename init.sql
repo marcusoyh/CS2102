@@ -277,14 +277,19 @@ INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 CREATE OR REPLACE FUNCTION check_orders() RETURNS TRIGGER  AS $$
 DECLARE
   idToUpdate integer;
+  orderDate date;
+  timeOfOrderInteger integer;
   timeOfOrderString text;
+  driverId integer;
+
+  dateString text;
+  fullTimeString text;
+  
   hourInt integer;
   minInt integer;
-  hourString text;
-  minString text;
-  timeOfOrderInteger integer;
-  fullTimeString text;
-  driverId integer;
+  yearInt integer;
+  monthInt integer;
+  dayInt integer;
 
 BEGIN
   SELECT O.oid into idToUpdate
@@ -295,30 +300,31 @@ BEGIN
   FROM Orders O
   WHERE o.oid = NEW.oid;
 
+  SELECT split_part(timeOfOrderString, ' ', 1) into dateString;
   SELECT split_part(timeOfOrderString, ' ', 2) into fullTimeString;
-  SELECT split_part(fullTimeString, ':', 1) into hourString;
-  SELECT split_part(fullTimeString, ':', 2) into minString;
+  SELECT split_part(fullTimeString, ':', 1) into hourInt;
+  SELECT split_part(fullTimeString, ':', 2) into minInt;
   
-  hourInt = hourString;
-  minInt = minString;
+  SELECT split_part(dateString, '-', 1) into yearInt;
+  SELECT split_part(dateString, '-', 2) into monthInt;
+  SELECT split_part(dateString, '-', 3) into dayInt;
+
   timeOfOrderInteger = hourInt*100 + minInt;
 
   SELECT sid into driverId
-  FROM Shifts natural join WWS
-  WHERE startTime<=timeOfOrderInteger
-  AND endTime>timeOfOrderInteger;
+  FROM Shifts S
+  WHERE S.day = (SELECT make_date(yearInt, monthInt, dayInt))
+  AND S.startTime<=timeOfOrderInteger
+  AND S.endTime>timeOfOrderInteger;
+  
+  --SELECT make_date(yearInt, monthInt, dayInt) into orderDate;
 
-  IF driverId IS NOT NULL THEN
-    RAISE exception 'Driver chosen has Shift ID of %',driverId;
-  END IF;
+   IF driverId IS NOT NULL THEN
+     RAISE exception 'Driver chosen has Shift ID of %',driverId;
+   END IF;
 
   IF idToUpdate IS NOT NULL THEN
-    --first convert timeOfOrderToInteger
-    
-    -- hourOrdered = timeOfOrderString.split(" ")[1].split(":")[0];
-    -- minutesOrdered = timeOfOrderString.split(" ")[1].split(":")[1];
-    -- timeOfOrderInteger = hourOrdered*100 + minutesOrdered;
-    RAISE exception 'Time of Order Integer is %', timeOfOrderInteger;
+    RAISE exception 'Date of Order is %', orderDate;
 
     update Orders
     set did = 2
