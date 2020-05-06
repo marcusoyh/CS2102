@@ -374,7 +374,6 @@ BEGIN
     RAISE exception 'Conflicting Shift Timing';
   END IF;
   
-
   RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
