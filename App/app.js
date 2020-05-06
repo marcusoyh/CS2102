@@ -78,6 +78,8 @@ var viewwwsRouter = require('./routes/fdsmanager/viewwws');
 var wwsdetailRouter = require('./routes/fdsmanager/wwsdetail');
 var adddriverwwsRouter = require('./routes/fdsmanager/adddriverwws');
 var fillftwwsRouter = require('./routes/fdsmanager/fillftwws');
+var fdstwoviewcustomersRouter = require('./routes/fdsmanager/fdstwoviewcustomers');
+var fdstwoviewordersbycustomerRouter = require('./routes/fdsmanager/fdstwoviewordersbycustomer');
 
 var driverRegisterRouter = require('./routes/driver/driverRegister');
 var viewSalaryRouter = require('./routes/driver/viewSalary');
@@ -183,6 +185,8 @@ app.use('/viewwws',viewwwsRouter)
 app.use('/wwsdetail',wwsdetailRouter)
 app.use('/adddriverwws',adddriverwwsRouter)
 app.use('/fillftwws',fillftwwsRouter)
+app.use('/fdstwoviewcustomers', fdstwoviewcustomersRouter);
+app.use('/fdstwoviewordersbycustomer', fdstwoviewordersbycustomerRouter);
 
 app.use('/addRestaurantPromotion',addRestaurantPromotionRouter);
 app.use('/viewRestaurantPromotions',viewRestaurantPromotionsRouter);

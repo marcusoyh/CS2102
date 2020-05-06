@@ -24,14 +24,14 @@
 
 <body>
 	<h1><%= title%></h1>
-	<form id="html_form" action="fdsone" role="form" method="post">
+	<!-- <form id="html_form" action="fdsone" role="form" method="post">
 		<div class="form-group">
 			<label for="monthToFilter">Filter by Month:</label>
 			<input type="text" step="0.01" class="form-control" id="endDate" name="endDate"
 				placeholder="Enter Month (YYYY-MM-DD)">
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
+	</form> -->
 
 	<table class="table">
 		<thead>
@@ -46,13 +46,32 @@
 			<% for(var i=0; i<data.length; i++) { %>
 			<tr>
 				<td><%= months[data[i].month.getMonth()]%> <%=data[i].month.getFullYear()%></td>
-				<td><%= data[i].totalorders%></td>
-				<td><%= data[i].totalcost%></td>
-				<td><%= data[i].totalsignups%></td>
+				<%var totalorders = data[i].totalorders%>
+				<%var totalcost = data[i].totalcost%>
+				<%var totalsignups = data[i].totalsignups%>
+				<%if(totalorders == null){%>
+					<%totalorders = 0%>
+				<%}%>	
+				<%if(totalcost == null){%>
+					<%totalcost = 0%>
+				<%}%>
+				<%if(totalsignups == null){%>
+					<%totalsignups = 0%>
+				<%}%>
+				<td><%=totalorders%></td>
+				<td><%=totalcost%></td>
+				<td><%=totalsignups%></td>
 			</tr>
 			<% } %>
 		</tbody>
 	</table>
+    <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button>
 </body>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 </html>
