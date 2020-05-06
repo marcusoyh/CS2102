@@ -42,7 +42,7 @@ router.post('/', function (req, res, next) {
 
 
 
-    pool.query('Select max(sid), max(w.wwsid) as wwsid, max(m.mwsid) as mwsid from Shifts s ,WWS w ,MWS m', (maxerr, maxdata) => {
+    pool.query('Select max(sid) as sid, max(w.wwsid) as wwsid, max(m.mwsid) as mwsid from Shifts s ,WWS w ,MWS m', (maxerr, maxdata) => {
         var wwsid = parseInt(maxdata.rows[0].wwsid) + 1;
         var mwsid = parseInt(maxdata.rows[0].mwsid) + 1;
         var sid = parseInt(maxdata.rows[0].sid) + 1;
@@ -87,7 +87,7 @@ router.post('/', function (req, res, next) {
             });
         });
         wwsid = parseInt(wwsid) - 3;
-        
+        console.log("********sid passed over is " +sid)
         res.render('fdsmanager/fillftwws', { startdate: datestringarray[0], wwsid: wwsid, sid:sid });
     });
 
