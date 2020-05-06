@@ -331,7 +331,7 @@ BEGIN
     --RAISE exception 'Driver chosen has UID of %',driverId;
    END IF;
 
-  orderDate = make_date(yearInt, monthInt, dayInt);
+  --orderDate = make_date(yearInt, monthInt, dayInt);
   -- IF idToUpdate IS NOT NULL THEN
   --   RAISE exception 'Date of Order is %', orderDate;
 
