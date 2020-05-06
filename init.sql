@@ -311,18 +311,24 @@ BEGIN
 
   timeOfOrderInteger = hourInt*100 + minInt;
 
-  SELECT sid into driverId
-  FROM Shifts S
+  SELECT uid into driverId
+  FROM Shifts S natural join WWS W natural join Drivers D
   WHERE S.day = (SELECT make_date(yearInt, monthInt, dayInt))
   AND S.startTime<=timeOfOrderInteger
-  AND S.endTime>timeOfOrderInteger;
+  AND S.endTime>timeOfOrderInteger
+  AND D.isAvailable=true;
   
-  --SELECT make_date(yearInt, monthInt, dayInt) into orderDate;
+  --i dont think this is possible actually it doesnt happen
+  update Drivers
+    set isAvailable = false
+    where uid = driverId;
 
    IF driverId IS NOT NULL THEN
-     RAISE exception 'Driver chosen has Shift ID of %',driverId;
+   --REAL shit begins here broskis, this is where we do stuff with the driver ID
+     RAISE exception 'Driver chosen has UID of %',driverId;
    END IF;
 
+  orderDate = make_date(yearInt, monthInt, dayInt);
   IF idToUpdate IS NOT NULL THEN
     RAISE exception 'Date of Order is %', orderDate;
 
