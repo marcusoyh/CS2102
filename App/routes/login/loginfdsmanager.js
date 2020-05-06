@@ -21,7 +21,7 @@ router.post('/', function (req, res, next) {
 
     pool.query('SELECT * FROM Users natural join FDSManagers WHERE username=$1 and password=$2', [username, password], (err, data) => {
         if (data.rowCount == 1) {
-            res.render('fdsmanager/fdsmanagerhomepage', { name: username });
+            res.render('fdsmanager/fdsmanagerhomepage');
         } else {
             res.render('login/loginfdsmanager', {title: 'Login as FDS Manager'}); //maybe print an error message here somehow
         }

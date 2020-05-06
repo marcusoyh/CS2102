@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Page Title -->
+    <title>CS2102 Modifying Database</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <!-- CSS for Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- JavaScript for Interactivity -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+    <!-- ADDED JavaScript -->
+    <script src="javascripts/insertScript.js"></script>
+</head>
+
+<body>
+    <h1>Shifts for Week of <%= startdate%></h1>
+    <form id="html_form" action="fillptwws" role="form" method="post">
+        <div class="form-group">
+            Shift Day:
+            <select name="shiftday" id="shiftday">
+                <option value=0> Monday</option>
+                <option value=1> Tuesday </option>
+                <option value=2> Wednesday </option>
+                <option value=3> Thursday </option>
+                <option value=4> Friday </option>
+                <option value=5> Saturday </option>
+                <option value=6> Sunday </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Shift Start Time:
+            <select name="starttime" id="starttime">
+                <option value='1000'> 10am</option>
+                <option value='1100'> 11am</option>
+                <option value='1200'> 12pm</option>
+                <option value='1300'> 1pm</option>
+                <option value='1400'> 2pm</option>
+                <option value='1500'> 3pm</option>
+                <option value='1600'> 4pm</option>
+                <option value='1700'> 5pm</option>
+                <option value='1800'> 6pm</option>
+                <option value='1900'> 7pm</option>
+                <option value='2000'> 8pm</option>
+                <option value='2100'> 9pm</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            Shift End Time:
+            <select name="endtime" id="endtime">
+                <option value='1100'> 11am</option>
+                <option value='1200'> 12pm</option>
+                <option value='1300'> 1pm</option>
+                <option value='1400'> 2pm</option>
+                <option value='1500'> 3pm</option>
+                <option value='1600'> 4pm</option>
+                <option value='1700'> 5pm</option>
+                <option value='1800'> 6pm</option>
+                <option value='1900'> 7pm</option>
+                <option value='2000'> 8pm</option>
+                <option value='2100'> 9pm</option>
+                <option value='2200'> 10pm</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="wwsid" value="<%= wwsid%>">
+        <input type="hidden" name="sid" value="<%= sid%>">
+        <input type="hidden" name="startdate" value="<%= startdate%>">
+        <input type="hidden" name="totalhours" value="<%= totalhours%>">
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h3><%=errormessage%></h3>
+    <h3>Total Number of hours: <%=totalhours%></h3>
+    <h4>10 Hour Minimum Hit: <%=hourtargethit%></h4>
+    <h4>Shifts Created for this Week:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Date</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Shift Duration (Hours)</th>
+                <th scope="col">Shift ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%=days[data[i].day.getDate() - parseInt(startdate.split("-")[2])]%></td>
+                <td><%=data[i].day.getDate()%> <%= months[data[i].day.getMonth()]%> <%=data[i].day.getFullYear()%></td>
+                <td><%= data[i].starttime%></td>
+                <td><%= data[i].endtime%></td>
+                <td><%= (data[i].endtime - data[i].starttime)/100 %></td>
+                <td><%= data[i].sid%></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <li><a href="/shiftmanagement">Finish and Return to Schedule Management</a></li>
+
+    <script>
+        (function () {
+            window.addEventListener('load', function () {
+                var forms = [document.getElementById('html_form')];
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', check, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 <html>
   <head>
 		<!-- Page Title -->
-    <title>CS2102 Database Connect</title>
+    <title>Home Page</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 		
 		<!-- CSS for Styling -->
@@ -15,31 +15,38 @@
   </head>
   <body>
     <h1><%= title%></h1>
-		<table class="table">
+    <h1><%= errormessage%></h1>
+	<li><a href="/addcategory">Create a new Food Category</a></li>
+	
+    <table class="table">
 			<thead>
 				<tr>
-                    <th scope="col">Restaurant Name</th>
-                    <th scope="col">Staff ID</th>
-					<th scope="col">Staff Name</th>
+					<th scope="col">Category ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Delete Category</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
-                    <td><%= data[i].rname%></td>
-                    <td><%= data[i].uid%></td>
+					<td><%= data[i].cid%></td>
                     <td><%= data[i].name%></td>
+                    <td>
+                        <form id="addshift" action="deletecategory" method="post">
+                            <input type="hidden" name="cid" value="<%= data[i].cid%>">
+                            <button type="submit" class="btn btn-primary">Delete Category</button>
+                        </form>
+                    </td>
 				</tr>
 				<% } %>
 			</tbody>
 		</table>
-		
-		<li><a href="/restaurantstaffmanagement">Back to Restaurant Staff Management Homepage</a></li>
+
 		<div>
 			<form id="fdsHomepage" action="fdsHomepage" method="post">
 				<button type="submit" class="btn btn-primary">Home Page</button>
 			</form>
 		</div>
-		
+	
   </body>
 </html>

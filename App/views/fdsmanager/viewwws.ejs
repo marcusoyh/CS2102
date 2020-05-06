@@ -23,19 +23,7 @@
 </head>
 
 <body>
-    <!-- <form id="addshift" action="wwsdetail" method="post">
-        <input type="hidden" name="date" value="<%= date%>">
-        <button type="submit" class="btn btn-primary">Create New Shift</button>
-    </form> -->
-    <!-- this shouldnt direct to my addshift page, it should direct to some other place that can take in 
-	this button value through POST METHOD.
-or maybe we pass to addShift's post method and update it there? 
-shit but then the post method is alraedy used to create the shift ? unless i make two different post methods then
-i think answer is to pass this date into some post method somewhere, then render and pass the date into that form. pass that date into 
-the form, so that user doesnt have to input the date and can just directly use that date in the form, we do something -->
-
     <h1><%= date%></h1>
-    <li><a href="/addwws">Generate a new WWS</a></li>
     <table class="table">
         <thead>
             <tr>
@@ -58,8 +46,7 @@ the form, so that user doesnt have to input the date and can just directly use t
                 <td><%= data[i].num%></td>
                 <td>
                     <form id="addshift" action="wwsdetail" method="post">
-                        <input type="hidden" name="date" value="<%= dateString%>">
-                        <!-- small problem here because when viewing all shifts, title is passed over instead -->
+                        <input type="hidden" name="weekstartdate" value="<%= dateString%>">
                         <button type="submit" class="btn btn-primary">Create New Shift</button>
                     </form>
                 </td>
@@ -68,6 +55,11 @@ the form, so that user doesnt have to input the date and can just directly use t
         </tbody>
     </table>
     <li><a href="/shiftmanagement">Back to Shift Management Homepage</a></li>
+    <div>
+        <form id="fdsHomepage" action="fdsHomepage" method="post">
+            <button type="submit" class="btn btn-primary">Home Page</button>
+        </form>
+    </div>
 </body>
 
 </html>

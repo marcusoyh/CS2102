@@ -49,7 +49,7 @@ the form, so that user doesnt have to input the date and can just directly use t
 		<tbody>
 			<% for(var i=0; i<data.length; i++) { %>
 			<tr>
-				<td><%= data[i].day%></td>
+				<td><%=data[i].day.getDate()%> <%= months[data[i].day.getMonth()]%> <%=data[i].day.getFullYear()%></td>
 				<td><%= data[i].starttime%></td>
 				<td><%= data[i].endtime%></td>
 				<td><%= data[i].sid%></td>

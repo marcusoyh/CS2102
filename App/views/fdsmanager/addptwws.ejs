@@ -18,21 +18,31 @@
   </head>
   <body>
     <h1><%= title%></h1>
-		<form id="html_form" action="deletepromotion" role="form" method="post">
+		<form id="html_form" action="addptwws" role="form" method="post">
+			
 			<div class="form-group">
-				<label for="fpid">Promotion ID</label>
-				<input type="text" class="form-control" id="fpid" name="fpid" aria-describedby="userIdHelp" placeholder="Enter Promotion ID">
-				<small id="matricHelp" class="form-text text-muted"></small>
+				Driver:
+				<select name="uid" id="uid">
+					<% for(var i=0; i<data.length; i++) { %>
+					<option value=<%=data[i].uid%>> <%=data[i].name%> </option>
+					<% } %>
+				</select>
 			</div>
+			
+			<!-- <div class="form-group">
+				<label for="wwsid">WWS ID</label>
+				<input type="number" class="form-control" id="wwsid" name="wwsid" placeholder="Enter Weekly Schedule ID from 3">
+            </div>
+            <div class="form-group">
+				<label for="sid">Starting Shift ID</label>
+				<input type="number" class="form-control" id="sid" name="sid" placeholder="Enter Shift ID from 11">
+			</div> -->
+			<div class="form-group">
+				<label for="startdate">Starting Date (Monday)</label>
+				<input type="date" class="form-control" id="startdate" name="startdate" placeholder="Enter Start Date">
+            </div>
 			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>
-
-		<li><a href="/fdspromotionmanagement">Back to FDS Promotion Management Homepage</a></li>
-		<div>
-			<form id="fdsHomepage" action="fdsHomepage" method="post">
-				<button type="submit" class="btn btn-primary">Home Page</button>
-			</form>
-		</div>
+        </form>
 		
 		<script>
 			(function() {
@@ -46,3 +56,4 @@
 		</script>
   </body>
 </html>
+

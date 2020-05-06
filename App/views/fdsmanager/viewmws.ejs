@@ -23,33 +23,39 @@
 </head>
 
 <body>
-    <h1><%= title%></h1>
+    <h1><%= date%></h1>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Hour </th>
-                <th scope="col">Location ID </th>
-                <th scope="col">Address </th>
-                <th scope="col">Total Number of Orders</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Driver ID</th>
+                <th scope="col">MWS ID</th>
             </tr>
         </thead>
         <tbody>
             <% for(var i=0; i<data.length; i++) { %>
             <tr>
-                <td><%= months[data[i].hour.getMonth()]%> <%= data[i].hour.getDate()%> <%= data[i].hour.getFullYear()%> <%= data[i].hour.getHours()%>:00</td>
-                <td><%= data[i].lid%></td>
-                <td><%= data[i].address%></td>
-                <td><%= data[i].totalorders%></td>
+                <% var year = data[i].startdate.getFullYear() %>
+                <% var month = parseInt(data[i].startdate.getMonth()) + 1 %>
+                <% var date = data[i].startdate.getDate() %>
+                <% var dateString = year + "-" + month + "-" + date %>
+                <!-- <td><li><a href="/viewwws/<%=dateString%>"><%= data[i].startdate.getDate()%>-->
+                <td>
+                    <li><a href="/wwsdetail/<%=dateString%>"><%= data[i].startdate.getDate()%>
+                            <%= months[data[i].startdate.getMonth()]%> <%= data[i].startdate.getFullYear()%></a></li>
+                </td>
+                <td><%=data[i].uid%></td>
+                <td><%data[i].mwsid%></td>
             </tr>
             <% } %>
         </tbody>
     </table>
-
+    <li><a href="/shiftmanagement">Back to Shift Management Homepage</a></li>
     <div>
         <form id="fdsHomepage" action="fdsHomepage" method="post">
             <button type="submit" class="btn btn-primary">Home Page</button>
         </form>
     </div>
-
 </body>
+
 </html>
