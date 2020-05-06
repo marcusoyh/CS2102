@@ -57,15 +57,17 @@
                     <th scope="col">Select</th>
                     <th scope="col">Promotion name</th>
                     <th scope="col">Promotion discount amount(%)</th>
+                    <th scope="col">Promotion Type</th>
                 </tr>
             </thead>
+            <h2></h2>
             <tbody>
                 <% for(var i=0; i<data.length; i++) { %>
                 <tr>
                     <td><input type="radio" class="form-control" id="rpid" name="rpid" value="<%= data[i].rpid%>"></td>
                     <td><%= data[i].name%></td>
                     <td><%= data[i].discountamount%></td>
-                    
+                    <td>Restaurant Promotion</td>
                 </tr>
                 <% } %>
             </tbody>
@@ -75,7 +77,7 @@
                     <td><input type="radio" class="form-control" id="fpid" name="fpid" value="<%= data2[i].fpid%>"></td>
                     <td><%= data2[i].name%></td>
                     <td><%= data2[i].discountamount%></td>
-                    
+                    <td>FDS Promotion</td>
                 </tr>
                 <% } %>
             </tbody>

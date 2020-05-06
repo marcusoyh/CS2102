@@ -50,7 +50,7 @@ CREATE TABLE Customers (
 );
 
 CREATE TABLE Locations (
-  lid INTEGER,
+  lid INTEGER SERIAL,
   uid INTEGER not null,
   address VARCHAR(60),
   date DATE not null,

@@ -56,9 +56,15 @@
     <h1>Rpid: <%= rpid%></h1>
     <h1>Rid: <%= rid%></h1>
     <h1>Enter other address</h1>
-    <form id="enterAddress_form" action="orderSummary2" role="form" method="post">
+    <form id="enterAddress_form" action="orderSummary" role="form" method="post">
         <label for="address">Enter Address</label>
         <input id="address" type="text" name="address">
+        <input type="hidden" name="uid" value="<%= uid%>">
+        <input type="hidden" name="rid" value="<%= rid%>">
+        <input type="hidden" name="orders" value="<%= orders%>">
+        <input type="hidden" name="orderDate" value="<%= orderDate%>">
+        <input type="hidden" name="rpid" value="<%= rpid%>">
+        <input type="hidden" name="fpid" value="<%= fpid%>">
         <button type="submit" class="btn btn-primary">Confirm Address</button>
     </form>
     <script>

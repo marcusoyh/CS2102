@@ -78,6 +78,7 @@ router.post('/', function (req, res, next) {
                                         throw err
                                     } else {
                                         if (rpid != ""  && fpid == "") {
+                                            console.log("here1");
                                             pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
                                                 if (err) {
                                                     throw err
@@ -86,6 +87,7 @@ router.post('/', function (req, res, next) {
                                                 }
                                             });
                                         } else if (fpid != "" && rpid == "") {
+                                            console.log("here2");
                                             pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
                                                 if (err) {
                                                     throw err
@@ -93,7 +95,23 @@ router.post('/', function (req, res, next) {
                                                     res.render('createNewOrder/done', {});
                                                 }
                                             });
+                                        } else if (fpid != "" && rpid != "") {
+                                            console.log("here3");
+                                            pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
+                                                if (err) {
+                                                    throw err
+                                                } else {
+                                                    pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
+                                                        if (err) {
+                                                            throw err
+                                                        } else {
+                                                            res.render('createNewOrder/done', {});
+                                                        }
+                                                    });
+                                                }
+                                            });
                                         } else {
+                                            console.log("here4");
                                             res.render('createNewOrder/done', {});
                                         }
                                     }

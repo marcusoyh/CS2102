@@ -12,6 +12,7 @@ const pool = new Pool({
 
 router.post('/', function (req, res, next) {
     // Retrieve Information
+    const address = req.body.address;
     const uid = req.body.uid;
     const rid = req.body.rid;
     var orders = req.body.orders;
@@ -19,7 +20,7 @@ router.post('/', function (req, res, next) {
     const fpid = req.body.fpid;
     orders = JSON.parse(orders);
     const orderDate = req.body.orderDate;
-    const lid = req.body.lid;
+    var lid = req.body.lid;
     var list1 = [];
     var list2 = [];
     // var ridQuery = 'SELECT * FROM Restaurants WHERE rid = $1';
@@ -27,37 +28,75 @@ router.post('/', function (req, res, next) {
     var query = 'SELECT * FROM  Restaurants R, Locations L, RestaurantPromotions RP WHERE L.lid = $1 AND R.rid=$2 AND RP.rpid = $3';
     var query2 = 'SELECT * FROM  Restaurants R, Locations L, FDSPromotions FP WHERE L.lid = $1 AND R.rid=$2 AND FP.fpid = $3';
     var query3 = 'SELECT * FROM  Restaurants R, Locations L WHERE L.lid = $1 AND R.rid=$2';
-    if (rpid != "") {
-        pool.query(query, [lid, rid, rpid],(err, data) => {	
+    var addressQuery = "INSERT INTO Locations (uid,address,date) VALUES (" + uid + ",'" + address + "','2000-01-01')";
+    var flag = true;
+    if (lid == null) {
+        console.log("lid is null")
+        pool.query(addressQuery, (err, data) => {
             if (err) {
                 throw err;
             } else {
-                
-                res.render('createNewOrder/summaryPage', { data : data.rows, lid : lid, fpid: fpid, rpid: rpid,  orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                flag = false;
             }
         });
-    } else if (fpid != "") {
-        pool.query(query2, [lid, rid, fpid],(err, data) => {
+
+    }
+
+    if (!flag) {
+        pool.query("SELECT address FROM Location L WHERE L.address=$1", [address], (err, data) => {
             if (err) {
                 throw err;
-            }  else {
-                
-                res.render('createNewOrder/summaryPage', { data : data.rows, lid : lid, fpid: fpid, rpid: rpid,  orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+            }
+            lid = data[0].lid;
+        });
+    }
+    if (rpid != "" && fpid == "") {
+        pool.query(query, [lid, rid, rpid], (err, data) => {
+            if (err) {
+                throw err;
+            } else {
+                var data2 = []
+                res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+            }
+        });
+    } else if (fpid != "" && rpid == "") {
+        pool.query(query2, [lid, rid, fpid], (err, data) => {
+            if (err) {
+                throw err;
+            } else {
+                var data2 = []
+                res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+            }
+        });
+    } else if (fpid != "" && rpid != "") {
+        pool.query(query, [lid, rid, rpid], (err, data) => {
+            if (err) {
+                throw err;
+            } else {
+                pool.query(query2, [lid, rid, fpid], (err, data2) => {
+                    if (err) {
+                        throw err;
+                    } else {
+
+                        res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2.rows, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                    }
+                });
+
             }
         });
     } else {
-        pool.query(query3, [lid, rid],(err, data) => {
+        pool.query(query3, [lid, rid], (err, data) => {
             if (err) {
                 throw err;
-            }  else {
-                
-                res.render('createNewOrder/summaryPage', { data : data.rows, lid : lid, fpid:fpid, rpid: rpid,  orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+            } else {
+                var data2 = [];
+                res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
             }
         });
     }
 
 
-    
+
 });
 
 

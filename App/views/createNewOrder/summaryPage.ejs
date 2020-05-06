@@ -49,9 +49,13 @@
         </tbody>
     </table>
     <h1>Total Price: $<%=totalPrice%></h1>
-    <% if (data[0].discountamount != null) {%>
-        <% totalPrice = totalPrice * (1 - 0.01 * data[0].discountamount) %>
+    
+    <% if (data2.length != 0) {%>
+        <% totalPrice = totalPrice * (1 - 0.01 * data2[0].discountamount) %>
     <% } %>
+    <% if (data[0].discountamount != null) {%>
+        <% totalPrice = totalPrice * (1 - 0.01 * data[0].discountamount) %> 
+    <% } %> 
     <h1>With Discount(if applicable): $<%= totalPrice %></h1>
     <h1>Incl Delivery Fee($3): $<%= totalPrice + 3 %></h1>
     <h1>Deliver To: <%= data[0].address%></h1>

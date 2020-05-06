@@ -50,10 +50,12 @@
     </table>
     <h1>Total Price: $<%=totalPrice%></h1>
     <% if (data.length != 0) { %>
-    <h1>With Discount: $<%= totalPrice * (1 - 0.01 * data[0].discountamount) %></h1>
+        <% totalPrice = totalPrice * (1 - 0.01 * data[0].discountamount) %>
+        <h1>With Restaurant Promotion: $<%= totalPrice%></h1>
     <% } %>
     <% if (data2.length != 0) { %>
-        <h1>With Discount: $<%= totalPrice * (1 - 0.01 * data2[0].discountamount) %></h1>
+        <% totalPrice = totalPrice * (1 - 0.01 * data2[0].discountamount) %>
+        <h1>With FDS Promotion: $<%= totalPrice%></h1>
     <% } %>
     <form id="form" action="chooseAddress" role="form" method="post">
         <input type="hidden" name="uid" value="<%= uid%>">
