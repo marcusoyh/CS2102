@@ -225,7 +225,7 @@ app.use('/viewShifts2', viewshifts2Router);
 app.use('/viewDriverSummaryInfo', viewDriverSummaryInfoRouter);
 app.use('/manageOrdersAssigned', manageOrdersAssignedRouter);
 app.use('/deliverOrder', deliverOrderRouter);
-app.use('/postTimeReachesRes', postTimeReachedResRouter);
+app.use('/postTimeReachedRes', postTimeReachedResRouter);
 app.use('/postTimeLeftRes', postTimeLeftResRouter);
 app.use('/postTimeDelivered', postTimeDeliveredRouter);
 app.use('/chooseDate', chooseDateRouter);
