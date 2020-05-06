@@ -10,8 +10,8 @@ const pool = new Pool({
 router.post('/:oid', function (req, res, next) {
     const oid = req.params.oid;
     var deliveryTime = req.body.deliverTime;
-
-    pool.query('UPDATE ORDERS SET deliveryTime = $2 where oid = $1', [oid, deliveryTime] ,(err, data) => {
+    var today = new Date();
+    pool.query('UPDATE ORDERS SET deliveryTime = $2, SET deliveryDate = $3 where oid = $1', [oid, deliveryTime, today] ,(err, data) => {
 	});
 
 });
