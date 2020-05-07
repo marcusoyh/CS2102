@@ -7,20 +7,18 @@ const pool = new Pool({
 });
 
 // GET
-router.get('/:oid', function(req, res, next) {
+router.get('/', function(req, res, next) {
     const oid = req.params.oid;
     var this_query = "";
     pool.query(this_query, [oid] ,(err, data) => {
-        res.render('driver/postTimeDelivered', { title: 'Time Delivered' , data: data.rows, oid:oid});
+        res.render('driver/deliverOrder', { title: 'Deliver Order' , data: data.rows, oid:oid});
     });
 });
 
-
 //POST
-router.post('/:oid', function (req, res, next) {
+router.post('/', function (req, res, next) {
     // var uid = sessionStorage.getItem("uid");
     var uid = req.body.uid;
-    console.log("session storage uid: " + uid);
     var oid = req.body.oid;
     var deliveryTime = req.body.deliveryTime;
     var deliveryTime2 = deliveryTime.replace('T', " ");
@@ -48,7 +46,7 @@ router.post('/:oid', function (req, res, next) {
     var this_query3 = "update drivers set isavailable = true where uid = " + uid;
     console.log(this_query3)
     pool.query(this_query3, (err,data) => {
-        res.render('driver/postTimeDelivered', {title: 'Time Delivered', oid:oid});
+        res.render('driver/deliverOrder', {title: 'Deliver Order', oid:oid, uid:uid});
     });
 
 });
