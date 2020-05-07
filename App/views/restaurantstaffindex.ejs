@@ -23,16 +23,18 @@
 
       <!--main content-->
     <div style="height:430px; width:60%; float: left">
-      <h4>Welcome Back <%= name%><%= rid%></h4> 
-      <li><a href="/addRestaurantFoodItem/<%= rid%>"> Add a new restaurant food item</a></li>
-      <li><a href="/viewFoodItems/<%= rid%>">View all food items</a></li>
-      <li><a href="/deleteRestaurantFoodItem/<%= rid%>">Delete a restaurant food item</a></li>
-      <li><a href="/viewAllOrders/<%= rid%>">View all orders</a></li>
-      <li><a href="/summaryInfo/<%= rid%>">Summary Information</a></li>
-      <li><a href="/addRestaurantPromotion/<%= rid%>">Add a new restaurant promotion</a></li>
-      <li><a href="/viewRestaurantPromotions/<%= rid%>">View all restaurant promotions</a></li>
-      <li><a href="/deleteRestaurantPromotion/<%= rid%>">Delete a restaurant promotion</a></li>
-      <li><a href="/summaryInfoPromotion/<%= rid%>">Summary Promotion Information</a></li>
+      <h2> <%=restaurant.name%></h2>
+      <h4>Welcome Back <%= name%></h4> 
+
+      <li><a href="/addRestaurantFoodItem/<%= restaurant.rid%>"> Add a new restaurant food item</a></li>
+      <li><a href="/viewFoodItems/<%=  restaurant.rid%>">View all food items</a></li>
+      <li><a href="/deleteRestaurantFoodItem/<%=  restaurant.rid%>">Delete a restaurant food item</a></li>
+      <li><a href="/viewAllOrders/<%=  restaurant.rid%>">View all orders</a></li>
+      <li><a href="/summaryInfo/<%=  restaurant.rid%>">Summary Information</a></li>
+      <li><a href="/addRestaurantPromotion/<%=  restaurant.rid%>">Add a new restaurant promotion</a></li>
+      <li><a href="/viewRestaurantPromotions/<%=  restaurant.rid%>">View all restaurant promotions</a></li>
+      <li><a href="/deleteRestaurantPromotion/<%=  restaurant.rid%>">Delete a restaurant promotion</a></li>
+      <li><a href="/summaryInfoPromotion/<%=  restaurant.rid%>">Summary Promotion Information</a></li>
   
     </div>
     

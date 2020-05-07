@@ -201,7 +201,6 @@ Create table MaxOrderTable (
   foodname VARCHAR(20),
   orderDate DATE,
   quantity INTEGER,
-
   foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
   PRIMARY KEY(mid)
 );

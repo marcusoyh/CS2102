@@ -9,7 +9,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('login/logindriver', { title: 'Login as Driver' });
+    res.render('login/logindriver', { title: 'Login as Driver', errormessage:' ' });
 });
 
 
@@ -24,7 +24,7 @@ router.post('/', function (req, res, next) {
         if (data.rowCount == 1) {
             res.render('driver/driverhomepage', {name: username, uid:uid});
         } else {
-            res.render('login/logindriver', { title: data.rowCount }); //maybe print an error message here somehow
+            res.render('login/logindriver', { title: data.rowCount, errormessage:'ERROR: Username/Password Wrong' }); //maybe print an error message here somehow
         }
     });
 });
