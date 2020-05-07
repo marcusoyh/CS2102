@@ -58,7 +58,9 @@ router.post('/', function (req, res, next) {
             var orderQuery1 = orderQuery + "(SELECT count from TotalOrder) + 1,3,'" + orderDate + "', 'cash', false," + totalPrice + "," + lid + "," + uid + "," + rid + ")";
             pool.query(orderQuery1, (err, data) => {
                 if (err) {
-                    throw err
+                    var errorMessage = err.message;
+                    console.log(errorMessage);
+                    res.render('createNewOrder/errorPage', { errorMessage: errorMessage });
                 } else {
                     console.log("order lenth here : " + orders.length)
                     for (let index = 0; index < orders.length; index++) {
@@ -77,7 +79,7 @@ router.post('/', function (req, res, next) {
                                     if (err) {
                                         throw err
                                     } else {
-                                        if (rpid != ""  && fpid == "") {
+                                        if (rpid != "" && fpid == "") {
                                             console.log("here1");
                                             pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
                                                 if (err) {

@@ -293,6 +293,7 @@ DECLARE
   dayInt integer;
 
 BEGIN
+
   SELECT O.oid into idToUpdate
   FROM Orders O
   WHERE o.oid = NEW.oid;
@@ -332,6 +333,8 @@ BEGIN
     --RAISE exception 'Driver chosen has UID of %',driverId;
    END IF;
 
+
+
   RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
@@ -342,6 +345,33 @@ CREATE TRIGGER orders_trigger
   FOR EACH ROW 
   EXECUTE FUNCTION check_orders();
 
+--ORDER TRIGGER FOR MIN SPENDING--
+CREATE OR REPLACE FUNCTION check_orders2() RETURNS TRIGGER  AS $$
+DECLARE
+  restaurantMinDeliveryAmount real;
+  
+
+BEGIN
+  SELECT R.minDeliveryAmount into restaurantMinDeliveryAmount
+  FROM Restaurants R
+  WHERE r.rid = NEW.rid; 
+
+  
+  
+
+  IF NEW.totalprice < restaurantMinDeliveryAmount THEN
+    RAISE exception 'Your total price $% has not reached minimum retaurant order price of $%', NEW.totalprice, restaurantMinDeliveryAmount;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS order_trigger2 ON Orders CASCADE;
+CREATE TRIGGER order_trigger2 
+  AFTER INSERT ON Orders
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_orders2();
 
 
 --CATEGORY TRIGGERS--
@@ -493,5 +523,3 @@ CREATE TRIGGER shift_trigger
   AFTER INSERT ON Shifts
   FOR EACH ROW 
   EXECUTE FUNCTION check_shifts();
-
-    
