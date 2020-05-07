@@ -288,18 +288,34 @@ INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 --MAX ORDER TRIGGER--
 CREATE OR REPLACE FUNCTION check_maxorder() RETURNS TRIGGER  AS $$
 DECLARE
+  midToUpdate integer;
   ridToUpdate integer;
+  foodnameToUpdate text;
+  dateToUpdate date;
+  currentQuantity integer;
 
 BEGIN
-  SELECT m.rid into ridToUpdate
+  SELECT m.mid into midToUpdate
   FROM MaxOrderTable m
   WHERE m.mid <> NEW.mid
   AND m.rid = NEW.rid
   AND m.orderDate = NEW.orderDate
   AND m.foodname = NEW.foodname;
 
-   IF ridToUpdate IS NOT NULL THEN
-    RAISE exception 'Restaurant chosen has RID of %',ridToUpdate;
+  SELECT m.quantity into currentQuantity
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+   IF midToUpdate IS NOT NULL THEN
+    UPDATE MaxOrderTable
+    set quantity = NEW.quantity + currentQuantity
+    WHERE mid = midToUpdate;
+    
+    DELETE FROM MaxOrderTable
+    WHERE mid = NEW.mid;
    END IF;
 
   RETURN NULL;
