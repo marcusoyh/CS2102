@@ -48,83 +48,90 @@ router.post('/', function (req, res, next) {
         console.log("fpid: " + fpid);
         console.log("order length" + orders.length);
 
-        if (err) {
-            throw err
-        } else {
-            console.log("after query");
-            var datesplit = orderDate.split('T');
-            orderDate = datesplit[0] + " " + datesplit[1] + ":00"
-            var orderQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO Orders (oid,deliveryFee,timeOrdered,paymentMode,isDelivered,totalprice,lid,cid,rid) VALUES('
-            var orderQuery1 = orderQuery + "(SELECT count from TotalOrder) + 1,3,'" + orderDate + "', 'cash', false," + totalPrice + "," + lid + "," + uid + "," + rid + ")";
-            pool.query(orderQuery1, (err, data) => {
-                if (err) {
-                    var errorMessage = err.message;
-                    console.log(errorMessage);
-                    res.render('createNewOrder/errorPage', { errorMessage: errorMessage });
-                } else {
-                    console.log("order lenth here : " + orders.length)
-                    for (let index = 0; index < orders.length; index++) {
-                        console.log("came here");
-                        console.log(orders.length);
-                        var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFoodItems VALUES ('
-                        var orderContainsQuery1 = orderContainsQuery + "(SELECT count from TotalOrder), " + rid + ",'" + orders[index].foodname + "'," + orders[index].quantity + ")";
-                        pool.query(orderContainsQuery1, (err, data) => {
-                            if (err) {
-                                throw err
-                            } else {
-                                var date = new Date();
-                                var updateLocationQuery = "UPDATE Locations SET date=" + "'" + date.getFullYear() + '-' + pad(date.getMonth() + 1, 2) + '-' + pad(date.getDate(), 2) + "' WHERE lid = " + lid;
 
-                                pool.query(updateLocationQuery, (err, data) => {
-                                    if (err) {
-                                        throw err
-                                    } else {
-                                        if (rpid != "" && fpid == "") {
-                                            console.log("here1");
-                                            pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
-                                                if (err) {
-                                                    throw err
-                                                } else {
-                                                    res.render('createNewOrder/done', {});
-                                                }
-                                            });
-                                        } else if (fpid != "" && rpid == "") {
-                                            console.log("here2");
-                                            pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
-                                                if (err) {
-                                                    throw err
-                                                } else {
-                                                    res.render('createNewOrder/done', {});
-                                                }
-                                            });
-                                        } else if (fpid != "" && rpid != "") {
-                                            console.log("here3");
-                                            pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
-                                                if (err) {
-                                                    throw err
-                                                } else {
-                                                    pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
-                                                        if (err) {
-                                                            throw err
-                                                        } else {
-                                                            res.render('createNewOrder/done', {});
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        } else {
-                                            console.log("here4");
-                                            res.render('createNewOrder/done', {});
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                }
-            });
+        console.log("after query");
+        var datesplit = orderDate.split('T');
+        orderDate = datesplit[0] + " " + datesplit[1] + ":00"
+        var orderQuery = 'BEGIN; \nWITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO Orders (oid,deliveryFee,timeOrdered,paymentMode,isDelivered,totalprice,lid,cid,rid) VALUES('
+        var orderQuery1 = orderQuery + "(SELECT count from TotalOrder) + 1,3,'" + orderDate + "', 'cash', false," + totalPrice + "," + lid + "," + uid + "," + rid + ");";
+        var maxTableQuery = "";
+        for (var i = 0; i < orders.length; i++) {
+            maxTableQuery += "\nINSERT INTO maxordertable (rid,foodname,orderdate,quantity) VALUES ("
+            maxTableQuery += rid + ",'" + orders[i].foodname + "','" + orderDate + "'," + orders[i].quantity + ");"
         }
+        orderQuery1 += maxTableQuery;
+        orderQuery1 += "\nCOMMIT;"
+        console.log(orderQuery1);
+        
+        pool.query(orderQuery1, (err, data) => {
+            if (err) {
+                var errorMessage = err.message;
+                console.log(errorMessage);
+                res.render('createNewOrder/errorPage', { errorMessage: errorMessage });
+            } else {
+                console.log("order lenth here : " + orders.length)
+                for (let index = 0; index < orders.length; index++) {
+                    console.log("came here");
+                    console.log(orders.length);
+                    var orderContainsQuery = 'WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFoodItems VALUES ('
+                    var orderContainsQuery1 = orderContainsQuery + "(SELECT count from TotalOrder), " + rid + ",'" + orders[index].foodname + "'," + orders[index].quantity + ")";
+                    pool.query(orderContainsQuery1, (err, data) => {
+                        if (err) {
+                            throw err
+                        } else {
+                            var date = new Date();
+                            var updateLocationQuery = "UPDATE Locations SET date=" + "'" + date.getFullYear() + '-' + pad(date.getMonth() + 1, 2) + '-' + pad(date.getDate(), 2) + "' WHERE lid = " + lid;
+
+                            pool.query(updateLocationQuery, (err, data) => {
+                                if (err) {
+                                    throw err
+                                } else {
+                                    if (rpid != "" && fpid == "") {
+                                        console.log("here1");
+                                        pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
+                                            if (err) {
+                                                throw err
+                                            } else {
+                                                res.render('createNewOrder/done', {});
+                                            }
+                                        });
+                                    } else if (fpid != "" && rpid == "") {
+                                        console.log("here2");
+                                        pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
+                                            if (err) {
+                                                throw err
+                                            } else {
+                                                res.render('createNewOrder/done', {});
+                                            }
+                                        });
+                                    } else if (fpid != "" && rpid != "") {
+                                        console.log("here3");
+                                        pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsRP (oid,rpid) VALUES((SELECT count from TotalOrder),' + rpid + ')', (err, data) => {
+                                            if (err) {
+                                                throw err
+                                            } else {
+                                                pool.query('WITH TotalOrder AS ( SELECT count(oid) AS "count" from Orders) INSERT INTO OrderContainsFP (oid,fpid) VALUES((SELECT count from TotalOrder),' + fpid + ')', (err, data) => {
+                                                    if (err) {
+                                                        throw err
+                                                    } else {
+                                                        res.render('createNewOrder/done', {});
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    } else {
+                                        console.log("here4");
+                                        res.render('createNewOrder/done', {});
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
+            }
+        });
+
     });
 
     // console.log("out of loop");

@@ -23,38 +23,13 @@
 </head>
 
 <body>
-    <h1>Your current order</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Food Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Unit Price</th>
-                <th scope="col">Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% const ordersA = JSON.parse(orders) %>
-            <% var totalPrice = 0 %>
-            <% for(var i=0; i < ordersA.length; i++) { %>
-            <tr>
-                <td><%= ordersA[i].foodname%></td>
-                <td><%= ordersA[i].quantity%></td>
-                <td><%= ordersA[i].price%></td>
-                <td><%= ordersA[i].quantity * ordersA[i].price%></td>
-                <%totalPrice +=  ordersA[i].quantity * ordersA[i].price %>
-
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
-    <h1>Total Price: $<%=totalPrice%></h1>
-    <form id="date_form" action="chooseDiscount" role="form" method="post">
-        <label for="timeriderdeparts">Choose date</label>
+    <h1>Choose Date</h1>
+    <form id="date_form" action="chooseFoodItemAndQuantity" role="form" method="post">
+        <label for="timeriderdeparts">Date:</label>
 		<input type="datetime-local" class="form-control" id="orderDate" name="orderDate">
         <input type="hidden" name="uid" value="<%= uid%>">
         <input type="hidden" name="rid" value="<%= rid%>">
-        <input type="hidden" name="orders" value="<%= orders%>">
+        
 
         <button type="submit" class="btn btn-primary">Select Date</button>
     </form>

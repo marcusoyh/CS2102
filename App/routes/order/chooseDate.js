@@ -14,11 +14,11 @@ router.post('/', function (req, res, next) {
     // Retrieve Information
     const uid = req.body.uid;
     const rid = req.body.rid;
-    var orders = req.body.orders;
-    orders = JSON.parse(orders);
+    // var orders = req.body.orders;
+    // orders = JSON.parse(orders);
 
 
-    res.render('createNewOrder/chooseDate', { uid : uid, rid : rid, orders : JSON.stringify(orders) });
+    res.render('createNewOrder/chooseDate', { uid : uid, rid : rid });
 });
 
 

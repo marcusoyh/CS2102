@@ -357,7 +357,7 @@ BEGIN
   IF midToUpdate IS NOT NULL THEN
     --CHECK FOR MAXIMUM FIRST
     IF (maxQuantity < NEW.quantity + currentQuantity) THEN
-      RAISE exception 'Maximum order of % for item % has been reached', maxQuantity, foodnameToUpdate;
+      RAISE exception 'Maximum order for item % has been reached', foodnameToUpdate;
     END IF;
 
 

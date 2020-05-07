@@ -32,24 +32,33 @@
                 <th scope="col">Name</th>
                 <th scope="col">Number of max order</th>
                 <th scope="col">Price</th>
-                <th scope="col">Availability</th>
+                
                 <th scope="col">Quantity</th>
-                <th></th>
+                <th scope="col">Action</th>
 
             </tr>
         </thead>
         <tbody>
             <% for(var i=0; i<data.length; i++) { %>
             <tr>
-                <td><%= data[i].rid%></td>
+                <td><%= data[i].rid %></td>
                 <td><%= data[i].foodname%></a></td>
-                <td><%= data[i].maxorders%></td>
+                <% var availableQuantity = data[i].maxorders; 
+                    for (var j=0; j <data2.length; j++) {
+                        if (data2[j].foodname === data[i].foodname) { 
+                            availableQuantity -= data2[j].quantity 
+                        } 
+                    } 
+                %>
+                <td><%= availableQuantity%></td>
                 <td><%= data[i].price%></td>
-                <td><%= data[i].availability%></td>
+                
+                
                 <form id="html_form" action="chooseFoodItemAndQuantity" role="form" method="post">
                     <input type="hidden" name="uid" value="<%= uid%>">
                     <input type="hidden" name="rid" value="<%= rid%>">
                     <input type="hidden" name="orders" value="<%= orders%>">
+                    <input type="hidden" name="orderDate" value="<%= orderDate%>">
                     <% console.log("IN EJB") %>
                     <% console.log(JSON.parse(orders)) %>
                     <input type="hidden" name="foodname" value="<%= data[i].foodname%>">
@@ -89,10 +98,11 @@
         </tbody>
     </table>
     <h1>Total Price: $<%=totalPrice%></h1>
-    <form id="foodItem_form" action="chooseDate" role="form" method="post">
+    <form id="foodItem_form" action="chooseDiscount" role="form" method="post">
         <input type="hidden" name="uid" value="<%= uid%>">
         <input type="hidden" name="rid" value="<%= rid%>">
         <input type="hidden" name="orders" value="<%= orders%>">
+        <input type="hidden" name="orderDate" value="<%= orderDate%>">
 
         <button type="submit" class="btn btn-primary">Checkout</button>
     </form>

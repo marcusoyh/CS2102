@@ -14,6 +14,7 @@ router.post('/', function (req, res, next) {
     // Retrieve Information
     const uid = req.body.uid;
     const rid = req.body.rid;
+    const orderDate = req.body.orderDate;
     var orders = req.body.orders;
     if (typeof orders === 'undefined') {
       orders = [];
@@ -36,9 +37,18 @@ router.post('/', function (req, res, next) {
     pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid], (error, data) => {
       if (error) {
         throw error
-      }
-      res.render('createNewOrder/chooseFoodItemAndQuantity', {  data: data.rows, uid : uid, rid : rid, orders : JSON.stringify(orders) });
-    })
+      } else {
+        pool.query('SELECT * FROM MaxOrderTable WHERE rid = $1 and orderDate = $2', [rid, orderDate], (error, data2) => {
+          if (error) {
+            throw error
+          } else {
+            console.log(data2.rows.length);
+            res.render('createNewOrder/chooseFoodItemAndQuantity', {  data2: data2.rows, orderDate: orderDate, data: data.rows, uid : uid, rid : rid, orders : JSON.stringify(orders) });
+          }
+      });
+    }
+      
+    });
 });
 
 
