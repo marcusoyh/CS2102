@@ -195,6 +195,18 @@ create table OrderContainsRP (
   foreign key(rpid) references RestaurantPromotions
 );
 
+Create table MaxOrderTable (
+  mid SERIAL,
+  rid INTEGER,
+  foodname VARCHAR(20),
+  orderDate DATE,
+  quantity INTEGER,
+
+  foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
+  PRIMARY KEY(mid)
+);
+
+
 INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
 INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (1,'2020-04-14','1122334455667788', '2015-12-17',81);
 INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
@@ -270,9 +282,109 @@ INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 
 INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 
-
 INSERT INTO OrderContainsFoodItems VALUES (1,1,'Cheeseburger',2) ;
 INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
+
+
+--MAX ORDER TRIGGER--
+CREATE OR REPLACE FUNCTION check_maxorder() RETURNS TRIGGER  AS $$
+DECLARE
+  midToUpdate integer;
+  ridToUpdate integer;
+  foodnameToUpdate text;
+  dateToUpdate date;
+  currentQuantity integer;
+  maxQuantity integer;
+
+BEGIN
+  --THE MAX ORDER TABLE DETAILS
+  SELECT m.mid into midToUpdate
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+  SELECT m.quantity into currentQuantity
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+--THE RESTAURANT FOOD ITEM DETAILS
+  SELECT m.rid into ridToUpdate
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+  SELECT m.foodname into foodnameToUpdate
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+  --INSERTING THE MAX QUANTITY INTO THIS TABLE
+  -- SELECT m.maxOrders into maxQuantity
+  -- FROM MaxOrderTable m
+  -- WHERE m.mid <> NEW.mid
+  -- AND m.rid = NEW.rid
+  -- AND m.orderDate = NEW.orderDate
+  -- AND m.foodname = NEW.foodname;
+
+ -- DOING THE RETRIEVING NOW AND CHECKING WAY
+     SELECT maxOrders into maxQuantity
+     FROM RestaurantFoodItems 
+     WHERE rid = ridToUpdate
+     AND foodname = NEW.foodname;
+
+--MY SUPPOSED ENTERING MAX ORDER INTO THE TABLE
+  -- IF maxQuantity IS NULL THEN
+  --   --FIND FROM RESTAURANT SIDE FIRST
+  --   UPDATE MaxOrderTable
+  --   set maxOrders = (
+  --   SELECT r.maxOrders
+  --   FROM RestaurantFoodItems r 
+  --   WHERE rid = NEW.rid
+  --   AND foodname = NEW.foodname
+  --   )
+  --   WHERE mid = midToUpdate;
+  --END IF;
+
+  IF midToUpdate IS NOT NULL THEN
+    --CHECK FOR MAXIMUM FIRST
+    IF (maxQuantity < NEW.quantity + currentQuantity) THEN
+      RAISE exception 'Maximum order of % for item % has been reached', maxQuantity, foodnameToUpdate;
+    END IF;
+
+
+    --UPDATE NEW QUANTITY
+    UPDATE MaxOrderTable
+    set quantity = NEW.quantity + currentQuantity
+    WHERE mid = midToUpdate;
+    
+    --DELETE THE NEW INSERTION
+    DELETE FROM MaxOrderTable
+    WHERE mid = NEW.mid;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS maxorder_trigger ON MaxOrderTable CASCADE;
+CREATE TRIGGER maxorder_trigger 
+  AFTER INSERT ON MaxOrderTable
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_maxorder();
+
+
+
+
+
 
 --ORDER TRIGGERS--
 CREATE OR REPLACE FUNCTION check_orders() RETURNS TRIGGER  AS $$
@@ -293,6 +405,7 @@ DECLARE
   dayInt integer;
 
 BEGIN
+
   SELECT O.oid into idToUpdate
   FROM Orders O
   WHERE o.oid = NEW.oid;
@@ -318,25 +431,14 @@ BEGIN
   AND S.startTime<=timeOfOrderInteger
   AND S.endTime>timeOfOrderInteger
   AND D.isAvailable=true;
-  
-  --i dont think this is possible actually it doesnt happen
-  update Drivers
-    set isAvailable = false
-    where uid = driverId;
 
    IF driverId IS NOT NULL THEN
-   --REAL shit begins here broskis, this is where we do stuff with the driver ID
-     RAISE exception 'Driver chosen has UID of %',driverId;
-   END IF;
-
-  orderDate = make_date(yearInt, monthInt, dayInt);
-  IF idToUpdate IS NOT NULL THEN
-    RAISE exception 'Date of Order is %', orderDate;
-
+   --HERE WE UPDATE THE DRIVER ID INTO THE ORDER
     update Orders
-    set did = 2
+    set did = driverId
     where oid = idToUpdate;
-  END IF;
+    --RAISE exception 'Driver chosen has UID of %',driverId;
+   END IF;
 
   RETURN NULL;
 END;
@@ -348,6 +450,33 @@ CREATE TRIGGER orders_trigger
   FOR EACH ROW 
   EXECUTE FUNCTION check_orders();
 
+--ORDER TRIGGER FOR MIN SPENDING--
+CREATE OR REPLACE FUNCTION check_orders2() RETURNS TRIGGER  AS $$
+DECLARE
+  restaurantMinDeliveryAmount real;
+  
+
+BEGIN
+  SELECT R.minDeliveryAmount into restaurantMinDeliveryAmount
+  FROM Restaurants R
+  WHERE r.rid = NEW.rid; 
+
+  
+  
+
+  IF NEW.totalprice < restaurantMinDeliveryAmount THEN
+    RAISE exception 'Your total price $% has not reached minimum retaurant order price of $%', NEW.totalprice, restaurantMinDeliveryAmount;
+  END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS order_trigger2 ON Orders CASCADE;
+CREATE TRIGGER order_trigger2 
+  AFTER INSERT ON Orders
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_orders2();
 
 
 --CATEGORY TRIGGERS--
@@ -499,5 +628,3 @@ CREATE TRIGGER shift_trigger
   AFTER INSERT ON Shifts
   FOR EACH ROW 
   EXECUTE FUNCTION check_shifts();
-
-    
