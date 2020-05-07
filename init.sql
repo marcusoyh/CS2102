@@ -197,7 +197,7 @@ create table OrderContainsRP (
 Create table MaxOrderTable (
   mid SERIAL,
   rid INTEGER,
-  foodname VARCHAR(20),
+  foodname VARCHAR(100),
   orderDate DATE,
   quantity INTEGER,
   foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
