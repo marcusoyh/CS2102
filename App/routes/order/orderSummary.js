@@ -43,11 +43,6 @@ router.post('/', function (req, res, next) {
                         throw err;
                     }
                     var temp = data.rows;
-                    console.log(data.rowCount);
-                    console.log("here9");
-                    console.log(temp.length);
-                    console.log(temp[0].lid);
-                    console.log("here1");
                     lid = temp[0].lid;
                     console.log("here2");
                     console.log(lid);
@@ -104,6 +99,54 @@ router.post('/', function (req, res, next) {
             }
         });
 
+    } else {
+        if (rpid != "" && fpid == "") {
+            console.log("first");
+            pool.query(query, [lid, rid, rpid], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    var data2 = []
+                    res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                }
+            });
+        } else if (fpid != "" && rpid == "") {
+            pool.query(query2, [lid, rid, fpid], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    var data2 = []
+                    res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                }
+            });
+        } else if (fpid != "" && rpid != "") {
+            pool.query(query, [lid, rid, rpid], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    pool.query(query2, [lid, rid, fpid], (err, data2) => {
+                        if (err) {
+                            throw err;
+                        } else {
+
+                            res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2.rows, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                        }
+                    });
+
+                }
+            });
+        } else {
+            pool.query(query3, [lid, rid], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log("here11");
+                    console.log(lid);
+                    var data2 = [];
+                    res.render('createNewOrder/summaryPage', { data: data.rows, data2: data2, lid: lid, fpid: fpid, rpid: rpid, orderDate: orderDate, uid: uid, rid: rid, orders: JSON.stringify(orders) });
+                }
+            });
+        }
     }
 
 
