@@ -197,7 +197,7 @@ create table OrderContainsRP (
 Create table MaxOrderTable (
   mid SERIAL,
   rid INTEGER,
-  foodname VARCHAR(20),
+  foodname VARCHAR(100),
   orderDate DATE,
   quantity INTEGER,
   foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
@@ -1016,6 +1016,8 @@ insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) value
 insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (18, 'Oxygen', 52, '2015-11-23', '2015-11-25');
 insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (19, 'Tizanidine', 33, '2010-05-26', '2013-09-20');
 insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (20, 'Tussin CF', 21, '2015-11-13', '2018-07-21');
+insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (21, 'Store Wide Promo', 20, '2020-05-01', '2020-06-20');
+insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (22, 'Sales This Week', 21, '2020-05-01', '2020-05-30');
 
 INSERT INTO Locations (lid,uid,address,date) VALUES (1,301,'15 Bishan Drive','2015-11-17');
 INSERT INTO Locations (lid,uid,address,date) VALUES (2,301,'1 Lentor Road','2015-10-17');
@@ -1045,6 +1047,8 @@ insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, en
 insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (18, 18, 'Betamethasone Dipropionate', 43, '2018-04-08', '2018-06-18');
 insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (19, 19, 'ULTIMATE AQUA BLANC PROTECTIVE', 74, '2016-04-15', '2016-11-11');
 insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (20, 20, 'Sciatica - Back Care', 16, '2013-08-30', '2017-10-01');
+insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (21, 3, 'Bobo Festival', 10, '2020-05-01', '2020-05-30');
+insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (22, 1, 'Portbello Fiesta', 5, '2020-05-01', '2020-05-30');
 
 
 insert into Category (cid, name) values (1, 'Fast Food');
@@ -1174,7 +1178,7 @@ INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelive
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime, totalprice,deliveryDate,lid,did,cid,rid) VALUES (14,'Recommended',3,'2015-11-04 12:00:00','cash',false,'2015-11-04 13:00:00', '2015-11-04 13:30:00','2015-11-04 13:40:00',2,3,'2015-11-04 14:30:00',45,'2015-11-04', 6,10,309,1);
 INSERT INTO Orders (oid,orderReview,deliveryFee,timeOrdered,paymentMode,isDelivered,timeRiderDeparts,timeRiderReachesRestaurant,timeRiderLeavesRestaurant,commission,riderRating,deliveryTime, totalprice,deliveryDate,lid,did,cid,rid) VALUES (15,'Recommended',3,'2015-11-05 12:00:00','cash',false,'2015-11-05 13:00:00', '2015-11-05 13:30:00','2015-11-05 13:40:00',2,3,'2015-11-05 14:30:00',45,'2015-11-05', 6,20,301,3);
 
-INSERT INTO WWS (uid, wwsid, startDate) VALUES (100, 1, '2015-04-06');
+INSERT INTO WWS (uid, wwsid, startDate) VALUES (100, 1, '2015-11-02');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (1, 1, 1000, 1200, '2015-11-02', '2015-11-02');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (2, 1, 1400, 1700, '2015-11-03', '2015-11-02');
 INSERT INTO Shifts (sid, wwsid, startTime, endTime, day, firstDayOfWeek) VALUES (3, 1, 1000, 1300, '2015-11-04', '2015-11-02');
