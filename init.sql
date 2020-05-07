@@ -196,11 +196,12 @@ create table OrderContainsRP (
 );
 
 Create table MaxOrderTable (
-  mid INTEGER,
+  mid SERIAL,
   rid INTEGER,
   foodname VARCHAR(20),
   orderDate DATE,
   quantity INTEGER,
+
   foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
   PRIMARY KEY(mid)
 );
@@ -292,8 +293,10 @@ DECLARE
   foodnameToUpdate text;
   dateToUpdate date;
   currentQuantity integer;
+  maxQuantity integer;
 
 BEGIN
+  --THE MAX ORDER TABLE DETAILS
   SELECT m.mid into midToUpdate
   FROM MaxOrderTable m
   WHERE m.mid <> NEW.mid
@@ -308,14 +311,64 @@ BEGIN
   AND m.orderDate = NEW.orderDate
   AND m.foodname = NEW.foodname;
 
-   IF midToUpdate IS NOT NULL THEN
+--THE RESTAURANT FOOD ITEM DETAILS
+  SELECT m.rid into ridToUpdate
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+  SELECT m.foodname into foodnameToUpdate
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+  --INSERTING THE MAX QUANTITY INTO THIS TABLE
+  -- SELECT m.maxOrders into maxQuantity
+  -- FROM MaxOrderTable m
+  -- WHERE m.mid <> NEW.mid
+  -- AND m.rid = NEW.rid
+  -- AND m.orderDate = NEW.orderDate
+  -- AND m.foodname = NEW.foodname;
+
+ -- DOING THE RETRIEVING NOW AND CHECKING WAY
+     SELECT maxOrders into maxQuantity
+     FROM RestaurantFoodItems 
+     WHERE rid = ridToUpdate
+     AND foodname = NEW.foodname;
+
+--MY SUPPOSED ENTERING MAX ORDER INTO THE TABLE
+  -- IF maxQuantity IS NULL THEN
+  --   --FIND FROM RESTAURANT SIDE FIRST
+  --   UPDATE MaxOrderTable
+  --   set maxOrders = (
+  --   SELECT r.maxOrders
+  --   FROM RestaurantFoodItems r 
+  --   WHERE rid = NEW.rid
+  --   AND foodname = NEW.foodname
+  --   )
+  --   WHERE mid = midToUpdate;
+  --END IF;
+
+  IF midToUpdate IS NOT NULL THEN
+    --CHECK FOR MAXIMUM FIRST
+    IF (maxQuantity < NEW.quantity + currentQuantity) THEN
+      RAISE exception 'Maximum order of % for item % has been reached', maxQuantity, foodnameToUpdate;
+    END IF;
+
+
+    --UPDATE NEW QUANTITY
     UPDATE MaxOrderTable
     set quantity = NEW.quantity + currentQuantity
     WHERE mid = midToUpdate;
     
+    --DELETE THE NEW INSERTION
     DELETE FROM MaxOrderTable
     WHERE mid = NEW.mid;
-   END IF;
+  END IF;
 
   RETURN NULL;
 END;
