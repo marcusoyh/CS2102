@@ -3,8 +3,8 @@
 
 <head>
     <!-- Page Title -->
-    <title>Login Page</title>
-    <link rel='stylesheet' href='/App/public/stylesheets/style.css' />
+    <title>Register as Customer</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 
     <!-- CSS for Styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -24,38 +24,44 @@
 </head>
 
 <body>
+
     <h1><%= title%></h1>
     <h1><%= errormessage%></h1>
-    <form id="html_form" action="loginrestaurantstaff" role="form" method="post">
+    <form id="html_form" action="registercustomer" role="form" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+        </div>
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter a unique username">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter a username">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="text" class="form-control" id="password" name="password" placeholder="Enter your password">
+            <input type="text" class="form-control" id="password" name="password" placeholder="Enter a password">
         </div>
         <div class="form-group">
-            Working At:
-            <select name="rid" id="rid">
-              <% for(var i=0; i<restaurants.length; i++) { %>
-                <option value=<%=restaurants[i].rid%>> <%=restaurants[i].name%> </option>
-              <% } %>
-            </select>
-          </div>
+            <label for="ccno">Credit Card Number</label>
+            <input type="number" class="form-control" id="ccno" name="ccno" placeholder="Enter Credit Card Number" min="1000000000000000">
+        </div>
+        <div class="form-group">
+            <label for="expdate">Credit Card Expiry Date</label>
+            <input type="date" class="form-control" id="expdate" name="expdate" placeholder="Enter Credit Card Number" min="2020-06-01"> 
+        </div>
+
+        <!-- need to figure out the shifts/wws/mws thing TT  -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
     <script>
-        (function () {
-            window.addEventListener('load', function () {
+        (function() {
+            window.addEventListener('load', function() {
                 var forms = [document.getElementById('html_form')];
-                var validation = Array.prototype.filter.call(forms, function (form) {
+                var validation = Array.prototype.filter.call(forms, function(form) {
                     form.addEventListener('submit', check, false);
                 });
             }, false);
         })();
     </script>
-</body>
 
-</html>
+</body>

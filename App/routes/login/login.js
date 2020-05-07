@@ -9,7 +9,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-    res.render('login/login', { title: 'Login as Customer'});
+    res.render('login/login', { title: 'Login as Customer', errormessage:' '});
 });
 
 
@@ -24,7 +24,7 @@ router.post('/', function (req, res, next) {
         if (data.rowCount == 1) {
             res.render('customerhomepage', { data:data.rows});
         } else {
-            res.render('login/login', { title: 'Login as Customer'}); //maybe print an error message here somehow
+            res.render('login/login', { title: 'Login as Customer', errormessage:'ERROR: Username/Password Wrong'}); //maybe print an error message here somehow
         }
     });
 });

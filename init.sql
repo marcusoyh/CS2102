@@ -201,7 +201,6 @@ Create table MaxOrderTable (
   foodname VARCHAR(20),
   orderDate DATE,
   quantity INTEGER,
-
   foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
   PRIMARY KEY(mid)
 );
@@ -312,47 +311,11 @@ BEGIN
   AND m.orderDate = NEW.orderDate
   AND m.foodname = NEW.foodname;
 
---THE RESTAURANT FOOD ITEM DETAILS
-  SELECT m.rid into ridToUpdate
-  FROM MaxOrderTable m
-  WHERE m.mid <> NEW.mid
-  AND m.rid = NEW.rid
-  AND m.orderDate = NEW.orderDate
-  AND m.foodname = NEW.foodname;
-
-  SELECT m.foodname into foodnameToUpdate
-  FROM MaxOrderTable m
-  WHERE m.mid <> NEW.mid
-  AND m.rid = NEW.rid
-  AND m.orderDate = NEW.orderDate
-  AND m.foodname = NEW.foodname;
-
-  --INSERTING THE MAX QUANTITY INTO THIS TABLE
-  -- SELECT m.maxOrders into maxQuantity
-  -- FROM MaxOrderTable m
-  -- WHERE m.mid <> NEW.mid
-  -- AND m.rid = NEW.rid
-  -- AND m.orderDate = NEW.orderDate
-  -- AND m.foodname = NEW.foodname;
-
- -- DOING THE RETRIEVING NOW AND CHECKING WAY
-     SELECT maxOrders into maxQuantity
-     FROM RestaurantFoodItems 
-     WHERE rid = ridToUpdate
-     AND foodname = NEW.foodname;
-
---MY SUPPOSED ENTERING MAX ORDER INTO THE TABLE
-  -- IF maxQuantity IS NULL THEN
-  --   --FIND FROM RESTAURANT SIDE FIRST
-  --   UPDATE MaxOrderTable
-  --   set maxOrders = (
-  --   SELECT r.maxOrders
-  --   FROM RestaurantFoodItems r 
-  --   WHERE rid = NEW.rid
-  --   AND foodname = NEW.foodname
-  --   )
-  --   WHERE mid = midToUpdate;
-  --END IF;
+ -- RETRIEVING MAXIMUM FOR THIS SPECIFIC ITEM
+  SELECT maxOrders into maxQuantity
+  FROM RestaurantFoodItems 
+  wHERE rid = NEW.rid
+  AND foodname = NEW.foodname;
 
   IF midToUpdate IS NOT NULL THEN
     --CHECK FOR MAXIMUM FIRST
@@ -360,8 +323,7 @@ BEGIN
       RAISE exception 'Maximum order for item % has been reached', foodnameToUpdate;
     END IF;
 
-
-    --UPDATE NEW QUANTITY
+    -- IF NOTHING WRONG THEN UPDATE NEW QUANTITY
     UPDATE MaxOrderTable
     set quantity = NEW.quantity + currentQuantity
     WHERE mid = midToUpdate;
@@ -383,10 +345,7 @@ CREATE TRIGGER maxorder_trigger
 
 
 
-
-
-
---ORDER TRIGGERS--
+-- ASSIGNING ORDER TRIGGERS--
 CREATE OR REPLACE FUNCTION check_orders() RETURNS TRIGGER  AS $$
 DECLARE
   idToUpdate integer;
@@ -460,10 +419,7 @@ BEGIN
   SELECT R.minDeliveryAmount into restaurantMinDeliveryAmount
   FROM Restaurants R
   WHERE r.rid = NEW.rid; 
-
   
-  
-
   IF NEW.totalprice < restaurantMinDeliveryAmount THEN
     RAISE exception 'Your total price $% has not reached minimum retaurant order price of $%', NEW.totalprice, restaurantMinDeliveryAmount;
   END IF;
@@ -477,36 +433,6 @@ CREATE TRIGGER order_trigger2
   AFTER INSERT ON Orders
   FOR EACH ROW 
   EXECUTE FUNCTION check_orders2();
-
-
---CATEGORY TRIGGERS--
-CREATE OR REPLACE FUNCTION check_category() RETURNS TRIGGER  AS $$
-DECLARE
-  idToUpdate integer;
-
-BEGIN
-  SELECT C.cid into idToUpdate
-  FROM Category C
-  WHERE C.cid = NEW.cid;
-  
-  IF idToUpdate IS NOT NULL THEN
-    update Category
-    set name = 'triggerudpated'
-    where cid = idToUpdate;
-  END IF;
-
-  RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS category_trigger ON Category CASCADE;
-CREATE TRIGGER category_trigger 
-  AFTER INSERT ON Category
-  FOR EACH ROW 
-  EXECUTE FUNCTION check_category();
-
-
-
 
 --FDS PROMOTION TRIGGERS--
 CREATE OR REPLACE FUNCTION check_fdspromotions () RETURNS TRIGGER  AS $$

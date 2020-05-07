@@ -21,7 +21,7 @@ var sql_query = 'DELETE FROM RestaurantFoodItems WHERE foodName = ';
 router.get('/:id', function(req, res, next) {
 	const id = req.params.id;
 	pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [id] ,(err, data) => {
-		res.render('deleteRestaurantFoodItem', { title: 'Deleting food item', data: data.rows });
+		res.render('deleteRestaurantFoodItem', { title: 'View all Food Items', data: data.rows,rid:id, errormessage:' ' });
 	});
 });
 
@@ -32,12 +32,21 @@ router.post('/:id', function(req, res, next) {
 	var rid = req.body.rid;
 	// Construct Specific SQL Query
 	var insert_query = sql_query + "'"+ foodName + "'";
-	
-	pool.query(insert_query, (err, data) => {});
-
-	pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid] ,(err, data) => {
-		res.render('viewFoodItems', { title: 'All food items available', data: data.rows });
+	console.log("DELTE FOOD ITEM");
+	console.log(insert_query);
+	pool.query(insert_query, (err, data) => {
+		if (err) {
+			pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid] ,(err, data) => {
+				res.render('deleteRestaurantFoodItem', { title: 'View all Food Items', data: data.rows,rid:rid,errormessage:'ERROR: Item has been ordered before, cannot be deleted. Please set to inactive instead.' });
+			});
+		} else {
+			pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid] ,(err, data) => {
+				res.render('deleteRestaurantFoodItem', { title: 'View all Food Items', data: data.rows,rid:rid,errormessage:'Deletion Success' });
+		});
+		}
 	});
+
+	
 });
 
 

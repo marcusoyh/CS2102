@@ -7,4 +7,8 @@ router.get('/', function(req, res, next) {
     res.render('page', {title: 'Page', author: 'LeBron' });
   });
 
+  router.post('/', function(req, res, next) {
+    res.render('page', {title: 'Page', author: 'LeBron after Posting' });
+  });
+
 module.exports = router;
