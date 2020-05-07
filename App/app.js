@@ -39,7 +39,7 @@ var insertRouter = require('./routes/insert');
 var loginRouter = require('./routes/login/login');
 var driverRouter = require('./routes/drivers');
 var restaurantRouter = require('./routes/restaurants');
-
+var viewRestaurantsRouter = require('./routes/viewRestaurants');
 
 var loginRestaurantStaffRouter = require('./routes/login/loginrestaurantstaff');
 var loginFDSManagerRouter = require('./routes/login/loginfdsmanager');
@@ -171,6 +171,7 @@ app.use('/restaurants', restaurantRouter);
 app.use('/loginrestaurantstaff', loginRestaurantStaffRouter);
 app.use('/loginfdsmanager', loginFDSManagerRouter);
 app.use('/addRestaurantFoodItem', addRestaurantFoodItemRouter);
+
 app.use('/viewFoodItems', viewFoodItemsRouter);
 app.use('/logindriver', loginDriverRouter);
 app.use('/fdspromotions', fdspromotionsRouter);
@@ -236,6 +237,7 @@ app.use('/discounted', discountedRouter);
 app.use('/orderSummary', orderSummaryRouter);
 app.use('/confirmOrder', confirmOrderRouter);
 app.use('/viewOrderHistory', viewOrderHistoryRouter);
+app.use('/viewRestaurants', viewRestaurantsRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

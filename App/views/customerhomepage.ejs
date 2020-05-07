@@ -36,7 +36,10 @@
 
   </table>
   <p>Home Page for Customers</p>
-  <li><a href="/restaurants">View All Restaurants</a></li>
+  <form id="viewAllRestaurants" action="viewRestaurants" method="get">
+    
+    <button type="submit" class="btn btn-primary">View All Restaurants</button>
+  </form>
   <form id="createOrder" action="chooseRestaurant" method="post">
     <input type="hidden" name="uid" value="<%= data[0].uid%>">
     <button type="submit" class="btn btn-primary">Create New Order</button>
@@ -57,6 +60,14 @@
     (function () {
       window.addEventListener('load', function () {
         var forms = [document.getElementById('viewOrderHistory')];
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', check, false);
+        });
+      }, false);
+    })();
+    (function () {
+      window.addEventListener('load', function () {
+        var forms = [document.getElementById('viewAllRestaurants')];
         var validation = Array.prototype.filter.call(forms, function (form) {
           form.addEventListener('submit', check, false);
         });
