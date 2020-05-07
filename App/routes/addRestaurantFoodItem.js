@@ -35,18 +35,22 @@ router.post('/:id', function (req, res, next) {
 	var foodName = req.body.foodName;
 	var maxOrders = req.body.maxOrders;
 	var price = req.body.price;
-	var availability = req.body.availability;
 	var rid = req.body.rid;
 
 	console.log("RID PASSED OVER TO POST IS " +rid);
 
 	// Construct Specific SQL Query
-	var insert_query = sql_query + "(" + cid + ",'" + foodName + "'," + maxOrders + "," + price + "," + rid + "," + availability + ")";
-	pool.query(insert_query, (err, data) => { });
-
-	 pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid], (err, data) => {
-	 	res.render('viewFoodItems', { title: 'All food items available', data: data.rows });
+	var insert_query = sql_query + "(" + cid + ",'" + foodName + "'," + maxOrders + "," + price + "," + rid + ")";
+	pool.query(insert_query, (err, data) => {
+		if (err) {
+			throw err;
+		}
+		pool.query('SELECT * FROM RestaurantFoodItems WHERE rid = $1', [rid], (err, data) => {
+			res.render('viewFoodItems', { title: 'All food items available', data: data.rows });
+		});
 	 });
+
+	 
 });
 
 

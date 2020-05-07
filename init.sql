@@ -1019,13 +1019,13 @@ insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) value
 insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (21, 'Store Wide Promo', 20, '2020-05-01', '2020-06-20');
 insert into FDSPromotions (fpid, name, discountAmount, startDate, endDate) values (22, 'Sales This Week', 21, '2020-05-01', '2020-05-30');
 
-INSERT INTO Locations (lid,uid,address,date) VALUES (1,301,'15 Bishan Drive','2015-11-17');
-INSERT INTO Locations (lid,uid,address,date) VALUES (2,301,'1 Lentor Road','2015-10-17');
-INSERT INTO Locations (lid,uid,address,date) VALUES (3,301,'33 Changi Road #01-01','2015-11-18');
-INSERT INTO Locations (lid,uid,address,date) VALUES (4,302,'35 Hillville road','2015-11-19');
-INSERT INTO Locations (lid,uid,address,date) VALUES (5,302,'Ang Mo Kio Residences','2015-11-20');
-INSERT INTO Locations (lid,uid,address,date) VALUES (6,302,'Woodlands MRT','2015-11-21');
-INSERT INTO Locations (lid,uid,address,date) VALUES (7,302,'Bishan Towers','2015-11-30');
+INSERT INTO Locations (uid,address,date) VALUES (301,'15 Bishan Drive','2015-11-17');
+INSERT INTO Locations (uid,address,date) VALUES (301,'1 Lentor Road','2015-10-17');
+INSERT INTO Locations (uid,address,date) VALUES (301,'33 Changi Road #01-01','2015-11-18');
+INSERT INTO Locations (uid,address,date) VALUES (302,'35 Hillville road','2015-11-19');
+INSERT INTO Locations (uid,address,date) VALUES (302,'Ang Mo Kio Residences','2015-11-20');
+INSERT INTO Locations (uid,address,date) VALUES (302,'Woodlands MRT','2015-11-21');
+INSERT INTO Locations (uid,address,date) VALUES (302,'Bishan Towers','2015-11-30');
 
 insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (1, 1, 'Black Walnut', 7, '2015-11-14', '2015-11-20');
 insert into RestaurantPromotions (rpid, rid, name, discountAmount, startDate, endDate) values (2, 2, 'ZO SKIN HEALTH', 77, '2015-11-08', '2015-11-11');
