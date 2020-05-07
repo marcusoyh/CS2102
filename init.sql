@@ -195,6 +195,17 @@ create table OrderContainsRP (
   foreign key(rpid) references RestaurantPromotions
 );
 
+Create table MaxOrderTable (
+  mid INTEGER,
+  rid INTEGER,
+  foodname VARCHAR(20),
+  orderDate DATE,
+  quantity INTEGER,
+  foreign key (rid,foodname) references RestaurantFoodItems on delete cascade,
+  PRIMARY KEY(mid)
+);
+
+
 INSERT INTO Users (uid, name, password,username) VALUES (1, 'Ryuto','password','Ryuto');
 INSERT INTO Customers (uid,signUpDate, ccNo,ccExpiryDate,rewardPoints) VALUES (1,'2020-04-14','1122334455667788', '2015-12-17',81);
 INSERT INTO Users (uid, name, password,username) VALUES (2, 'Joanna', 'password','Joanna');
@@ -270,9 +281,41 @@ INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
 
 INSERT INTO CustomerSavesLocations (uid, lid ,date) VALUES (1, 1,'2014-10-17');
 
-
 INSERT INTO OrderContainsFoodItems VALUES (1,1,'Cheeseburger',2) ;
 INSERT INTO OrderContainsFoodItems VALUES (2,1,'Cheeseburger',3);
+
+
+--MAX ORDER TRIGGER--
+CREATE OR REPLACE FUNCTION check_maxorder() RETURNS TRIGGER  AS $$
+DECLARE
+  ridToUpdate integer;
+
+BEGIN
+  SELECT m.rid into ridToUpdate
+  FROM MaxOrderTable m
+  WHERE m.mid <> NEW.mid
+  AND m.rid = NEW.rid
+  AND m.orderDate = NEW.orderDate
+  AND m.foodname = NEW.foodname;
+
+   IF ridToUpdate IS NOT NULL THEN
+    RAISE exception 'Restaurant chosen has RID of %',ridToUpdate;
+   END IF;
+
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS maxorder_trigger ON MaxOrderTable CASCADE;
+CREATE TRIGGER maxorder_trigger 
+  AFTER INSERT ON MaxOrderTable
+  FOR EACH ROW 
+  EXECUTE FUNCTION check_maxorder();
+
+
+
+
+
 
 --ORDER TRIGGERS--
 CREATE OR REPLACE FUNCTION check_orders() RETURNS TRIGGER  AS $$
@@ -319,21 +362,14 @@ BEGIN
   AND S.startTime<=timeOfOrderInteger
   AND S.endTime>timeOfOrderInteger
   AND D.isAvailable=true;
-  
-  --i dont think this is possible actually it doesnt happen
-  update Drivers
-    set isAvailable = false
-    where uid = driverId;
 
    IF driverId IS NOT NULL THEN
-   --REAL shit begins here broskis, this is where we do stuff with the driver ID
-    update Orders 
+   --HERE WE UPDATE THE DRIVER ID INTO THE ORDER
+    update Orders
     set did = driverId
     where oid = idToUpdate;
     --RAISE exception 'Driver chosen has UID of %',driverId;
    END IF;
-
-
 
   RETURN NULL;
 END;
