@@ -15,11 +15,14 @@ router.get('/:oid', function(req, res, next) {
     });
 });
 
+//(.*) may be added?
 //POST for time depart
 router.post('/:oid', function (req, res, next) {
     const oid = req.params.oid;
     var timedepart = req.body.timeriderdeparts;
-
+    console.log("TESTING THE UPDATE METHOD");
+    console.log("OID IS: " +oid);
+    console.log("Time depart is: " + timedepart);
     pool.query('UPDATE ORDERS SET timeriderdeparts = $2 where oid = $1', [oid, timedepart] ,(err, data) => {
 	});
 
