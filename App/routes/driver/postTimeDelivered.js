@@ -43,6 +43,10 @@ router.post('/', function (req, res, next) {
     pool.query(this_query2, (err, date) => {});
     pool.query(this_query ,(err, data) => {});
 
+    var this_query4 = "update orders set isDelivered = true where oid = " + oid;
+    console.log(this_query4)
+    pool.query(this_query4 ,(err, data) => {});
+
     var this_query3 = "update drivers set isavailable = true where uid = " + uid;
     console.log(this_query3)
     pool.query(this_query3, (err,data) => {

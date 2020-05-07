@@ -119,6 +119,7 @@ var discountedRouter = require('./routes/order/discounted');
 var orderSummaryRouter = require('./routes/order/orderSummary');
 var confirmOrderRouter = require('./routes/order/confirmOrder');
 var viewOrderHistoryRouter = require('./routes/order/viewOrderHistory');
+var viewdriverassignedtoorderRouter = require('./routes/fdsmanager/viewdriverassignedtoorder');
 /* ---------------------------- */
 
 
@@ -240,6 +241,7 @@ app.use('/orderSummary', orderSummaryRouter);
 app.use('/confirmOrder', confirmOrderRouter);
 app.use('/viewOrderHistory', viewOrderHistoryRouter);
 app.use('/viewRestaurants', viewRestaurantsRouter);
+app.use('/viewdriverassignedtoorder', viewdriverassignedtoorderRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
