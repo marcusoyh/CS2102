@@ -44,7 +44,7 @@
                     <% mins = data[i].minutes%>
                 <%}%>
                 <td><%= data[i].hours%> : <%=mins%></td>
-                <td><a href="/deliverOrder/<%= data[i].oid%>">Deliver Order</a></td>
+                <td><a href="/deliverOrder/<%=uid%>/<%= data[i].oid%>">Deliver Order</a></td>
 			</tr>
 			<% } %>
 		</tbody>
@@ -54,9 +54,11 @@
 </body>
 
 <script>
-	var uid = document.getElementById("uid").innerHTML;
-	window.alert(uid)
-	window.sessionStorage.setItem("uid", uid);
+	// var uid = document.getElementById("uid").innerHTML;
+	// // window.alert(uid)
+	// window.sessionStorage.setItem("uid", uid);
+	// var cookie = "uid=" + uid;
+	// document.cookie = cookie;
 
     function goBack() {
         window.history.back();

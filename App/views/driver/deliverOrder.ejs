@@ -18,15 +18,46 @@
   </head>
   <body>
 	<h1><%= title%></h1>
-		<form id="html_form" action="deliverOrder" role="form" method="post">
+		<form id="html_form" action="/deliverOrder" role="form" method="post">
 			<div class="form-group">
 				<label for="timeriderdeparts">Time Departed</label>
 				<input type="hidden" name="oid" value="<%= oid%>">
+				<input type="hidden" name="uid" value="<%= uid%>">
 				<input type="datetime-local" class="form-control" id="timeriderdeparts" name="timeriderdeparts">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
-		<a href="/postTimeReachedRes/<%= oid%>" style="float:right; padding: 20; border: none; cursor:pointer">Next</a>
+
+		<form id="html_form" action="/postTimeReachedRes" role="form" method="post">
+			<div class="form-group">
+				<label for="timeriderreachesrestaurant">Time Reached Restaurant</label>
+				<input type="hidden" name="oid" value="<%= oid%>">
+				<input type="hidden" name="uid" value="<%= uid%>">
+				<input type="datetime-local" class="form-control" id="timeriderreachesrestaurant" name="timeriderreachesrestaurant">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+		<form id="html_form" action="/postTimeLeftRes" role="form" method="post">    
+            <div class="form-group">
+				<label for="timeriderleavesrestaurant">Time Left Restaurant</label>
+				<input type="hidden" name="oid" value="<%= oid%>">
+				<input type="hidden" name="uid" value="<%= uid%>">
+				<input type="datetime-local" class="form-control" id="timeriderleavesrestaurant" name="timeriderleavesrestaurant">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+		<form id="html_form" action="/postTimeDelivered" role="form" method="post">    
+			<div class="form-group">
+				<label for="deliveryTime">Time Order Delivered</label>
+				<input type="hidden" name="oid" value="<%= oid%>">
+				<input type="hidden" name="uid" value="<%= uid%>">
+				<input type="datetime-local" class="form-control" id="deliveryTime" name="deliveryTime">
+            </div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
         <!-- <button onclick="goBack()" style="padding: 0; border: none; background: none; cursor:pointer; color:blue">Back</button> -->
 
         
