@@ -46,7 +46,7 @@ router.post('/:id', function(req, res, next) {
 	
 	pool.query(query_one, [id], (err, data) => {	
 		pool.query(query_three,[id],(err,top5food) => {
-			console.log(top5food.rows[0].name);
+			//console.log(top5food.rows[0].name);
 			res.render('summaryInfo2', { title: 'View Summary Information', months: months, data: data.rows ,top5food: top5food.rows, month:month,year:year });
 		});
 	});
