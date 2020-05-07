@@ -56,6 +56,7 @@ var summaryInfoPromotionRouter = require('./routes/summaryInfoPromotion');
 var summaryInfoRouter = require('./routes/summaryInfo');
 var unassignedOrdersRouter = require('./routes/fdsmanager/unassignedorders');
 
+var registercustomerRouter = require('./routes/registercustomer');
 //SUMMARIES
 var fdsoneRouter = require('./routes/fdsmanager/summaries/fdsone');
 var fdstwoRouter = require('./routes/fdsmanager/summaries/fdstwo');
@@ -163,6 +164,7 @@ app.use('/insert', insertRouter);
 /* ---------------------------- */
 
 /* --- Personal Additions     --- */
+app.use('/registercustomer', registercustomerRouter);
 app.use('/login', loginRouter);
 app.use('/drivers', driverRouter);
 app.use('/restaurants', restaurantRouter);
