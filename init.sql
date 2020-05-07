@@ -311,56 +311,19 @@ BEGIN
   AND m.orderDate = NEW.orderDate
   AND m.foodname = NEW.foodname;
 
---THE RESTAURANT FOOD ITEM DETAILS
-  SELECT m.rid into ridToUpdate
-  FROM MaxOrderTable m
-  WHERE m.mid <> NEW.mid
-  AND m.rid = NEW.rid
-  AND m.orderDate = NEW.orderDate
-  AND m.foodname = NEW.foodname;
-
-  SELECT m.foodname into foodnameToUpdate
-  FROM MaxOrderTable m
-  WHERE m.mid <> NEW.mid
-  AND m.rid = NEW.rid
-  AND m.orderDate = NEW.orderDate
-  AND m.foodname = NEW.foodname;
-
-  --INSERTING THE MAX QUANTITY INTO THIS TABLE
-  -- SELECT m.maxOrders into maxQuantity
-  -- FROM MaxOrderTable m
-  -- WHERE m.mid <> NEW.mid
-  -- AND m.rid = NEW.rid
-  -- AND m.orderDate = NEW.orderDate
-  -- AND m.foodname = NEW.foodname;
-
- -- DOING THE RETRIEVING NOW AND CHECKING WAY
-     SELECT maxOrders into maxQuantity
-     FROM RestaurantFoodItems 
-     WHERE rid = ridToUpdate
-     AND foodname = NEW.foodname;
-
---MY SUPPOSED ENTERING MAX ORDER INTO THE TABLE
-  -- IF maxQuantity IS NULL THEN
-  --   --FIND FROM RESTAURANT SIDE FIRST
-  --   UPDATE MaxOrderTable
-  --   set maxOrders = (
-  --   SELECT r.maxOrders
-  --   FROM RestaurantFoodItems r 
-  --   WHERE rid = NEW.rid
-  --   AND foodname = NEW.foodname
-  --   )
-  --   WHERE mid = midToUpdate;
-  --END IF;
+ -- RETRIEVING MAXIMUM FOR THIS SPECIFIC ITEM
+  SELECT maxOrders into maxQuantity
+  FROM RestaurantFoodItems 
+  wHERE rid = NEW.rid
+  AND foodname = NEW.foodname;
 
   IF midToUpdate IS NOT NULL THEN
     --CHECK FOR MAXIMUM FIRST
     IF (maxQuantity < NEW.quantity + currentQuantity) THEN
-      RAISE exception 'Maximum order of % for item % has been reached', maxQuantity, foodnameToUpdate;
+      RAISE exception 'Maximum order of % for item % has been reached', maxQuantity,  NEW.foodname;
     END IF;
 
-
-    --UPDATE NEW QUANTITY
+    -- IF NOTHING WRONG THEN UPDATE NEW QUANTITY
     UPDATE MaxOrderTable
     set quantity = NEW.quantity + currentQuantity
     WHERE mid = midToUpdate;
@@ -447,37 +410,6 @@ CREATE TRIGGER orders_trigger
   AFTER INSERT ON Orders
   FOR EACH ROW 
   EXECUTE FUNCTION check_orders();
-
-
-
---CATEGORY TRIGGERS--
-CREATE OR REPLACE FUNCTION check_category() RETURNS TRIGGER  AS $$
-DECLARE
-  idToUpdate integer;
-
-BEGIN
-  SELECT C.cid into idToUpdate
-  FROM Category C
-  WHERE C.cid = NEW.cid;
-  
-  IF idToUpdate IS NOT NULL THEN
-    update Category
-    set name = 'triggerudpated'
-    where cid = idToUpdate;
-  END IF;
-
-  RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS category_trigger ON Category CASCADE;
-CREATE TRIGGER category_trigger 
-  AFTER INSERT ON Category
-  FOR EACH ROW 
-  EXECUTE FUNCTION check_category();
-
-
-
 
 --FDS PROMOTION TRIGGERS--
 CREATE OR REPLACE FUNCTION check_fdspromotions () RETURNS TRIGGER  AS $$
